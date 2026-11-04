@@ -32,12 +32,27 @@
   "masked_regions": 2,
   "copied_photo_regions": 4,
   "passed": true,
-  "deployed_source_commit": "edd71bf85a77e34cea46129a28763fba65956166",
   "codespaces_location": "WestUs2",
   "github_authentication_used": false,
   "fictional_fixtures_only": true,
   "video_url": "https://nurzhan-zhumabekov.github.io/META/",
   "video_http": 206,
   "video_duration_seconds": 180,
-  "ui_walkthrough_verified": false
+  "ui_walkthrough_verified": true,
+  "api_smoke_deployed_source_commit": "edd71bf85a77e34cea46129a28763fba65956166",
+  "deployed_source_commit": "28aef53ba498039f1b5e5157b2c4a7a7fbf39e62",
+  "frontend_tests": 41,
+  "ui_walkthrough": {
+    "claim_id": "e8d93214",
+    "model": "muse-spark-1.3",
+    "displayed_pair_ml_percent": 92.6,
+    "displayed_visual_similarity_percent": 92,
+    "displayed_profile_ml_percent": 94.5,
+    "matched_photo_regions": 4,
+    "masked_contact_regions": 2,
+    "pending_before_moderation": true,
+    "explained_confirmation": true,
+    "confirmed_badge_after_reload": true,
+    "built_in_public_fixtures": true
+  }
 }

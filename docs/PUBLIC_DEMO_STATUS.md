@@ -67,3 +67,15 @@ health and model access, and verify that only 8090 is Public. Port visibility
 may need to be reapplied after a restart. The independent GitHub Pages video
 does not require a running Codespace. This is temporary attended hosting,
 not an always-on hosting service.
+
+## Final browser walkthrough
+
+The updated runtime `28aef53ba498039f1b5e5157b2c4a7a7fbf39e62` passed the same report flow in Chrome.
+The public fictional-example button loaded both screenshots through the normal
+inspection pipeline. Four photo regions matched and two contact regions were
+masked. The result showed Muse Spark 1.3, 92% visual similarity, 92.6% text-reuse
+ML and 94.5% auxiliary profile-pattern ML. These displayed scores are not
+impersonation probabilities. The report stayed under review until an explained
+moderator confirmation; the confirmed warning persisted after reloading the
+profile. All 41 frontend tests passed locally and in the updated cloud build.
+The older Codespace was stopped without deleting its data.

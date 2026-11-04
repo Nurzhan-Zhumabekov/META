@@ -24,7 +24,7 @@
   "public_url": "https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev",
   "public_deployment_status": "Verified temporary US West public demo: real Meta + ML report, OCR/photo/privacy, confirmation, appeal/overturn and authorization checks passed",
   "public_deployment_verified_at": "2026-11-04T23:13:02.715439+00:00",
-  "public_deployed_commit": "edd71bf85a77e34cea46129a28763fba65956166",
+  "public_deployed_commit": "28aef53ba498039f1b5e5157b2c4a7a7fbf39e62",
   "public_http_without_github_auth": true,
   "cloud_ml_endpoints_verified": true,
   "cloud_screenshot_inspection_verified": true,
@@ -37,10 +37,11 @@
   "published_video_version": "0.12.0",
   "next_recording_script": "DEMO_SCRIPT_013_EN.md",
   "raw_external_profiles_or_photos_published": false,
-  "frontend_tests": 38,
+  "frontend_tests": 41,
   "free_demo_hosting": "GitHub Codespaces within verified remaining included usage and a $0 stop budget",
   "cloud_location": "WestUs2",
   "public_video_url": "https://nurzhan-zhumabekov.github.io/META/",
   "cloud_verification_file": "PUBLIC_CLOUD_VERIFICATION.json",
-  "cloud_browser_walkthrough_verified": false
+  "cloud_browser_walkthrough_verified": true,
+  "browser_claim_id": "e8d93214"
 }
