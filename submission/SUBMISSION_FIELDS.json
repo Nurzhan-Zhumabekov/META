@@ -233,7 +233,7 @@
   },
   "video_updated_at": "2026-11-04T20:10:27.387189+00:00",
   "version": "0.13.0",
-  "public_deployment_status": "prepared_not_provisioned",
+  "public_deployment_status": "free_codespaces_configuration_prepared_not_provisioned",
   "evaluation_method": "docs/INDEPENDENT_EVALUATION.md",
   "next_recording_script": "DEMO_SCRIPT_013_EN.md",
   "current_video_version": "0.12.0"

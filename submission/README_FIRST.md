@@ -1,6 +1,14 @@
-# MirrorCheck — English submission packet
+# Version 0.13 update вЂ” 5 November 2026
 
-Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working title: **MirrorCheck — AI-Assisted Impersonation Review**. The current application is still the unofficial Instagram feature concept; no rebranding or official affiliation is implied.
+Use PROJECT_DESCRIPTION_EN.md and SUBMISSION_FIELDS.json for the updated English description. Read RELEASE_013_VERIFICATION.json, the repository's docs/INDEPENDENT_EVALUATION.md and /benchmark.html for measured results and limitations. The live browser walkthrough is /appeal-walkthrough.html.
+
+The published 180-second MP4 still records version 0.12. DEMO_SCRIPT_013_EN.md is the next recording script, not a new video. Public hosting is prepared but has not been provisioned. The owner selected a free option; the prepared Codespaces path is subject to remaining allowance and a $0 stop budget. No final hackathon form was submitted.
+
+The original packet notes and historical video checks follow below.
+
+# MirrorCheck вЂ” English submission packet
+
+Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working title: **MirrorCheck вЂ” AI-Assisted Impersonation Review**. The current application is still the unofficial Instagram feature concept; no rebranding or official affiliation is implied.
 
 ## Use these files
 
@@ -8,7 +16,7 @@ Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working
 | --- | --- |
 | [PROJECT_DESCRIPTION_EN.md](PROJECT_DESCRIPTION_EN.md) | Main English description, short alternatives and one-line pitch |
 | [SUBMISSION_ANSWERS_EN.md](SUBMISSION_ANSWERS_EN.md) | Adaptable answers for implementation, Meta usage, challenges and next steps |
-| [DEMO_VIDEO_SCRIPT_EN.md](DEMO_VIDEO_SCRIPT_EN.md) | Exact 00:00–03:00 scene plan, screen directions and spoken English |
+| [DEMO_VIDEO_SCRIPT_EN.md](DEMO_VIDEO_SCRIPT_EN.md) | Exact 00:00вЂ“03:00 scene plan, screen directions and spoken English |
 | [VOICEOVER_EN.txt](VOICEOVER_EN.txt) | Narration only, ready for a teleprompter |
 | [CAPTIONS_EN.srt](CAPTIONS_EN.srt) | Draft timed captions; align with the actual recording before export |
 | [stills/](stills/) | 15 authentic captures from the completed fictional browser run |

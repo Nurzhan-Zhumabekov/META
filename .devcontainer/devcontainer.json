@@ -1,0 +1,18 @@
+{
+  "name": "MirrorCheck demo host",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "remoteUser": "vscode",
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "forwardPorts": [8090],
+  "portsAttributes": {
+    "8090": {
+      "label": "MirrorCheck isolated demo",
+      "onAutoForward": "notify",
+      "protocol": "http"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/prepare.sh"
+}

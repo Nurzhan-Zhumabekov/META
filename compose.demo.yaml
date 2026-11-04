@@ -1,0 +1,24 @@
+services:
+  mirrorcheck:
+    build:
+      context: .
+      target: release
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      PUBLIC_DEMO_ENABLED: "true"
+      DEMO_SESSION_SECRET: ${DEMO_SESSION_SECRET:?Prepare a private demo session secret}
+      COMPARER: meta
+      REQUIRE_META: "true"
+      META_API_KEY: ${META_API_KEY:?Set a server-side Meta key}
+      META_MODEL: muse-spark-1.3
+      META_MAX_CALLS_PER_HOUR: "10"
+      META_MAX_CALLS_PER_OWNER_PER_HOUR: "2"
+      DATA_DIR: /var/data
+    volumes:
+      - mirrorcheck-demo-data:/var/data
+    mem_limit: 4g
+    cpus: 2
+    restart: unless-stopped
+volumes:
+  mirrorcheck-demo-data:

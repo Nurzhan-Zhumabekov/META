@@ -9,13 +9,13 @@ We downloaded public research data rather than claiming that fictional demo case
 | Controlled text reuse: 100 positive + 100 negative pairs | 62/100 (62%) | 92/100 (92%) | 0/100 |
 | Strongly transformed photo regions: 50 copied + 50 different pairs | 1/50 (2%) | 18/50 (36%) | 0/50 |
 
-The text model's test recall Wilson 95% interval is 85.0–95.9%; the photo matcher's is 24.1–49.9%. Zero observed false positives is not a guarantee: the corresponding 95% upper bounds are 3.7% and 7.1%. Confusion matrices, all denominators, model/input hashes and validation results are in the aggregate JSON.
+The text model's test recall Wilson 95% interval is 85.0вЂ“95.9%; the photo matcher's is 24.1вЂ“49.9%. Zero observed false positives is not a guarantee: the corresponding 95% upper bounds are 3.7% and 7.1%. Confusion matrices, all denominators, model/input hashes and validation results are in the aggregate JSON.
 
 ## External text challenge
 
 Source: [Ayoobi, Shahriar and Mukherjee's LinkedIn research dataset](https://github.com/navid-aub/LinkedIn-Dataset), safely read as CSV from [the PeerJ supplementary dataset](https://doi.org/10.7717/peerj-cs.3182/supp-2). We did not execute upstream notebooks or deserialize pickle objects. CSV SHA256: `11ad526b791670fbe479d37a14be8be8801f55c4eabac20f65a92acf1683b533`.
 
-75 source profiles form 25 identity groups per train/validation/test split. Each source yields eight controlled scenarios: exact text reuse, changed display name, different handle, text with an addition, ordinary unrelated profile, coincidental name, disclosed fan account and disclosed parody. Handles are constructed. There are 600 pairs total and 200 test pairs. The external train partition is reserved and was not used to fit weights. The model was fitted only on our fictional procedural training pairs; v2 adds changed-name and partial-bio cases. Threshold remains 0.7.
+75 source profiles with at least 100 characters in their About text form 25 identity groups per train/validation/test split. Each source yields eight controlled scenarios: exact text reuse, changed display name, different handle, text with an addition, ordinary unrelated profile, coincidental name, disclosed fan account and disclosed parody. Handles are constructed. There are 600 pairs total and 200 test pairs. The external train partition is reserved and was not used to fit weights. The model was fitted only on our fictional procedural training pairs; v2 adds changed-name and partial-bio cases. Threshold remains 0.7.
 
 These labels describe the intended text-reuse triage scenario. The source does not provide original-copy links for real Instagram complaints. Fan/parody disclosures are contextual negatives in this challenge, not legal determinations. Repeated variants from the same source are correlated, so pair-level Wilson intervals do not establish population generalization.
 

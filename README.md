@@ -1,4 +1,4 @@
-# MirrorCheck — AI-Assisted Impersonation Review
+# MirrorCheck вЂ” AI-Assisted Impersonation Review
 
 Version 0.13 adds explained moderator decisions, private audit history,
 report-scoped appeals, transactional SQLite and isolated visitor sandboxes.
@@ -8,22 +8,24 @@ recall improves from 1/50 to 18/50 on a separate Copydays test. Neither is a cla
 of real Instagram impersonation accuracy. Open `/benchmark.html` for the readable
 report and aggregate hashes. [Public deployment](docs/PUBLIC_DEPLOYMENT.md) is
 prepared with Docker, Linux CI and a validated Render blueprint; a public live
-URL remains pending provisioning and verification. The existing three-minute
+URL remains pending provisioning and verification. For a temporary no-subscription
+demo, use the prepared [Codespaces configuration](docs/FREE_DEMO_HOSTING.md) only
+within the account's remaining included allowance and a $0 stop budget. The existing three-minute
 video records version 0.12; the revised 0.13 script is in the submission packet.
 
 **Meta Muse Spark + local ML + contact redaction + a separate moderator decision.**
 
-[Clean-checkout quick start](QUICKSTART.md) ·
-[English project description](submission/PROJECT_DESCRIPTION_EN.md) ·
-[Three-minute demo script](submission/DEMO_VIDEO_SCRIPT_EN.md) ·
-[Recorded voiceover](submission/VOICEOVER_RECORDED_EN.txt) ·
-[Submission ZIP](releases/submission-kit-20261105.zip) ·
-[Publication checks](submission/REPOSITORY_PUBLICATION.json) ·
-[License](LICENSE) · [Attributions](NOTICE.md)
+[Clean-checkout quick start](QUICKSTART.md) В·
+[English project description](submission/PROJECT_DESCRIPTION_EN.md) В·
+[Three-minute demo script](submission/DEMO_VIDEO_SCRIPT_EN.md) В·
+[Recorded voiceover](submission/VOICEOVER_RECORDED_EN.txt) В·
+[Submission ZIP](releases/submission-kit-20261105.zip) В·
+[Publication checks](submission/REPOSITORY_PUBLICATION.json) В·
+[License](LICENSE) В· [Attributions](NOTICE.md)
 
-**Finished English demo: [watch locally](http://localhost:8090/demo-video.html) ·
-[MP4](web/public/MirrorCheck_Demo_EN_3min.mp4) ·
-[captions](web/public/MirrorCheck_Demo_EN_3min.srt) ·
+**Finished English demo: [watch locally](http://localhost:8090/demo-video.html) В·
+[MP4](web/public/MirrorCheck_Demo_EN_3min.mp4) В·
+[captions](web/public/MirrorCheck_Demo_EN_3min.srt) В·
 [recording facts](submission/VIDEO_VERIFICATION_EN.json).**
 The refreshed 03:00, 1080p video opens on the moving MirrorCheck landing gallery
 and uses a new uncached Meta run for fictional `aigerim.k.showcase`, claim
@@ -43,9 +45,9 @@ training. Runtime secrets, complaints and private reviewer evidence are excluded
 
 ![English report results from the fictional demonstration](submission/stills/09-meta-and-ml-results.png)
 
-Native React web prototype: **two profile screenshots → editable PaddleOCR fields,
-imagededup photo matches and Presidio privacy checks → Meta visual evidence +
-independent profile ML and optional pair text-reuse ML → human review → a profile label**. Instagram-style desktop
+Native React web prototype: **two profile screenshots в†’ editable PaddleOCR fields,
+imagededup photo matches and Presidio privacy checks в†’ Meta visual evidence +
+independent profile ML and optional pair text-reuse ML в†’ human review в†’ a profile label**. Instagram-style desktop
 and phone layouts surround the reporting feature. This is an unofficial concept;
 it does not change the real Instagram service.
 
@@ -176,10 +178,10 @@ label that survives reload. All six previous claims remain unchanged. See the
    profile's name and bio. Changing the claimed owner clears stale original text.
 4. Submit. In Meta mode the server sends the two redacted images to Meta and validates the
    structured response. The report stays `under_review` until a human acts.
-5. Open **Ещё → Проверка жалоб** or `/review`. Sign in with the local server's
+5. Open **Р•С‰С‘ в†’ РџСЂРѕРІРµСЂРєР° Р¶Р°Р»РѕР±** or `/review`. Sign in with the local server's
    `ADMIN_TOKEN`. Do not share this value or add it to a frontend environment file.
    Review both screenshots and analysis, then confirm or reject.
-6. Confirmation adds **Подтверждена имперсонация** to the profile and a warning to
+6. Confirmation adds **РџРѕРґС‚РІРµСЂР¶РґРµРЅР° РёРјРїРµСЂСЃРѕРЅР°С†РёСЏ** to the profile and a warning to
    its demo conversation. Rejection does not create the confirmed label.
 
 On 2026-11-02 this browser flow was verified with a new report `7155d7b3`: real
@@ -389,14 +391,14 @@ outputs rather than only recommendation checks. See [EVAL_PLAN.md](EVAL_PLAN.md)
 
 An observed limitation: the generic-avatar candidate scored 71.3% fake/spam risk
 despite Meta finding impersonation unlikely; copied-profile candidates scored
-13–25%. The classifier targets a different, older dataset and is not calibrated
+13вЂ“25%. The classifier targets a different, older dataset and is not calibrated
 for impersonation. Do not use its threshold to confirm reports or retrain it on
 this small development suite.
 
 Version 0.6.0 addresses that avatar dependency and adds a separate copy-assessment
 model. [Open the ML comparison report](http://localhost:8090/ml-improvement-report.html).
 On the same input, v2 standalone risk is 6.38% and pair copy signal is 0.62%.
-The five copied-profile cases score 87.79–94.15% on pair text reuse. Every one of
+The five copied-profile cases score 87.79вЂ“94.15% on pair text reuse. Every one of
 the 15 standalone scores is exactly invariant to flipping avatar presence.
 These remain development cases, not real-world accuracy measurements. For blank
 or blurred screenshots, pair ML uses separately supplied text and cannot override

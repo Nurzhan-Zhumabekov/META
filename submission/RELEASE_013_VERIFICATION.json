@@ -1,0 +1,31 @@
+{
+  "verified_at": "2026-11-04T21:24:53.178305+00:00",
+  "version": "0.13.0",
+  "existing_reports_preserved": 13,
+  "existing_evidence_files_preserved": 20,
+  "current_reports": 14,
+  "fresh_fictional_report": "a2367241",
+  "final_status": "rejected",
+  "history_events": [
+    "moderator_decision",
+    "appeal_access_issued",
+    "appeal_submitted",
+    "appeal_resolved"
+  ],
+  "backend_tests": 157,
+  "vision_tests": 14,
+  "privacy_tests": 3,
+  "linux_ci_verified_commit": "6cc34ae6c4b075d30c9b70b3a73223f50b09a0c8",
+  "linux_ci_url": "https://github.com/Nurzhan-Zhumabekov/META/actions/runs/41915397608",
+  "container_resources": "4 GB RAM / 2 CPU",
+  "container_restart_persistence": "passed",
+  "ci_meta_requests": 0,
+  "live_meta_browser_request": true,
+  "public_url": null,
+  "public_deployment_status": "awaiting GitHub login and quota/budget verification; no Codespace created",
+  "published_video_version": "0.12.0",
+  "next_recording_script": "DEMO_SCRIPT_013_EN.md",
+  "raw_external_profiles_or_photos_published": false,
+  "frontend_tests": 38,
+  "free_demo_hosting": "GitHub Codespaces within verified remaining included usage and a $0 stop budget"
+}
