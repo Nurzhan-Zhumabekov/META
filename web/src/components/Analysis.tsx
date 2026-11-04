@@ -13,6 +13,24 @@ export function AnalysisView({
   const risk = analysis.profile_ml;
   const pair = analysis.pair_ml;
   const tools = analysis.screenshot_tools;
+  const percent = (score: number) =>
+    new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }).format(
+      score * 100,
+    );
+  const recommendations: Record<string, string> = {
+    needs_review: "Human review suggested",
+    insufficient_evidence: "Not enough evidence",
+    unlikely_impersonation: "Impersonation appears unlikely",
+  };
+  const recommendation = analysis.recommendation
+    ? recommendations[analysis.recommendation]
+    : undefined;
+  const decision =
+    claim.status === "confirmed"
+      ? "Impersonation confirmed"
+      : claim.status === "rejected"
+        ? "Report dismissed"
+        : "Awaiting review";
   return (
     <div className="analysis-view">
       <div className="analysis-source">
@@ -25,6 +43,12 @@ export function AnalysisView({
               : "Image comparison"}
         </strong>
         {detailed && analysis.model && <span>{analysis.model}</span>}
+      </div>
+      <div className="analysis-outcome">
+        {analysis.provider === "meta" && recommendation && (
+          <p>Meta recommendation: {recommendation}</p>
+        )}
+        <p>Moderator decision: {decision}</p>
       </div>
       {analysis.summary && (
         <p className="analysis-summary">{englishText(analysis.summary)}</p>
@@ -39,9 +63,7 @@ export function AnalysisView({
           <div>
             <span>Content reuse signals · ML</span>
             <strong>
-              {pair.risk_score === null
-                ? "—"
-                : Math.round(pair.risk_score * 100)}
+              {pair.risk_score === null ? "—" : percent(pair.risk_score)}
               {pair.risk_score !== null && <small>%</small>}
             </strong>
             <p>
@@ -51,19 +73,31 @@ export function AnalysisView({
             </p>
           </div>
         )}
+        {analysis.provider === "meta" &&
+          typeof analysis.similarity_score === "number" &&
+          Number.isFinite(analysis.similarity_score) && (
+            <div>
+              <span>Meta visual similarity</span>
+              <strong>
+                {percent(analysis.similarity_score)}
+                <small>%</small>
+              </strong>
+              <p>Visible reuse assessed from screenshots</p>
+            </div>
+          )}
         <div>
-          <span>Image and name similarity</span>
+          <span>Combined content reuse</span>
           <strong>
-            {Math.round(claim.score * 100)}
+            {percent(claim.score)}
             <small>%</small>
           </strong>
-          <p>Content reuse score</p>
+          <p>80% visual evidence + 20% username similarity</p>
         </div>
         {risk && (
           <div>
             <span>Spam patterns · ML</span>
             <strong>
-              {Math.round(risk.risk_score * 100)}
+              {percent(risk.risk_score)}
               <small>%</small>
             </strong>
             <p>An independent signal, not a content reuse score</p>

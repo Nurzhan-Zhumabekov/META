@@ -1768,6 +1768,17 @@ input[type="checkbox"] {
   font-size: 13px;
   line-height: 1.6;
 }
+.analysis-outcome {
+  border-left: 3px solid #737373;
+  padding: 4px 12px;
+  margin: 12px 0;
+  background: #fafafa;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.analysis-outcome p {
+  margin: 4px 0;
+}
 .analysis-metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));

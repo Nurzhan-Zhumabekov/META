@@ -35,6 +35,7 @@ export interface ProfileRisk {
 export interface Analysis {
   provider?: string;
   model?: string;
+  similarity_score?: number;
   summary?: string;
   evidence?: string[];
   differences?: string[];

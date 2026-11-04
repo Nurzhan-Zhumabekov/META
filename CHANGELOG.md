@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 - 2026-11-05
+
+- Recover post regions across darkened gutters, wide side whitespace and floating controls; add recorded PNG, resized JPEG and synthetic-grid regressions without lowering photo-match thresholds.
+- Separate Meta visual similarity, combined content reuse, text ML and spam ML; show AI recommendations independently of saved moderator decisions and preserve legacy records.
+- Add a read-only 13-check preflight and an optional strict real-Meta launcher; test unavailable services and providers fail closed.
+- Add a demo guide linking the English video, confirmed/rejected report walkthroughs and profiles with live service badges.
+- Pass 139 backend, 26 frontend and 10 real image-tool tests; retain the existing privacy and human-review boundaries.
+
 ## 0.9.4 - 2026-11-04
 
 - Replay a fresh fictional report about an ordinary profile with an uncached Meta call, independent ML, an actual moderator dismissal and no remaining profile warning.

@@ -2,6 +2,25 @@
 import numpy as np
 
 
+def _regular_intervals(intervals):
+    """Recover integer-width merged cells only with two agreeing references."""
+    if len(intervals) < 3:
+        return intervals
+    typical = float(np.median([right-left for left,right in intervals]))
+    if sum(abs(right-left-typical) <= max(3, typical*0.06) for left,right in intervals) < 2:
+        return intervals
+    regular = []
+    for left,right in intervals:
+        span = right-left
+        count = round((span+1)/(typical+1))
+        if 2 <= count <= 4 and abs(span-(count*typical+count-1)) <= max(3, span*0.06):
+            stride = (span+1)/count
+            regular.extend((left+round(i*stride), left+round((i+1)*stride)-1) for i in range(count))
+        else:
+            regular.append((left,right))
+    return regular
+
+
 def find_post_regions(image):
     import cv2
     rgb = np.array(image.convert('RGB'))
@@ -10,15 +29,17 @@ def find_post_regions(image):
     mask = (np.min(rgb, axis=2) < 240).astype('uint8') * 255
     raw_contours, _ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     grids, cells = [], []
-    def segments(values, length):
-        indices = np.flatnonzero(values > 0.86)
+    def segments(values, length, threshold=0.86):
+        indices = np.flatnonzero(values > threshold)
         groups = []
         for index in indices:
             if groups and index == groups[-1][-1] + 1:
                 groups[-1].append(int(index))
             else:
                 groups.append([int(index)])
-        cuts = [(g[0],g[-1]+1) for g in groups if len(g) <= 12]
+        # Wide whitespace is a grid boundary too. Ignoring it lets floating
+        # controls extend the final photo crop into the empty side panel.
+        cuts = [(g[0],g[-1]+1) for g in groups]
         points, previous = [], 0
         for start,end in cuts:
             if start-previous >= 64:
@@ -38,11 +59,17 @@ def find_post_regions(image):
         patch = rgb[y:y+h,x:x+w].astype(float)
         bright = (patch.min(axis=2)>220) & (patch.max(axis=2)-patch.min(axis=2)<35)
         xs,ys = segments(bright.mean(axis=0),w),segments(bright.mean(axis=1),h)
+        if len(xs) < 3:
+            # Downscaled JPEGs can weaken a 1px gutter. Accept the additional
+            # boundaries only when their widths support a regular grid; hash,
+            # difference-hash and pixel-correlation match thresholds stay fixed.
+            candidate = segments(bright.mean(axis=0),w,threshold=0.8)
+            regular = _regular_intervals(candidate)
+            if len(candidate) >= 3 and len(regular) > len(candidate):
+                xs = candidate
         if len(xs)*len(ys) < 2:
             continue
-        if len(xs) >= 3:
-            typical = int(np.median([right-left for left,right in xs]))
-            xs = [(left,min(right,left+typical)) if right-left > typical*1.25 else (left,right) for left,right in xs]
+        xs = _regular_intervals(xs)
         grids.append([x,y,x+w,y+h])
         for y0,y1 in ys:
             for x0,x1 in xs:
@@ -72,6 +99,22 @@ def find_post_regions(image):
     # Cap work and exclude small controls above the main post grid when larger
     # rectangles are present. Circular avatars/highlights fail rectangularity.
     boxes.extend(cells)
+    # A merged pair can be too narrow to qualify as a whole grid contour.
+    # Use the other cells on the same row as references in that case.
+    rows = []
+    for box in boxes:
+        row = next((row for row in rows if abs(row[0][1]-box[1]) <= 3 and abs(row[0][3]-box[3]) <= 3), None)
+        if row is None:
+            rows.append([box])
+        else:
+            row.append(box)
+    boxes = []
+    for row in rows:
+        intervals = _regular_intervals([(box[0],box[2]) for box in row])
+        if len(intervals) == len(row):
+            boxes.extend(row)
+        else:
+            boxes.extend([left,row[0][1],right,row[0][3]] for left,right in intervals)
     outer = []
     for box in sorted(boxes, key=lambda b: (b[2]-b[0])*(b[3]-b[1]), reverse=True):
         if not any(box[0] >= b[0]-2 and box[1] >= b[1]-2 and box[2] <= b[2]+2 and box[3] <= b[3]+2 for b in outer):

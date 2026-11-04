@@ -1,4 +1,7 @@
+import io
 import numpy as np
+from pathlib import Path
+import pytest
 from PIL import Image, ImageDraw
 
 from evidence_tools.photos import compare_photos, find_post_regions
@@ -53,3 +56,42 @@ def test_compressed_one_pixel_gutter_keeps_two_posts_separate():
     image.paste(photo(8).resize((200,260)), (231,270))
     ImageDraw.Draw(image).line((230,270,230,529), fill=(236,235,239), width=1)
     assert compare_photos(image,image)['count'] == 2
+
+
+@pytest.mark.parametrize('scale,quality', [(1, None), (0.75, 80), (1.2, 75)])
+def test_recorded_four_column_profiles_detect_shared_stock_photo(scale, quality):
+    fixtures = Path(__file__).parent / 'fixtures'
+    original = Image.open(fixtures / 'original-four-column.png').convert('RGB')
+    ordinary = Image.open(fixtures / 'ordinary-four-column.png').convert('RGB')
+    def resized(image):
+        image = image.resize((round(image.width * scale), round(image.height * scale)))
+        if quality is not None:
+            buffer = io.BytesIO()
+            image.save(buffer, format='JPEG', quality=quality)
+            buffer.seek(0)
+            image = Image.open(buffer).convert('RGB')
+        return image
+    original, ordinary = resized(original), resized(ordinary)
+    # The lake photograph is fully visible in both screenshots, in different
+    # columns. A darkened gutter and the floating Messages control previously
+    # merged cells and returned zero. Photo reuse alone is not impersonation.
+    result = compare_photos(original, ordinary)
+    assert result['count'] >= 1
+    full_row = [box for box in find_post_regions(ordinary) if box[1] < 520 * scale and box[3] > 740 * scale]
+    assert len(full_row) == 4
+    assert all(170 * scale <= box[2] - box[0] <= 190 * scale for box in full_row)
+
+
+def test_regular_grid_recovers_one_obscured_gutter_without_matching_controls():
+    image = Image.new('RGB', (1200, 900), 'white')
+    for row in range(2):
+        for col in range(4):
+            image.paste(photo(row * 4 + col + 1).resize((200, 260)), (100 + col * 201, 450 + row * 261))
+    draw = ImageDraw.Draw(image)
+    draw.line((300, 590, 300, 690), fill='#6c757d', width=1)
+    draw.rounded_rectangle((800, 820, 1130, 880), radius=25, fill='#f5f5f5', outline='#dddddd', width=2)
+    result = compare_photos(image, image)
+    first_row = [box for box in find_post_regions(image) if 445 <= box[1] <= 455]
+    assert len(first_row) == 4
+    assert all(190 <= box[2] - box[0] <= 210 for box in first_row)
+    assert result['count'] >= 4
