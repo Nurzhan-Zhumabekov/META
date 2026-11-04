@@ -67,6 +67,17 @@ def find_post_regions(image):
             regular = _regular_intervals(candidate)
             if len(candidate) >= 3 and len(regular) > len(candidate):
                 xs = candidate
+        if len(xs) < 3:
+            # Subpixel-rendered gutters can be neutral gray rather than white.
+            # Only adopt them when at least three recovered cells agree in
+            # width. This changes region extraction, never match thresholds.
+            for level in (210, 190):
+                neutral = (patch.min(axis=2)>level) & (patch.max(axis=2)-patch.min(axis=2)<45)
+                candidate = _regular_intervals(segments(neutral.mean(axis=0),w,threshold=0.75))
+                widths = [right-left for left,right in candidate]
+                if len(widths) >= 3 and min(widths) >= max(widths)*0.88:
+                    xs = candidate
+                    break
         if len(xs)*len(ys) < 2:
             continue
         xs = _regular_intervals(xs)

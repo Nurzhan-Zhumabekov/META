@@ -95,3 +95,27 @@ def test_regular_grid_recovers_one_obscured_gutter_without_matching_controls():
     assert len(first_row) == 4
     assert all(190 <= box[2] - box[0] <= 210 for box in first_row)
     assert result['count'] >= 4
+
+
+def test_recorded_faint_neutral_gutters_keep_four_copied_photos_separate():
+    fixtures = Path(__file__).parent / 'fixtures'
+    original = Image.open(fixtures / 'original-faint-gutters.png').convert('RGB')
+    copied = Image.open(fixtures / 'copy-faint-gutters.png').convert('RGB')
+    # Subpixel borders fall below the strict near-white gutter threshold.
+    result = compare_photos(original, copied)
+    assert result['count'] >= 4
+
+
+def test_faint_gutter_recovery_does_not_match_unrelated_regular_grids():
+    def grid(offset):
+        image = Image.new('RGB', (1100, 900), 'white')
+        draw = ImageDraw.Draw(image)
+        for col in range(4):
+            image.paste(photo(offset + col).resize((180, 240)), (100 + col*181, 400))
+            if col < 3:
+                draw.line((280 + col*181, 400, 280 + col*181, 639), fill=(205,205,205))
+        return image
+    result = compare_photos(grid(1), grid(20))
+    assert len(result['original_boxes']) >= 4
+    assert len(result['suspect_boxes']) >= 4
+    assert result['count'] == 0
