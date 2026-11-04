@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import { AppProvider } from "../lib/context";
@@ -97,6 +97,11 @@ it("inserts an English-search emoji into the actual Direct composer", async () =
   view("/messages/leomessi.fan");
   fireEvent.click(screen.getByRole("button", { name: "Message emoji" }));
   const picker = await screen.findByRole("dialog", { name: "Emoji" });
+  // Wait for the real lazy picker and English catalog, including on a busy
+  // two-core Docker builder, before starting the search interaction.
+  await act(async () => {
+    await vi.dynamicImportSettled();
+  });
   const search = await within(picker).findByPlaceholderText("Search emoji");
   fireEvent.change(search, { target: { value: "soccer" } });
   fireEvent.click(

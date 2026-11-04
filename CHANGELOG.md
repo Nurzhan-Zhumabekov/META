@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Wait for the real lazy emoji picker and English catalog before testing Direct search, preventing a cold Docker build from racing the asynchronous module load.
+
 ## 0.13.0 - 2026-11-05
 
 - Require moderator explanations, version-check decisions, retain private audit history and support report-scoped, expiring appeals with explicit uphold/overturn outcomes.
