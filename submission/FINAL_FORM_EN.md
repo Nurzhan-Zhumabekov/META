@@ -8,7 +8,7 @@ Track: Indie Developer Track
 Theme: Build for Your World
 Repository: https://github.com/Nurzhan-Zhumabekov/META
 Video: https://nurzhan-zhumabekov.github.io/META/
-Live demo: https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/demo-guide.html
+Temporary live demo: https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/demo-guide.html
 
 ## Project Description
 
@@ -20,7 +20,7 @@ PaddleOCR extracts editable account fields; imagededup finds reused photo region
 
 AI cannot add a warning. A moderator must inspect the processed evidence and record an explained decision. Confirmed reports display a warning; dismissed reports do not. Version 0.13 adds audit history, report-scoped appeals, SQLite persistence and isolated visitor sandboxes.
 
-Built with React, TypeScript, Vite and FastAPI, with authenticated local workers and server-side Meta credentials. The public demo runs the real API and local ML in a US West Codespace. Each visitor gets a fictional sandbox; only the web port is public. A built-in example pair supports the full review without uploading private files. Live demo: https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/demo-guide.html
+Built with React, TypeScript, Vite and FastAPI, with authenticated local workers and server-side Meta credentials. The public demo runs the real API and local ML in a US West Codespace. Each visitor gets a fictional sandbox; only the web port is public. A built-in example pair supports the full review without uploading private files. Temporary live demo (Codespace must be running): https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/demo-guide.html
 
 Evaluation separates copy detection from spam patterns. Controlled external-text copy recall improved from 62/100 to 92/100; a difficult Copydays photo-region test improved from 1/50 to 18/50. These are component evaluations, not real Instagram impersonation accuracy. Pair-model training is synthetic; no screenshot or score establishes ownership.
 
@@ -58,4 +58,4 @@ We tested the real endpoint and distinguish live responses from cached results. 
 
 Optional X post and partner-technology feedback are blank.
 
-The form includes a preselected promotional-use consent: Meta and Cerebral Valley may use, publish, share and promote submitted materials on their websites, social media and marketing channels. A preselected checkbox is not treated as the owner's consent.
+The form initially preselected this promotional-use consent; it has been cleared pending the owner's confirmation: Meta and Cerebral Valley may use, publish, share and promote submitted materials on their websites, social media and marketing channels. A preselected checkbox is not treated as the owner's consent.

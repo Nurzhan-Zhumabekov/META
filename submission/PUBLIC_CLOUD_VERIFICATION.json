@@ -54,5 +54,16 @@
     "explained_confirmation": true,
     "confirmed_badge_after_reload": true,
     "built_in_public_fixtures": true
-  }
+  },
+  "final_anonymous_health_verified_at": "2026-11-04T23:37:11.709239+00:00",
+  "final_health_ready": true,
+  "final_meta_access": "available",
+  "final_evidence_workers_ready": true,
+  "public_example_assets_http": [
+    200,
+    200
+  ],
+  "signed_cross_visitor_evidence_http": 404,
+  "warning_persisted_after_codespace_restart": true,
+  "cold_start_issue": "After Codespace resume OCR initialization stalled; one container restart restored readiness. Cause not established; continuous uptime is not claimed."
 }

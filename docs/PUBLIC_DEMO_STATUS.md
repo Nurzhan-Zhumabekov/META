@@ -79,3 +79,16 @@ impersonation probabilities. The report stayed under review until an explained
 moderator confirmation; the confirmed warning persisted after reloading the
 profile. All 41 frontend tests passed locally and in the updated cloud build.
 The older Codespace was stopped without deleting its data.
+
+## Resume check and operational caveat
+
+A later Codespace stop/restart made the port private again. After resuming,
+PaddleOCR initialization stalled without an exception. A single container
+restart restored readiness; its underlying cause remains undiagnosed. Only
+after health recovered was 8090 made public again. Fresh anonymous health,
+Meta readiness and both example PNGs passed. The confirmed browser warning
+survived the server restart. A different signed sandbox received 404 for that
+report evidence and saw no warning in its own statuses. Do not assume this
+attended Codespace will remain available continuously. If cold-start readiness
+stalls, inspect worker logs and try one container restart; never expose an
+unhealthy service or substitute a fabricated Meta result.
