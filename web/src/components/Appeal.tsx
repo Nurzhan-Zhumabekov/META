@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ApiError, request, readableError } from "../lib/api";
 import type { AppealRecord, ModerationEvent } from "../lib/types";
 
@@ -16,12 +16,13 @@ function appealError(problem: unknown) {
 
 export function Appeal() {
   const [token, setToken] = useState(() => window.location.hash.slice(1));
+  const acceptedAccess = useRef("");
   const [detail, setDetail] = useState<Detail | null>(null);
   const [reason, setReason] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
-  async function refreshReport() {
+  async function refreshReport(credential = acceptedAccess.current) {
     setBusy(true);
     setError("");
     try {
@@ -29,9 +30,10 @@ export function Appeal() {
         await request<Detail>("/appeals/access", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
+          body: JSON.stringify({ token: credential }),
         }),
       );
+      acceptedAccess.current = credential;
       setSent(false);
     } catch (problem) {
       setError(appealError(problem));
@@ -41,7 +43,7 @@ export function Appeal() {
   }
   async function open(event: React.FormEvent) {
     event.preventDefault();
-    await refreshReport();
+    await refreshReport(token);
   }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -51,7 +53,10 @@ export function Appeal() {
       await request("/appeals", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, reason: reason.trim() }),
+        body: JSON.stringify({
+          token: acceptedAccess.current,
+          reason: reason.trim(),
+        }),
       });
       setSent(true);
     } catch (problem) {

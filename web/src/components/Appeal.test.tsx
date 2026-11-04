@@ -7,6 +7,41 @@ beforeEach(() => {
   vi.unstubAllGlobals();
 });
 
+it("keeps the successfully accepted capability when a password manager changes the input during access", async () => {
+  let finish!: (value: Response) => void;
+  const first = new Promise<Response>((resolve) => {
+    finish = resolve;
+  });
+  const data = {
+    claim: {
+      id: "demo1234",
+      suspect_handle: "fictional.copy",
+      status: "confirmed",
+    },
+    decisions: [],
+    appeals: [],
+  };
+  const fetcher = vi
+    .fn()
+    .mockImplementationOnce(() => first)
+    .mockResolvedValue(Response.json(data));
+  vi.stubGlobal("fetch", fetcher);
+  render(<Appeal />);
+  fireEvent.change(screen.getByLabelText("Private appeal access"), {
+    target: { value: "accepted-report-access" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Open my report" }));
+  fireEvent.change(screen.getByLabelText("Private appeal access"), {
+    target: { value: "late-password-manager-value" },
+  });
+  finish(Response.json(data));
+  await screen.findByRole("button", { name: "Refresh report" });
+  fireEvent.click(screen.getByRole("button", { name: "Refresh report" }));
+  expect(JSON.parse(fetcher.mock.calls[1][1].body)).toEqual({
+    token: "accepted-report-access",
+  });
+});
+
 it("refreshes a pending appeal to the moderator's final outcome", async () => {
   let resolved = false;
   vi.stubGlobal(
