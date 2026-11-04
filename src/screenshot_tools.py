@@ -67,7 +67,19 @@ class Match(Strict):
     suspect_index: int = Field(ge=0, le=23)
     phash_distance: int = Field(ge=0, le=64)
     dhash_distance: int = Field(ge=0, le=64)
-    pixel_correlation: float = Field(ge=0, le=1)
+    pixel_correlation: float = Field(ge=-1, le=1)
+    verification: Literal['perceptual_hash', 'orb_geometry', 'sift_geometry'] = 'perceptual_hash'
+    geometric_inliers: int = Field(default=0, ge=0, le=700)
+    geometric_ratio: float = Field(default=0, ge=0, le=1)
+
+    @model_validator(mode='after')
+    def verify_method(self):
+        if self.verification in {'orb_geometry', 'sift_geometry'}:
+            if self.geometric_inliers < 12 or self.geometric_ratio < .5:
+                raise ValueError('Insufficient geometric support')
+        elif self.phash_distance > 8 or self.dhash_distance > 12 or self.pixel_correlation < .88:
+            raise ValueError('Insufficient perceptual-hash support')
+        return self
 
 
 class Photos(Strict):

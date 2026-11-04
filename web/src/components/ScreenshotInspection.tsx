@@ -58,6 +58,16 @@ export function InspectionPreview({
       <div className="inspection-copies">
         <b>imagededup: matched photos — {inspection.photos.count}</b>
         <span>Comparing individual photo regions, excluding avatars</span>
+        {inspection.photos.matches.some(
+          (m) =>
+            m.verification === "orb_geometry" ||
+            m.verification === "sift_geometry",
+        ) && (
+          <span>
+            Some matches use local feature geometry to handle crops or
+            rotations. Shared visual detail does not establish ownership.
+          </span>
+        )}
       </div>
       <div className="inspection-redaction">
         <strong>

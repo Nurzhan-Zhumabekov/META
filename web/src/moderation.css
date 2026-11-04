@@ -1,0 +1,74 @@
+.decision-reason {
+  display: grid;
+  gap: 9px;
+  padding: 8px 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.decision-reason textarea {
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  border: 1px solid var(--line, #d8dce1);
+  border-radius: 9px;
+  padding: 12px;
+  font: inherit;
+  font-weight: 400;
+  background: var(--surface, #fff);
+  color: inherit;
+}
+.decision-reason small {
+  font-weight: 400;
+  color: var(--muted, #69717b);
+}
+.moderation-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+.decision-timeline {
+  margin: 20px 30px;
+  padding-left: 20px;
+}
+.decision-timeline li {
+  padding: 6px 0 18px 10px;
+  border-left: 1px solid #d8dce1;
+}
+.decision-timeline p,
+.appeal-explanation p {
+  margin: 8px 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.appeal-statement,
+.appeal-explanation {
+  background: #f4f6f5;
+  border-left: 3px solid #6b8976;
+  margin: 20px;
+  padding: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.appeal-page > p {
+  max-width: 760px;
+  line-height: 1.65;
+}
+.moderation-center .review-evidence img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.moderation-center .review-decision > p {
+  line-height: 1.6;
+}
+.demo-notice {
+  margin: 12px 24px;
+  padding: 12px 16px;
+  border: 1px solid #d5dfd3;
+  border-radius: 8px;
+  background: #f0f5ee;
+  color: #364c37;
+  font-size: 13px;
+  line-height: 1.5;
+}

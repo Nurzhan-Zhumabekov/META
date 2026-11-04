@@ -62,8 +62,29 @@ export interface Claim {
   analysis: Analysis;
   created_at?: string;
   evidence?: { original: string; suspect: string };
+  version?: number;
+  history?: ModerationEvent[];
+  appeals?: AppealRecord[];
+}
+export interface ModerationEvent {
+  kind: string;
+  reason: string;
+  actor: string;
+  at: string;
+  version: number;
+  from_status?: string;
+  to_status?: string;
+}
+export interface AppealRecord {
+  id: string;
+  reason: string;
+  status: "pending" | "uphold" | "overturn";
+  created_at: string;
+  resolved_at?: string;
+  resolution_reason?: string;
 }
 export interface ServiceStatus {
+  public_demo?: boolean;
   privacy_redaction_required?: boolean;
   provider: string;
   model: string | null;
@@ -89,6 +110,8 @@ export interface ScreenshotTools {
       original_index: number;
       suspect_index: number;
       phash_distance?: number;
+      verification?: "perceptual_hash" | "orb_geometry" | "sift_geometry";
+      geometric_inliers?: number;
     }[];
     original_boxes: number[][];
     suspect_boxes: number[][];

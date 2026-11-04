@@ -56,14 +56,15 @@ def test_status_update_invalid_status_is_400(client, admin, new_claim):
 
 def test_status_update_changes_status(client, admin, new_claim):
     claim = new_claim()
-    client.post(f"/claims/{claim['id']}/status", params={"status": "rejected"}, headers=admin)
+    response = client.post(f"/claims/{claim['id']}/status", json={"status": "rejected", "reason": "The report does not establish impersonation.", "expected_version": 0}, headers=admin)
+    assert response.status_code == 200
     assert client.get("/claims", params={"handle": claim["suspect_handle"]}).json()[0]["status"] == "rejected"
     assert client.get("/claims/pending", headers=admin).json() == []
 
 
 def test_statuses_confirmed_beats_under_review_and_rejected_is_hidden(client, admin, new_claim):
     def decide(claim, status):
-        r = client.post(f"/claims/{claim['id']}/status", params={"status": status}, headers=admin)
+        r = client.post(f"/claims/{claim['id']}/status", json={"status": status, "reason": "A moderator reviewed the supplied evidence.", "expected_version": 0}, headers=admin)
         assert r.status_code == 200
 
     # same suspect: confirmed must win no matter the order of the claims

@@ -38,6 +38,8 @@ def dataset(split, groups):
             ('renamed', 1, f'{handle}_official', original.display_name + ' Official', description),
             ('edited_bio', 1, f'{handle}_shop', original.display_name, f'{topic.title()} commissions in {city}. Custom designs. Contact {contact}'),
             ('different_handle', 1, f'gallery_{identity}_x', original.display_name, description),
+            ('changed_name', 1, f'new_identity_{identity}', 'Another Studio', description),
+            ('partial_bio', 1, f'{handle}_orders', original.display_name, description[:int(len(description)*.8)] + ' Orders by message'),
             ('unrelated', 0, f'runner_{identity}', 'Weekend Journal', other_bio),
             ('common_name', 0, f'recipes_{identity}', original.display_name, other_bio),
             ('no_avatar', 0, f'local_{identity}', 'Local Kitchen', other_bio),

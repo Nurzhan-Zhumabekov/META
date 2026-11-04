@@ -1,5 +1,25 @@
 import { englishText } from "./english";
 
+export async function initializeDemo() {
+  const status = await fetch("/api/demo/session", {
+    credentials: "same-origin",
+  });
+  if (status.status === 404) return;
+  if (!status.ok)
+    throw new Error("The demonstration is temporarily unavailable.");
+  const session = await status.json();
+  if (session.enabled && !session.active) {
+    const started = await fetch("/api/demo/session", {
+      method: "POST",
+      credentials: "same-origin",
+    });
+    if (!started.ok)
+      throw new Error(
+        "Cannot start a private demonstration session. Please try again later.",
+      );
+  }
+}
+
 export class ApiError extends Error {
   constructor(
     message: string,

@@ -134,6 +134,57 @@ def find_post_regions(image):
     return outer[:24]
 
 
+def _local_features(array, kind='orb'):
+    import cv2
+    gray = cv2.cvtColor(array, cv2.COLOR_RGB2GRAY)
+    scale = min(1., 320/max(gray.shape))
+    if scale < 1:
+        gray = cv2.resize(gray, None, fx=scale, fy=scale)
+    detector = cv2.SIFT_create(nfeatures=700) if kind == 'sift' else cv2.ORB_create(nfeatures=700, edgeThreshold=15, fastThreshold=10)
+    keypoints, descriptors = detector.detectAndCompute(gray, None)
+    return keypoints, descriptors, gray.shape
+
+
+def _geometry(first, second):
+    import cv2
+    key_a, desc_a, shape_a = first
+    key_b, desc_b, shape_b = second
+    if desc_a is None or desc_b is None or min(len(key_a),len(key_b)) < 12:
+        return None
+    is_sift = desc_a.dtype != np.uint8
+    matcher = cv2.FlannBasedMatcher({'algorithm':1,'trees':4},{'checks':48}) if is_sift else cv2.BFMatcher(cv2.NORM_HAMMING)
+    maximum_distance = 250 if is_sift else 64
+    forward = matcher.knnMatch(desc_a, desc_b, k=2)
+    reverse = matcher.knnMatch(desc_b, desc_a, k=2)
+    backward = {(a.queryIdx,a.trainIdx) for pair in reverse if len(pair)==2 for a,b in [pair]
+                if a.distance < .75*b.distance and a.distance <= maximum_distance}
+    good = [a for pair in forward if len(pair)==2 for a,b in [pair]
+            if a.distance < .75*b.distance and a.distance <= maximum_distance and (a.trainIdx,a.queryIdx) in backward]
+    if len(good) < 12:
+        return None
+    source = np.float32([key_a[m.queryIdx].pt for m in good]).reshape(-1,1,2)
+    target = np.float32([key_b[m.trainIdx].pt for m in good]).reshape(-1,1,2)
+    cv2.setRNGSeed(0)
+    matrix, mask = cv2.findHomography(source,target,cv2.RANSAC,3.)
+    if matrix is None or mask is None or not np.isfinite(matrix).all():
+        return None
+    inliers = mask.ravel().astype(bool)
+    count, ratio = int(inliers.sum()), float(inliers.mean())
+    if count < 12 or ratio < .5:
+        return None
+    for points, shape in [(source[inliers],shape_a),(target[inliers],shape_b)]:
+        coverage = cv2.contourArea(cv2.convexHull(points)) / (shape[0]*shape[1])
+        if coverage < .08:
+            return None
+    h,w = shape_a
+    corners = np.float32([[0,0],[w,0],[w,h],[0,h]]).reshape(-1,1,2)
+    projected = cv2.perspectiveTransform(corners,matrix)
+    area = cv2.contourArea(projected) / (shape_b[0]*shape_b[1])
+    if not cv2.isContourConvex(projected) or not .15 <= area <= 12 or np.max(np.abs(projected)) > 10*max(shape_b):
+        return None
+    return {'verification':'sift_geometry' if is_sift else 'orb_geometry','geometric_inliers':count,'geometric_ratio':round(ratio,4)}
+
+
 def compare_photos(original, suspect):
     from imagededup.methods import PHash, DHash
     phash, dhash = PHash(verbose=False), DHash(verbose=False)
@@ -145,30 +196,42 @@ def compare_photos(original, suspect):
             crop = image.crop(box).convert('RGB')
             array = np.array(crop)
             entries.append((phash.encode_image(image_array=array), dhash.encode_image(image_array=array),
-                            np.array(crop.resize((24, 24))).astype(float).reshape(-1)))
+                            np.array(crop.resize((24, 24))).astype(float).reshape(-1), array))
         descriptors.append(entries)
     candidates = []
-    for i, (a, ad, pixels_a) in enumerate(descriptors[0]):
-        for j, (b, bd, pixels_b) in enumerate(descriptors[1]):
+    geometry_cache = {}
+    def features(side, index, kind='orb'):
+        if (side,index,kind) not in geometry_cache:
+            geometry_cache[(side,index,kind)] = _local_features(descriptors[side][index][3],kind)
+        return geometry_cache[(side,index,kind)]
+    for i, (a, ad, pixels_a, _) in enumerate(descriptors[0]):
+        for j, (b, bd, pixels_b, _) in enumerate(descriptors[1]):
             distance = (int(a, 16) ^ int(b, 16)).bit_count()
             dhash_distance = (int(ad, 16) ^ int(bd, 16)).bit_count()
             centered_a, centered_b = pixels_a - pixels_a.mean(), pixels_b - pixels_b.mean()
             denominator = np.linalg.norm(centered_a) * np.linalg.norm(centered_b)
             correlation = float(centered_a @ centered_b / denominator) if denominator else 0
             if distance <= 8 and dhash_distance <= 12 and correlation >= 0.88:
-                candidates.append((distance, -correlation, i, j, dhash_distance))
+                candidates.append((0,distance,-correlation,i,j,dhash_distance,distance,{'verification':'perceptual_hash'}))
+            elif distance <= 32:
+                verified = _geometry(features(0,i),features(1,j))
+                if not verified:
+                    verified = _geometry(features(0,i,'sift'),features(1,j,'sift'))
+                if verified:
+                    candidates.append((1,-verified['geometric_inliers'],-correlation,i,j,dhash_distance,distance,verified))
     used_original, used_suspect, matches = set(), set(), []
-    for distance, negative_corr, i, j, dd in sorted(candidates):
+    for _, _, negative_corr, i, j, dd, distance, verified in sorted(candidates, key=lambda entry:entry[:7]):
         if i in used_original or j in used_suspect:
             continue
         used_original.add(i); used_suspect.add(j)
         matches.append({'original_index': i, 'suspect_index': j, 'phash_distance': distance,
-                        'dhash_distance': dd, 'pixel_correlation': round(-negative_corr, 4)})
+                        'dhash_distance': dd, 'pixel_correlation': round(-negative_corr, 4), **verified})
     def normalized(boxes, image):
         return [[round(x/image.width, 6), round(y/image.height, 6), round(x2/image.width, 6), round(y2/image.height, 6)] for x,y,x2,y2 in boxes]
-    return {'provider': 'imagededup', 'method': 'PHash+DHash+pixel-correlation',
+    return {'provider': 'imagededup', 'method': 'PHash+DHash+pixel-correlation; ORB/SIFT geometry fallback',
             'original_boxes': normalized(image_boxes[0], original), 'suspect_boxes': normalized(image_boxes[1], suspect),
             'matches': matches, 'count': len(matches),
             'limitations': ['A matching photo does not prove ownership or impersonation.',
                             'Automatic regions target a light interface with a rectangular photo grid; check the highlighted regions.',
-                            'Heavy cropping, borders and complex editing may hide a match.']}
+                            'Heavy cropping, borders and complex editing may hide a match.',
+                            'Local feature geometry can flag shared visual detail; it does not establish who owns an image.']}

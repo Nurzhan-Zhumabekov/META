@@ -43,7 +43,7 @@ def test_correct_token_lists_pending(client, admin, new_claim):
 
 def test_correct_token_updates_status(client, admin, new_claim):
     claim = new_claim()
-    r = client.post(f"/claims/{claim['id']}/status", params={"status": "confirmed"}, headers=admin)
+    r = client.post(f"/claims/{claim['id']}/status", json={"status": "confirmed", "reason": "The reviewed evidence supports confirmation.", "expected_version": 0}, headers=admin)
     assert r.status_code == 200
     assert r.json() == {"ok": True}
 

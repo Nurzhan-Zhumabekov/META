@@ -66,6 +66,18 @@ def test_preview_is_burned_in_and_exactly_matches_provider_and_saved_evidence(mo
     assert image.getpixel((400,225))==(255,255,255), 'Do not mutate the uploaded source image'
 
 
+def test_local_demo_also_saves_the_exact_processed_preview(monkeypatch):
+    monkeypatch.setattr(screenshot_tools,'inspect_backend',lambda *args: inspection_result())
+    image=Image.new('RGB',(800,900),'white')
+    preview=screenshot_tools.inspect_images(image,image,'alice','copy')
+    inspected=screenshot_tools.resolve(preview['inspection_id'],image,image)
+    claim=pipeline.submit_claim('alice','copy',image,image,evidence_inspection=inspected)
+    for side in ('original','suspect'):
+        expected=base64.b64decode(preview['redaction']['previews'][side].split(',')[1])
+        assert (pipeline.DB.parent/'evidence'/claim.id/f'{side}.jpg').read_bytes()==expected
+    assert claim.analysis['privacy_redaction']['regions_masked']==4
+
+
 def test_privacy_failure_prevents_provider_request_and_claim_creation(monkeypatch,make_image):
     monkeypatch.setattr(config,'COMPARER','meta')
     monkeypatch.setattr(config,'META_API_KEY','unit-test-only')

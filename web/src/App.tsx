@@ -5,17 +5,26 @@ import { Feed } from "./components/Feed";
 import { Profile } from "./components/Profile";
 import { ReportDialog } from "./components/Report";
 import { Review } from "./components/Review";
+import { Appeal } from "./components/Appeal";
+import "./moderation.css";
 import { Shell } from "./components/Shell";
 import { Explore, Messages, Reels } from "./components/SocialViews";
 
 export default function App() {
-  const { report, setReport } = useApp();
+  const { report, setReport, service } = useApp();
   return (
     <>
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
       <Shell>
+        {service?.public_demo && (
+          <aside className="demo-notice">
+            Isolated demonstration · Fictional accounts · Up to three reports ·
+            Session access expires after two hours. Moderator actions affect
+            only this browser’s sandbox.
+          </aside>
+        )}
         <Routes>
           <Route path="/" element={<Feed />} />
           <Route path="/profile/:handle" element={<Profile />} />
@@ -24,6 +33,7 @@ export default function App() {
           <Route path="/messages/:handle?" element={<Messages />} />
           <Route path="/saved" element={<Feed savedOnly />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/appeal" element={<Appeal />} />
           <Route
             path="*"
             element={

@@ -8,9 +8,10 @@ import { AnalysisView } from "./Analysis";
 import { Avatar, EmptyState } from "./Common";
 import { Icon } from "./Icon";
 import { EvidenceRegions } from "./ScreenshotInspection";
+import { ModerationCenter } from "./ModerationCenter";
 
 export function Review() {
-  const { refresh, notify } = useApp();
+  const { refresh, notify, service } = useApp();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [claims, setClaims] = useState<Claim[]>([]);
@@ -18,6 +19,7 @@ export function Review() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState("");
   const [completed, setCompleted] = useState<string | null>(null);
+  const [reasons, setReasons] = useState<Record<string, string>>({});
   const load = useCallback(async () => {
     setLoading(true);
     setError("");
@@ -46,11 +48,14 @@ export function Review() {
     setBusy("login");
     setError("");
     try {
-      await request("/reviewer/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
+      if (service?.public_demo)
+        await request("/demo/reviewer", { method: "POST" });
+      else
+        await request("/reviewer/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
       setToken("");
       await load();
     } catch (problem) {
@@ -63,8 +68,14 @@ export function Review() {
     setBusy(claim.id);
     setError("");
     try {
-      await request(`/claims/${claim.id}/status?status=${status}`, {
+      await request(`/claims/${claim.id}/status`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status,
+          reason: reasons[claim.id]?.trim(),
+          expected_version: claim.version ?? 0,
+        }),
       });
       await refresh();
       setCompleted(claim.suspect_handle);
@@ -125,21 +136,33 @@ export function Review() {
           <span className="login-symbol">
             <Icon name="shield" size={34} />
           </span>
-          <h2>Moderator access</h2>
-          <p>Enter the moderator code for this app to review reports.</p>
-          <label>
-            Moderator code
-            <input
-              type="password"
-              autoComplete="current-password"
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
-              required
-              maxLength={512}
-            />
-          </label>
+          <h2>
+            {service?.public_demo ? "Moderator sandbox" : "Moderator access"}
+          </h2>
+          <p>
+            {service?.public_demo
+              ? "Try the moderator role for reports in your own demonstration session. Other visitors and the developer’s reports are inaccessible."
+              : "Enter the moderator code for this app to review reports."}
+          </p>
+          {!service?.public_demo && (
+            <label>
+              Moderator code
+              <input
+                type="password"
+                autoComplete="current-password"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+                required
+                maxLength={512}
+              />
+            </label>
+          )}
           <button className="button primary full" disabled={!!busy}>
-            {busy ? "Logging in…" : "Log in"}
+            {busy
+              ? "Logging in…"
+              : service?.public_demo
+                ? "Enter moderator sandbox"
+                : "Log in"}
           </button>
           <p className="dialog-footnote">
             This code grants access to the demo app. It is not an Instagram
@@ -156,6 +179,7 @@ export function Review() {
               Refresh
             </button>
           </div>
+          <ModerationCenter />
           {completed && (
             <div className="decision-success" role="status">
               <Icon name="check" size={18} />
@@ -251,17 +275,41 @@ export function Review() {
                   Review the matches and the basis of the report. AI scores do
                   not replace your judgment.
                 </p>
+                <label className="decision-reason">
+                  Decision reason
+                  <textarea
+                    aria-label={`Decision reason for @${claim.suspect_handle}`}
+                    placeholder="Explain which evidence supports confirmation or dismissal."
+                    minLength={10}
+                    maxLength={2000}
+                    value={reasons[claim.id] ?? ""}
+                    onChange={(e) =>
+                      setReasons((old) => ({
+                        ...old,
+                        [claim.id]: e.target.value,
+                      }))
+                    }
+                  />
+                  <small>
+                    Required · at least 10 characters · saved in the private
+                    decision history
+                  </small>
+                </label>
                 <div>
                   <button
                     className="button danger-solid"
-                    disabled={!!busy}
+                    disabled={
+                      !!busy || (reasons[claim.id]?.trim().length ?? 0) < 10
+                    }
                     onClick={() => void decide(claim, "confirmed")}
                   >
                     {busy === claim.id ? "Saving…" : "Confirm impersonation"}
                   </button>
                   <button
                     className="button secondary"
-                    disabled={!!busy}
+                    disabled={
+                      !!busy || (reasons[claim.id]?.trim().length ?? 0) < 10
+                    }
                     onClick={() => void decide(claim, "rejected")}
                   >
                     Dismiss report

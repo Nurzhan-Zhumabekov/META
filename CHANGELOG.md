@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.13.0 - 2026-11-05
+
+- Require moderator explanations, version-check decisions, retain private audit history and support report-scoped, expiring appeals with explicit uphold/overturn outcomes.
+- Migrate legacy JSON reports idempotently to transactional SQLite without changing saved evidence or previous decisions.
+- Isolate public demo visitors, scope moderator role-play, limit uploads/sessions/reports and remove expired demo data after a grace period.
+- Preserve exact processed evidence bytes for both local and Meta comparison.
+- Add controlled external-text evaluation, a Copydays photo benchmark and stronger synthetic text training plus ORB/SIFT geometric verification. See docs/INDEPENDENT_EVALUATION.md for measured results and limits.
+- Add a three-environment Docker build, Linux CI smoke flow and schema-validated Render deployment blueprint. Public deployment requires separate resource provisioning.
+
+
 ## 0.12.0 - 2026-11-05
 
 - Play the landing gallery as explicitly requested, including when the browser enables reduced motion; retain manual pause, visibility suspension and the component's default system preference behavior.

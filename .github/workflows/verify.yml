@@ -1,0 +1,32 @@
+name: Verify MirrorCheck
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Build Linux image and run frontend, API, image and privacy tests
+        run: docker build --target test -t mirrorcheck:ci .
+      - name: Start an isolated public-mode container without production secrets
+        run: >-
+          docker run -d --name mirrorcheck-ci -p 127.0.0.1:8090:8090
+          -e PUBLIC_DEMO_ENABLED=true -e COMPARER=local
+          -e DEMO_SESSION_SECRET=ci-only-signing-key-never-used-for-deployment
+          -v "$PWD/vision_tests/fixtures:/fixtures:ro"
+          mirrorcheck:ci
+      - name: Verify real workers, privacy bytes, visitor isolation and appeal lifecycle
+        run: |
+          docker cp scripts/smoke_public_demo.py mirrorcheck-ci:/tmp/smoke_public_demo.py
+          docker exec mirrorcheck-ci /opt/api/bin/python /tmp/smoke_public_demo.py
+      - name: Container logs on failure
+        if: failure()
+        run: docker logs --tail 150 mirrorcheck-ci || true

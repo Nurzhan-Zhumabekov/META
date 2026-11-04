@@ -20,3 +20,6 @@ ML_MODEL_PATH = Path(os.getenv('ML_MODEL_PATH', str(Path(__file__).resolve().par
 PAIR_ML_MODEL_PATH = Path(os.getenv('PAIR_ML_MODEL_PATH', str(Path(__file__).resolve().parent.parent / 'outputs/ml/pair_risk_model.json')))
 # Shared secret for reviewer endpoints (X-Admin-Token header). Empty = those endpoints are disabled (503).
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+PUBLIC_DEMO_ENABLED = os.getenv('PUBLIC_DEMO_ENABLED', 'false').lower() in {'true', '1', 'yes'}
+DEMO_SESSION_SECRET = os.getenv('DEMO_SESSION_SECRET', '')
+DEMO_DATA_ROOT = Path(os.getenv('DEMO_DATA_ROOT', str(Path(__file__).resolve().parent.parent / 'outputs' / 'sandboxes')))

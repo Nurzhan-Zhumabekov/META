@@ -1,0 +1,1280 @@
+{
+  "date": "2026-11-05",
+  "task_text": "Controlled profile-text reuse transformations of external LinkedIn About text",
+  "task_photo": "Copydays strong-query photo regions in controlled screenshot grids",
+  "independence": "Source identities/source-photo blocks separated before validation and test. Models selected using validation only. External texts were not used for fitting model weights.",
+  "sources": [
+    {
+      "url": "https://github.com/navid-aub/LinkedIn-Dataset",
+      "license": "Research use with source citation; no raw or derived profile text redistributed.",
+      "delivery": "https://doi.org/10.7717/peerj-cs.3182/supp-2"
+    },
+    {
+      "url": "https://thoth.inrialpes.fr/~jegou/data.php.html#copydays",
+      "license": "INRIA copyright, provided for copy-detection research; no photos redistributed."
+    }
+  ],
+  "selection": {
+    "text": {
+      "selected_at": "2026-11-04T20:52:23.426417+00:00",
+      "rule": "Higher validation recall with no increase in validation false positives; unchanged threshold 0.7",
+      "test_results_available_at_selection": false,
+      "baseline_sha256": "942d7cef537f3bd9fcda496223a262efd747a385a98f36f5e716dd652852ac4d",
+      "candidate_sha256": "dbc27ac89c8c97f6e19089ea87e72bfc323199ccd728e5264b88cbda71ca597a",
+      "validation_baseline_recall": 0.63,
+      "validation_candidate_recall": 0.91
+    },
+    "photo": {
+      "chosen_at": "2026-11-04T21:06:03.520855+00:00",
+      "selected": "perceptual hashes + ORB/SIFT geometric fallback",
+      "selection_split": "validation",
+      "reason": "29/50 copied regions detected, 0/50 negative matches, versus baseline 4/50 and 0/50. ORB-only candidate 15/50.",
+      "matcher_sha256": "70fa5171df00dfd132a1a4db37d21f499ffe3fbf3115d97d967212596880f103",
+      "test_previously_inspected": false,
+      "thresholds_tuned_on_test": false
+    }
+  },
+  "reports": {
+    "text-baseline-validation": {
+      "audit": {
+        "pairs": 600,
+        "groups": 75,
+        "accounts": 600,
+        "split_counts": {
+          "train": 200,
+          "validation": 200,
+          "test": 200
+        },
+        "cross_split_account_overlap": 0,
+        "duplicate_pairs": 0,
+        "manifest_sha256": "22fb9994876af21e48566471fe605f8c3cbaf075866b5d349fa57c5ec38797b1"
+      },
+      "evaluated_split": "validation",
+      "threshold_tuned_on_test": false,
+      "text_ml": {
+        "status": "measured",
+        "n": 200,
+        "threshold": 0.7,
+        "positives": 100,
+        "confusion_tn_fp_fn_tp": [
+          100,
+          0,
+          37,
+          63
+        ],
+        "precision": 1.0,
+        "recall": 0.63,
+        "f1": 0.7730061349693251,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.9425288004111484,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.5322052958094291,
+          0.7181763946567546
+        ],
+        "false_positive_interval_95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "meta_visual": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "hybrid_both_required": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "meta_result_coverage": 0.0,
+      "provider_requests": 0,
+      "by_kind": {
+        "added_bio_text": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            12,
+            13
+          ],
+          "precision": 1.0,
+          "recall": 0.52,
+          "f1": 0.6842105263157895,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.7719046276458016,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.3349851695035678,
+            0.6996871404588704
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "changed_name": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            25,
+            0
+          ],
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "different_handle": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_fan": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_parody": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "exact_copy": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "ordinary_default_avatar": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "same_name_different_bio": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        }
+      },
+      "source_manifest_sha256": "46d06247997cccd6770e264055a045a55b5650c4f1290638f38bafbad817e41e"
+    },
+    "text-candidate-validation": {
+      "audit": {
+        "pairs": 600,
+        "groups": 75,
+        "accounts": 600,
+        "split_counts": {
+          "train": 200,
+          "validation": 200,
+          "test": 200
+        },
+        "cross_split_account_overlap": 0,
+        "duplicate_pairs": 0,
+        "manifest_sha256": "22fb9994876af21e48566471fe605f8c3cbaf075866b5d349fa57c5ec38797b1"
+      },
+      "evaluated_split": "validation",
+      "threshold_tuned_on_test": false,
+      "text_ml": {
+        "status": "measured",
+        "n": 200,
+        "threshold": 0.7,
+        "positives": 100,
+        "confusion_tn_fp_fn_tp": [
+          100,
+          0,
+          9,
+          91
+        ],
+        "precision": 1.0,
+        "recall": 0.91,
+        "f1": 0.9528795811518325,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.9594959960711198,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.837737871472837,
+          0.9519274599974348
+        ],
+        "false_positive_interval_95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "meta_visual": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "hybrid_both_required": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "meta_result_coverage": 0.0,
+      "provider_requests": 0,
+      "by_kind": {
+        "added_bio_text": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "changed_name": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            9,
+            16
+          ],
+          "precision": 1.0,
+          "recall": 0.64,
+          "f1": 0.7804878048780488,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8063923194655637,
+            1.0
+          ],
+          "recall_interval_95": [
+            0.44518497748164865,
+            0.7975211922554178
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "different_handle": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_fan": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_parody": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "exact_copy": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "ordinary_default_avatar": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "same_name_different_bio": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        }
+      },
+      "source_manifest_sha256": "46d06247997cccd6770e264055a045a55b5650c4f1290638f38bafbad817e41e"
+    },
+    "text-baseline-test": {
+      "audit": {
+        "pairs": 600,
+        "groups": 75,
+        "accounts": 600,
+        "split_counts": {
+          "train": 200,
+          "validation": 200,
+          "test": 200
+        },
+        "cross_split_account_overlap": 0,
+        "duplicate_pairs": 0,
+        "manifest_sha256": "22fb9994876af21e48566471fe605f8c3cbaf075866b5d349fa57c5ec38797b1"
+      },
+      "evaluated_split": "test",
+      "threshold_tuned_on_test": false,
+      "text_ml": {
+        "status": "measured",
+        "n": 200,
+        "threshold": 0.7,
+        "positives": 100,
+        "confusion_tn_fp_fn_tp": [
+          100,
+          0,
+          38,
+          62
+        ],
+        "precision": 1.0,
+        "recall": 0.62,
+        "f1": 0.7654320987654321,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.9416559278986275,
+          0.9999999999999999
+        ],
+        "recall_interval_95": [
+          0.5220975529551107,
+          0.7090240074752127
+        ],
+        "false_positive_interval_95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "meta_visual": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "hybrid_both_required": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "meta_result_coverage": 0.0,
+      "provider_requests": 0,
+      "by_kind": {
+        "added_bio_text": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            13,
+            12
+          ],
+          "precision": 1.0,
+          "recall": 0.48,
+          "f1": 0.6486486486486487,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.7575059933447592,
+            1.0
+          ],
+          "recall_interval_95": [
+            0.30031285954112974,
+            0.6650148304964322
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "changed_name": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            25,
+            0
+          ],
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "different_handle": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_fan": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_parody": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "exact_copy": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "ordinary_default_avatar": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "same_name_different_bio": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        }
+      },
+      "source_manifest_sha256": "46d06247997cccd6770e264055a045a55b5650c4f1290638f38bafbad817e41e"
+    },
+    "text-candidate-test": {
+      "audit": {
+        "pairs": 600,
+        "groups": 75,
+        "accounts": 600,
+        "split_counts": {
+          "train": 200,
+          "validation": 200,
+          "test": 200
+        },
+        "cross_split_account_overlap": 0,
+        "duplicate_pairs": 0,
+        "manifest_sha256": "22fb9994876af21e48566471fe605f8c3cbaf075866b5d349fa57c5ec38797b1"
+      },
+      "evaluated_split": "test",
+      "threshold_tuned_on_test": false,
+      "text_ml": {
+        "status": "measured",
+        "n": 200,
+        "threshold": 0.7,
+        "positives": 100,
+        "confusion_tn_fp_fn_tp": [
+          100,
+          0,
+          8,
+          92
+        ],
+        "precision": 1.0,
+        "recall": 0.92,
+        "f1": 0.9583333333333334,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.9599186107143782,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.8500189229905127,
+          0.9589065385156194
+        ],
+        "false_positive_interval_95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "meta_visual": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "hybrid_both_required": {
+        "status": "not_run",
+        "reason": "No input-hash-bound Meta results supplied."
+      },
+      "meta_result_coverage": 0.0,
+      "provider_requests": 0,
+      "by_kind": {
+        "added_bio_text": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "changed_name": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            8,
+            17
+          ],
+          "precision": 1.0,
+          "recall": 0.68,
+          "f1": 0.8095238095238095,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8156818649911483,
+            1.0
+          ],
+          "recall_interval_95": [
+            0.48410269273102247,
+            0.8279480969309202
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "different_handle": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_fan": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "disclosed_parody": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "exact_copy": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 25,
+          "confusion_tn_fp_fn_tp": [
+            0,
+            0,
+            0,
+            25
+          ],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": null,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "recall_interval_95": [
+            0.8668077490609515,
+            0.9999999999999999
+          ],
+          "false_positive_interval_95": null,
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "ordinary_default_avatar": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        },
+        "same_name_different_bio": {
+          "status": "measured",
+          "n": 25,
+          "threshold": 0.7,
+          "positives": 0,
+          "confusion_tn_fp_fn_tp": [
+            25,
+            0,
+            0,
+            0
+          ],
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "false_positive_rate": 0.0,
+          "coverage": 1.0,
+          "abstentions": 0,
+          "precision_interval_95": null,
+          "recall_interval_95": null,
+          "false_positive_interval_95": [
+            1.3877787807814457e-17,
+            0.13319225093904846
+          ],
+          "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+        }
+      },
+      "source_manifest_sha256": "46d06247997cccd6770e264055a045a55b5650c4f1290638f38bafbad817e41e"
+    },
+    "photo-baseline-validation": {
+      "split": "validation",
+      "metrics": {
+        "status": "measured",
+        "n": 100,
+        "threshold": 0.5,
+        "positives": 50,
+        "confusion_tn_fp_fn_tp": [
+          50,
+          0,
+          46,
+          4
+        ],
+        "precision": 1.0,
+        "recall": 0.08,
+        "f1": 0.14814814814814814,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.5101091635454027,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.03154951408859298,
+          0.18838246918342838
+        ],
+        "false_positive_interval_95": [
+          6.938893903907228e-18,
+          0.07134759913335872
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "provider_requests": 0,
+      "manifest_sha256": "ef161b63f4a98735e901d534a9a970a8bc15e9e0c4285cfacdfc49112018add9",
+      "matcher_sha256": "d8ead5ebd63175eadee73181f9c2200a937130e19c7df743d3ee85e0c397f01a"
+    },
+    "photo-sift-validation": {
+      "split": "validation",
+      "metrics": {
+        "status": "measured",
+        "n": 100,
+        "threshold": 0.5,
+        "positives": 50,
+        "confusion_tn_fp_fn_tp": [
+          50,
+          0,
+          21,
+          29
+        ],
+        "precision": 1.0,
+        "recall": 0.58,
+        "f1": 0.7341772151898734,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.8830302015002593,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.4423344176857823,
+          0.7062499664528802
+        ],
+        "false_positive_interval_95": [
+          6.938893903907228e-18,
+          0.07134759913335872
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "provider_requests": 0,
+      "manifest_sha256": "ef161b63f4a98735e901d534a9a970a8bc15e9e0c4285cfacdfc49112018add9",
+      "matcher_sha256": "70fa5171df00dfd132a1a4db37d21f499ffe3fbf3115d97d967212596880f103"
+    },
+    "photo-baseline-test": {
+      "split": "test",
+      "metrics": {
+        "status": "measured",
+        "n": 100,
+        "threshold": 0.5,
+        "positives": 50,
+        "confusion_tn_fp_fn_tp": [
+          50,
+          0,
+          49,
+          1
+        ],
+        "precision": 1.0,
+        "recall": 0.02,
+        "f1": 0.0392156862745098,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.20654931437723745,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.003539259271646236,
+          0.10495443589637815
+        ],
+        "false_positive_interval_95": [
+          6.938893903907228e-18,
+          0.07134759913335872
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "provider_requests": 0,
+      "manifest_sha256": "ef161b63f4a98735e901d534a9a970a8bc15e9e0c4285cfacdfc49112018add9",
+      "matcher_sha256": "c0645db5ba858ff49b6285b762a58c9535a5e50c7bd507f4bc8a789888cd56ea"
+    },
+    "photo-candidate-test": {
+      "split": "test",
+      "metrics": {
+        "status": "measured",
+        "n": 100,
+        "threshold": 0.5,
+        "positives": 50,
+        "confusion_tn_fp_fn_tp": [
+          50,
+          0,
+          32,
+          18
+        ],
+        "precision": 1.0,
+        "recall": 0.36,
+        "f1": 0.5294117647058824,
+        "false_positive_rate": 0.0,
+        "coverage": 1.0,
+        "abstentions": 0,
+        "precision_interval_95": [
+          0.8241207763533425,
+          1.0
+        ],
+        "recall_interval_95": [
+          0.24138749651846741,
+          0.49858983123887307
+        ],
+        "false_positive_interval_95": [
+          6.938893903907228e-18,
+          0.07134759913335872
+        ],
+        "abstention_policy": "Unscored pairs count as not flagged; positive abstentions count as false negatives."
+      },
+      "provider_requests": 0,
+      "manifest_sha256": "ef161b63f4a98735e901d534a9a970a8bc15e9e0c4285cfacdfc49112018add9",
+      "matcher_sha256": "70fa5171df00dfd132a1a4db37d21f499ffe3fbf3115d97d967212596880f103"
+    }
+  },
+  "limitations": [
+    "Controlled transformations are not human-labelled real Instagram impersonation cases.",
+    "Photo reuse is not proof of ownership or deceptive intent.",
+    "Zero observed false positives has a nonzero confidence interval.",
+    "Meta and hybrid were not run on the full external corpus.",
+    "No benchmark causes an automatic moderator decision."
+  ]
+}

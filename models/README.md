@@ -7,7 +7,7 @@ dataset or executing an upstream notebook.
 | Artifact | Role | Limitation |
 | --- | --- | --- |
 | `profile_risk_model.json` | `profile-logreg-v2-no-avatar`: historical profile fake/spam patterns | Not an impersonation detector or identity probability; excludes avatar presence |
-| `pair_risk_model.json` | `pair-text-logreg-v1-synthetic`: text reuse between two explicit profiles | Synthetic training; real-world performance unvalidated |
+| `pair_risk_model.json` | `pair-text-logreg-v2-synthetic`: text reuse between two explicit profiles | Synthetic training; real-world performance unvalidated |
 
 Install them into the ignored runtime directory:
 

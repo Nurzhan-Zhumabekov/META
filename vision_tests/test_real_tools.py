@@ -119,3 +119,34 @@ def test_faint_gutter_recovery_does_not_match_unrelated_regular_grids():
     assert len(result['original_boxes']) >= 4
     assert len(result['suspect_boxes']) >= 4
     assert result['count'] == 0
+
+
+def test_geometric_matching_recovers_a_rotated_cropped_photo():
+    import random
+    from PIL import ImageOps
+    def textured(seed):
+        rng = random.Random(seed)
+        im = Image.new('RGB', (600,600), '#e0d7bb'); draw = ImageDraw.Draw(im)
+        for i in range(180):
+            x,y=rng.randrange(20,560),rng.randrange(20,560)
+            draw.rectangle((x,y,x+rng.randrange(5,35),y+rng.randrange(5,35)), fill=tuple(rng.randrange(30,220) for _ in range(3)))
+            draw.text((x,y),str(i),fill='black')
+        return im
+    source=textured(713)
+    copy=source.crop((70,55,530,535)).rotate(11,resample=Image.Resampling.BICUBIC)
+    def grid(im, seed):
+        out=Image.new('RGB',(900,900),'white')
+        for i,p in enumerate([im,textured(seed),textured(seed+1),textured(seed+2),textured(seed+3),textured(seed+4)]):
+            out.paste(ImageOps.fit(p,(240,240)),(40+(i%3)*243,330+(i//3)*243))
+        return out
+    result=compare_photos(grid(source,100),grid(copy,200))
+    assert any(m.get('verification')=='orb_geometry' and m.get('geometric_inliers',0)>=12 for m in result['matches'])
+
+
+def test_sift_geometry_supports_structure_and_rejects_unrelated_textures():
+    from evidence_tools.photos import _local_features, _geometry
+    first = _local_features(np.array(photo(27)), kind='sift')
+    same = _local_features(np.array(photo(27)), kind='sift')
+    unrelated = _local_features(np.array(photo(91)), kind='sift')
+    assert _geometry(first,same)['verification'] == 'sift_geometry'
+    assert _geometry(first,unrelated) is None

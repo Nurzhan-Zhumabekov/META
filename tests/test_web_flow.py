@@ -19,7 +19,8 @@ def test_reviewer_cookie_is_private_and_not_a_frontend_secret(client, new_claim)
     assert 'httponly' in cookie and 'samesite=strict' in cookie
     assert 'test-secret' not in response.text
     assert client.get('/claims/pending').status_code == 200
-    response = client.post(f"/claims/{claim['id']}/status?status=confirmed", headers=ORIGIN)
+    response = client.post(f"/claims/{claim['id']}/status", headers=ORIGIN,
+                           json={"status": "confirmed", "reason": "The processed evidence supports this decision.", "expected_version": 0})
     assert response.status_code == 200
     assert client.get('/statuses').json()['alice_fake'] == 'confirmed'
 

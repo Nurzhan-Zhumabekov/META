@@ -12,6 +12,18 @@ app = FastAPI(title='Instagram feature concept', docs_url=None, redoc_url=None)
 app.mount('/api', api)
 
 
+@app.get('/healthz')
+def health():
+    from . import config, screenshot_tools
+    from .profile_ml import model_status
+    from .pair_ml import pair_model_status
+    ready = (model_status().get('ready', False) and pair_model_status().get('ready', False)
+             and screenshot_tools.status().get('ready', False)
+             and (config.COMPARER != 'meta' or bool(config.META_API_KEY))
+             and (not config.PUBLIC_DEMO_ENABLED or bool(config.DEMO_SESSION_SECRET)))
+    return JSONResponse({'ready': bool(ready), 'human_review_required': True}, status_code=200 if ready else 503)
+
+
 @app.get('/{path:path}')
 def web_page(path: str):
     target = (WEB_DIST / path).resolve()

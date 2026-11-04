@@ -5,7 +5,7 @@ from pathlib import Path
 
 MODELS = {
     'profile_risk_model.json': 'profile-logreg-v2-no-avatar',
-    'pair_risk_model.json': 'pair-text-logreg-v1-synthetic',
+    'pair_risk_model.json': 'pair-text-logreg-v2-synthetic',
 }
 
 

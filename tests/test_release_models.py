@@ -23,7 +23,7 @@ def test_fresh_checkout_installs_both_valid_model_artifacts(tmp_path):
     assert len(installed) == 2
     models = [json.loads(path.read_text(encoding='utf-8')) for path in installed]
     assert {model['model_id'] for model in models} == {
-        'profile-logreg-v2-no-avatar', 'pair-text-logreg-v1-synthetic',
+        'profile-logreg-v2-no-avatar', 'pair-text-logreg-v2-synthetic',
     }
     assert all(path.read_bytes() == (source / path.name).read_bytes() for path in installed)
 

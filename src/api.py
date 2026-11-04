@@ -1,8 +1,9 @@
 import io
 import re
+import threading
 from typing import Literal
 
-from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile, Request, Response
+from fastapi import Body, Depends, FastAPI, File, Form, Header, HTTPException, UploadFile, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from starlette.concurrency import run_in_threadpool
@@ -16,6 +17,8 @@ from .pipeline import lookup, set_status, submit_claim
 from .profile_ml import ProfileFacts, ProfileText, model_status, score_profile
 from .pair_ml import PairFacts, pair_model_status, score_pair
 from . import pipeline
+from . import moderation
+from . import demo_sessions
 from . import screenshot_tools
 from .reviewer_auth import COOKIE, SESSION_SECONDS, check_origin, new_session, require_reviewer, revoke_session, token_valid
 
@@ -28,6 +31,80 @@ app.add_middleware(
 )
 
 MAX_BYTES = 5 * 1024 * 1024
+_public_analysis_slots = threading.BoundedSemaphore(2)
+
+
+@app.middleware('http')
+async def isolate_public_demo(request: Request, call_next):
+    if not config.PUBLIC_DEMO_ENABLED:
+        return await call_next(request)
+    identity = demo_sessions.decode(request.cookies.get(demo_sessions.COOKIE))
+    allowed = {'/analysis/status', '/demo/session'}
+    route_path = request.url.path.removeprefix(request.scope.get('root_path', ''))
+    if not identity and route_path not in allowed:
+        return JSONResponse({'detail': 'Start an isolated demonstration session.'}, status_code=401)
+    if request.method not in {'GET', 'HEAD', 'OPTIONS'}:
+        try:
+            check_origin(request)
+        except HTTPException as error:
+            return JSONResponse({'detail': error.detail}, status_code=error.status_code)
+    scope = demo_sessions.workspace.set(identity)
+    role = demo_sessions.reviewer.set(demo_sessions.has_role(request.cookies.get(demo_sessions.ROLE_COOKIE), identity))
+    limited = request.method == 'POST' and route_path in {'/claims', '/evidence/inspect'}
+    acquired = False
+    try:
+        if limited:
+            try:
+                length = int(request.headers.get('content-length', '0'))
+            except ValueError:
+                return JSONResponse({'detail': 'Invalid upload length.'}, status_code=400)
+            if not 0 < length <= 12*1024*1024:
+                return JSONResponse({'detail': 'Upload exceeds the 12 MB request limit or has no declared length.'}, status_code=413)
+            acquired = _public_analysis_slots.acquire(blocking=False)
+            if not acquired:
+                return JSONResponse({'detail': 'Analysis is busy. Try again shortly.'}, status_code=429)
+            if route_path == '/claims' and len(all_claims()) >= 3:
+                return JSONResponse({'detail': 'This session has reached its three-report limit.'}, status_code=429)
+        response = await call_next(request)
+        response.headers['Cache-Control'] = 'private, no-store'
+        return response
+    finally:
+        if acquired:
+            _public_analysis_slots.release()
+        demo_sessions.workspace.reset(scope)
+        demo_sessions.reviewer.reset(role)
+
+
+@app.get('/demo/session')
+def demo_session():
+    return {'enabled': config.PUBLIC_DEMO_ENABLED, 'active': bool(demo_sessions.workspace.get()),
+            'moderator': demo_sessions.reviewer.get(), 'expires_after_seconds': demo_sessions.LIFETIME}
+
+
+@app.post('/demo/session')
+def start_demo(request: Request, response: Response):
+    if not config.PUBLIC_DEMO_ENABLED:
+        raise HTTPException(404, 'Public demonstration mode is disabled.')
+    check_origin(request)
+    if demo_sessions.workspace.get():
+        return {'enabled': True, 'active': True, 'expires_after_seconds': demo_sessions.LIFETIME}
+    value = demo_sessions.new_cookie()
+    demo_sessions.admit(value.split('.')[0], request.client.host if request.client else 'unknown')
+    response.set_cookie(demo_sessions.COOKIE, value, max_age=demo_sessions.LIFETIME,
+                        httponly=True, secure=request.url.scheme == 'https', samesite='strict', path='/')
+    response.delete_cookie(demo_sessions.ROLE_COOKIE, path='/')
+    return {'enabled': True, 'active': True, 'expires_after_seconds': demo_sessions.LIFETIME}
+
+
+@app.post('/demo/reviewer')
+def enter_demo_reviewer(request: Request, response: Response):
+    if not config.PUBLIC_DEMO_ENABLED or not demo_sessions.workspace.get():
+        raise HTTPException(401, 'Start an isolated demonstration session first.')
+    check_origin(request)
+    response.set_cookie(demo_sessions.ROLE_COOKIE, demo_sessions.role_cookie(demo_sessions.workspace.get()),
+                        max_age=demo_sessions.LIFETIME, httponly=True, secure=request.url.scheme == 'https',
+                        samesite='strict', path='/')
+    return {'authenticated': True, 'scope': 'this_demo_session_only'}
 
 
 @app.exception_handler(ComparisonUnavailable)
@@ -39,6 +116,7 @@ async def comparison_error(request, error: ComparisonUnavailable):
 def analysis_status():
     return {
         "provider": config.COMPARER,
+        "public_demo": config.PUBLIC_DEMO_ENABLED,
         "model": config.META_MODEL if config.COMPARER == "meta" else None,
         "ready": bool(config.META_API_KEY) if config.COMPARER == "meta" else config.COMPARER in {"local", "mock"},
         "meta_key_configured": bool(config.META_API_KEY),
@@ -91,6 +169,7 @@ def reviewer_session():
 def reviewer_logout(request: Request, response: Response):
     revoke_session(request.cookies.get(COOKIE))
     response.delete_cookie(COOKIE, path='/')
+    response.delete_cookie(demo_sessions.ROLE_COOKIE, path='/')
     return {'authenticated': False}
 
 
@@ -98,7 +177,7 @@ def reviewer_logout(request: Request, response: Response):
 def claim_evidence(claim_id: str, kind: Literal['original', 'suspect']):
     if not re.fullmatch(r'[a-f0-9]{8}', claim_id) or not any(row['id'] == claim_id for row in all_claims()):
         raise HTTPException(404, 'Evidence not found')
-    path = pipeline.DB.parent / 'evidence' / claim_id / f'{kind}.jpg'
+    path = pipeline.active_db().parent / 'evidence' / claim_id / f'{kind}.jpg'
     if not path.is_file():
         raise HTTPException(404, 'Evidence not saved for this earlier report')
     return FileResponse(path, media_type='image/jpeg', headers={'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff'})
@@ -185,18 +264,87 @@ def get_statuses():
 
 @app.get("/claims/pending", dependencies=[Depends(require_admin)])
 def get_pending():
-    return [r for r in all_claims() if r["status"] == "under_review"]
+    return [moderation.reviewer_claim(r) for r in all_claims() if r["status"] == "under_review"]
 
 
 @app.get("/claims")
 def get_claims(handle: str):
-    return lookup(handle)
+    return [moderation.public_claim(row) for row in lookup(handle)]
+
+
+class DecisionBody(BaseModel):
+    model_config = ConfigDict(extra='forbid', strict=True)
+    status: Literal['confirmed', 'rejected']
+    reason: str = Field(min_length=10, max_length=2000)
+    expected_version: int = Field(ge=0)
 
 
 @app.post("/claims/{claim_id}/status", dependencies=[Depends(require_admin)])
-def update_status(claim_id: str, status: str):
-    if status not in {"under_review", "confirmed", "rejected"}:
+def update_status(claim_id: str, status: str | None = None, payload: DecisionBody | None = Body(default=None)):
+    if payload is None and status not in {'confirmed', 'rejected'}:
         raise HTTPException(400, "Invalid status")
-    if not set_status(claim_id, status):
-        raise HTTPException(404, "Claim not found")
+    if payload is None:
+        moderation.find(all_claims(), claim_id)
+        raise HTTPException(422, 'A reason and current report version are required.')
+    moderation.decide(claim_id, payload.status, payload.reason, payload.expected_version)
     return {"ok": True}
+
+
+@app.get('/claims/{claim_id}/history', dependencies=[Depends(require_admin)])
+def history(claim_id: str, response: Response):
+    row = moderation.find(all_claims(), claim_id)
+    response.headers['Cache-Control'] = 'private, no-store'
+    return {'events': row.get('history', []), 'version': row.get('version', 0),
+            'legacy_decision_without_reason': row['status'] in {'confirmed', 'rejected'} and not row.get('history')}
+
+
+@app.get('/reviewer/cases', dependencies=[Depends(require_admin)])
+def reviewed_cases(response: Response):
+    response.headers['Cache-Control'] = 'private, no-store'
+    return [moderation.reviewer_claim(row) for row in all_claims()]
+
+
+@app.post('/claims/{claim_id}/appeal-access', dependencies=[Depends(require_admin)])
+def appeal_access(claim_id: str, response: Response):
+    response.headers['Cache-Control'] = 'private, no-store'
+    return moderation.issue_access(claim_id)
+
+
+class AppealAccess(BaseModel):
+    model_config = ConfigDict(extra='forbid', strict=True)
+    token: str = Field(min_length=1, max_length=128)
+
+
+class AppealSubmission(AppealAccess):
+    reason: str = Field(min_length=10, max_length=2000)
+
+
+class AppealResolution(BaseModel):
+    model_config = ConfigDict(extra='forbid', strict=True)
+    outcome: Literal['uphold', 'overturn']
+    reason: str = Field(min_length=10, max_length=2000)
+    expected_version: int = Field(ge=0)
+
+
+@app.post('/appeals/access')
+def open_appeal(payload: AppealAccess, response: Response):
+    response.headers['Cache-Control'] = 'private, no-store'
+    return moderation.appeal_detail(payload.token)
+
+
+@app.post('/appeals', status_code=201)
+def appeal(payload: AppealSubmission, response: Response):
+    response.headers['Cache-Control'] = 'private, no-store'
+    return moderation.submit_appeal(payload.token, payload.reason)
+
+
+@app.get('/appeals/pending', dependencies=[Depends(require_admin)])
+def appeal_queue(response: Response):
+    response.headers['Cache-Control'] = 'private, no-store'
+    return moderation.pending_appeals()
+
+
+@app.post('/appeals/{appeal_id}/resolve', dependencies=[Depends(require_admin)])
+def resolve_appeal(appeal_id: str, payload: AppealResolution):
+    moderation.resolve(appeal_id, payload.outcome, payload.reason, payload.expected_version)
+    return {'ok': True}

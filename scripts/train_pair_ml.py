@@ -63,7 +63,7 @@ def main():
     fitted.fit(x, y, groups=[r['group'] for r in train])
     best = fitted.best_estimator_
     scaler, classifier = best.named_steps['scaler'], best.named_steps['classifier']
-    model = {'artifact_version': 1, 'model_id': 'pair-text-logreg-v1-synthetic',
+    model = {'artifact_version': 1, 'model_id': 'pair-text-logreg-v2-synthetic',
              'features': list(PAIR_FEATURES), 'mean': scaler.mean_.tolist(), 'scale': scaler.scale_.tolist(),
              'coefficients': classifier.coef_[0].tolist(), 'intercept': float(classifier.intercept_[0]),
              'threshold': 0.7, 'training_data': 'synthetic', 'split_sha256': hashes}

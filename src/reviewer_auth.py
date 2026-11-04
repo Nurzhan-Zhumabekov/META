@@ -6,6 +6,7 @@ import time
 from fastapi import HTTPException, Request
 
 from . import config
+from . import demo_sessions
 
 COOKIE = 'reviewer_session'
 SESSION_SECONDS = 3600
@@ -42,6 +43,12 @@ def revoke_session(value: str | None) -> None:
 
 
 def require_reviewer(request: Request, header: str | None) -> None:
+    if config.PUBLIC_DEMO_ENABLED:
+        if not demo_sessions.workspace.get() or not demo_sessions.reviewer.get():
+            raise HTTPException(401, 'Enter the moderator sandbox to review this session.')
+        if request.method not in {'GET', 'HEAD', 'OPTIONS'}:
+            check_origin(request)
+        return
     if not config.ADMIN_TOKEN:
         raise HTTPException(503, 'Reviewer endpoints are disabled: ADMIN_TOKEN is not configured')
     if header is not None:

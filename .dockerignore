@@ -1,0 +1,14 @@
+.git
+.env
+.env.*
+.venv*
+outputs
+.pytest*
+**/__pycache__
+web/node_modules
+web/dist
+mobile
+submission
+releases
+*.key
+*.pem

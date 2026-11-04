@@ -21,6 +21,7 @@ class Claim:
     analysis: dict = field(default_factory=dict)
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     evidence: dict = field(default_factory=dict)
+    version: int = 0
 
     def to_dict(self) -> dict:
         return asdict(self)

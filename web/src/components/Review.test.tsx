@@ -48,8 +48,8 @@ beforeEach(() => {
         );
       }
       if (url.endsWith("/claims/pending")) return Response.json([row()]);
-      if (url.includes("/status?status=")) {
-        state = url.split("status=")[1];
+      if (url.endsWith("/status") && options.method === "POST") {
+        state = JSON.parse(options.body as string).status;
         return Response.json({ ok: true });
       }
       if (url.endsWith("/statuses"))
@@ -77,6 +77,17 @@ async function login() {
   await screen.findByTestId("review-testcase");
 }
 
+function explainDecision() {
+  fireEvent.change(
+    screen.getByLabelText("Decision reason for @aigerim.k.studio"),
+    {
+      target: {
+        value: "I reviewed the processed screenshots and profile differences.",
+      },
+    },
+  );
+}
+
 it("requires reviewer sign-in and never sends the reviewer code with a decision", async () => {
   app();
   await screen.findByLabelText("Moderator code");
@@ -84,12 +95,16 @@ it("requires reviewer sign-in and never sends the reviewer code with a decision"
     fetchMock.mock.calls.some(([url]) => url.endsWith("/claims/pending")),
   ).toBe(false);
   await login();
+  expect(
+    screen.getByRole("button", { name: "Confirm impersonation" }),
+  ).toBeDisabled();
+  explainDecision();
   fireEvent.click(
     screen.getByRole("button", { name: "Confirm impersonation" }),
   );
   await screen.findByText("Decision saved.");
-  const action = fetchMock.mock.calls.find(([url]) =>
-    url.includes("/status?status="),
+  const action = fetchMock.mock.calls.find(
+    ([url]) => url.endsWith("/status") && !url.endsWith("/analysis/status"),
   );
   expect(action?.[1].credentials).toBe("same-origin");
   expect(JSON.stringify(action?.[1])).not.toContain("test-review-code");
@@ -97,6 +112,7 @@ it("requires reviewer sign-in and never sends the reviewer code with a decision"
 it("updates the same profile badge only after a human confirms the complaint", async () => {
   app();
   await login();
+  explainDecision();
   expect(screen.queryByText("Impersonation confirmed")).not.toBeInTheDocument();
   fireEvent.click(
     screen.getByRole("button", { name: "Confirm impersonation" }),
@@ -110,6 +126,7 @@ it("updates the same profile badge only after a human confirms the complaint", a
 it("does not create a warning label when a moderator rejects the claim", async () => {
   app();
   await login();
+  explainDecision();
   fireEvent.click(screen.getByRole("button", { name: "Dismiss report" }));
   fireEvent.click(await screen.findByRole("link", { name: "View profile" }));
   await waitFor(() => expect(state).toBe("rejected"));
