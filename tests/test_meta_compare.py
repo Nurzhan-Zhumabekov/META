@@ -135,6 +135,24 @@ def test_transient_errors_have_bounded_retries(make_image, status):
     assert len(calls) == 2
 
 
+def test_missing_provider_model_is_unavailable_and_does_not_save_a_claim(client, make_image, png, monkeypatch):
+    monkeypatch.setattr(config, 'COMPARER', 'meta')
+    calls = []
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(404, json={'error': {'code': 'model_not_found', 'message': 'private provider details'}})
+    monkeypatch.setattr(pipeline, 'get_comparer', lambda: comparer(handler))
+    response = client.post('/claims', data={'owner': 'alice', 'suspect': 'alice_fake'}, files={
+        'original': ('o.png', png(make_image()), 'image/png'),
+        'suspect_image': ('s.png', png(make_image()), 'image/png'),
+    })
+    assert response.status_code == 503
+    assert response.json()['code'] == 'meta_model_unavailable'
+    assert 'private provider details' not in response.text
+    assert len(calls) == 1
+    assert not pipeline.DB.exists()
+
+
 def test_retries_once_then_succeeds(make_image):
     calls = []
 

@@ -20,6 +20,7 @@ from . import pipeline
 from . import moderation
 from . import demo_sessions
 from . import screenshot_tools
+from . import meta_availability
 from .reviewer_auth import COOKIE, SESSION_SECONDS, check_origin, new_session, require_reviewer, revoke_session, token_valid
 
 app = FastAPI(title="Fake Account Report API")
@@ -114,12 +115,14 @@ async def comparison_error(request, error: ComparisonUnavailable):
 
 @app.get("/analysis/status")
 def analysis_status():
+    meta_access = meta_availability.model_access() if config.COMPARER == 'meta' else None
     return {
         "provider": config.COMPARER,
         "public_demo": config.PUBLIC_DEMO_ENABLED,
         "model": config.META_MODEL if config.COMPARER == "meta" else None,
-        "ready": bool(config.META_API_KEY) if config.COMPARER == "meta" else config.COMPARER in {"local", "mock"},
+        "ready": meta_access['available'] if meta_access is not None else config.COMPARER in {"local", "mock"},
         "meta_key_configured": bool(config.META_API_KEY),
+        "meta_model_access": meta_access,
         "human_review_required": True,
         "profile_ml": model_status(),
         "pair_ml": pair_model_status(),

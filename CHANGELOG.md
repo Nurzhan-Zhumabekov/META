@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Wait for the real lazy emoji picker and English catalog before testing Direct search, preventing a cold Docker build from racing the asynchronous module load.
+- Check the actual Meta model catalog with a short cached, read-only request before advertising Meta as ready; a configured key alone is insufficient.
+- Handle Meta `model_not_found` as an unavailable model without saving a report, repeating the rejected call or exposing provider details.
 
 ## 0.13.0 - 2026-11-05
 

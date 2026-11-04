@@ -195,6 +195,15 @@ class MetaComparer:
                     raise ComparisonUnavailable('meta_auth_failed', 'Meta API rejected the server key. Check META_API_KEY and model access.', 503)
                 elif response.status_code == 402:
                     raise ComparisonUnavailable('meta_billing_required', 'Meta API billing or credits are required. Check the Meta Billing page.', 503)
+                elif response.status_code == 404:
+                    try:
+                        failure = response.json()
+                    except ValueError:
+                        failure = None
+                    error = failure.get('error') if isinstance(failure, dict) else None
+                    if isinstance(error, dict) and error.get('code') == 'model_not_found':
+                        raise ComparisonUnavailable('meta_model_unavailable', 'The configured Meta model is unavailable from this server. Your report was not saved. Check model access or try again later.', 503)
+                    raise ComparisonUnavailable('meta_request_rejected', 'Meta API rejected the analysis request. Check the configured model and API settings.')
                 elif response.status_code == 429 or response.status_code >= 500:
                     last_error = ComparisonUnavailable('meta_rate_limited' if response.status_code == 429 else 'meta_unavailable', 'Meta AI is temporarily unavailable or rate limited. Try again later.', 503)
                     retry_after = response.headers.get('Retry-After', '')
