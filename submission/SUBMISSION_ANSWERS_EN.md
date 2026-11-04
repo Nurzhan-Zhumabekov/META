@@ -1,6 +1,6 @@
 # MirrorCheck вЂ” adaptable submission answers
 
-Historical reusable answer blocks prepared on November 4, 2026. The current actual form is filled; see [FINAL_FORM_EN.md](FINAL_FORM_EN.md) for its exact draft and submission state. Older test counts and hosting notes below describe the earlier preparation.
+Historical reusable answer blocks prepared on November 4, 2026. The actual form has been submitted; see [FINAL_FORM_EN.md](FINAL_FORM_EN.md) for its exact draft and submission state. Older test counts and hosting notes below describe the earlier preparation.
 
 Project name: **MirrorCheck вЂ” AI-Assisted Impersonation Review**
 

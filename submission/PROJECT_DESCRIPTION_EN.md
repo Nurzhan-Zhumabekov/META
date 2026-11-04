@@ -1,6 +1,6 @@
 # MirrorCheck — AI-Assisted Impersonation Review
 
-Working hackathon submission draft. The owner reviews and submits the final form.
+Submitted to the Meta Global AI Developer Hackathon. See `FINAL_FORM_EN.md` for the actual submitted answers and `HACKATHON_SUBMISSION_RECEIPT.json` for the UI confirmation.
 
 ## One-line pitch
 

@@ -1,6 +1,6 @@
-# MirrorCheck — final Cerebral Valley form draft
+# MirrorCheck — submitted Cerebral Valley form
 
-Prepared from the actual form on 5 November 2026. Not submitted yet; promotional-use consent and personal survey answers await the owner's confirmation.
+Submitted on 5 November 2026 (owner local time). The site confirmed **Project Submitted** and the saved **Your Submission** form was reopened. Receipt: `HACKATHON_SUBMISSION_RECEIPT.json`. The owner explicitly confirmed promotional-use consent and all survey answers before submission.
 
 Team: beyond
 Member shown: Nurzhan_Zhuma / Nurzhan Zhumabekov
@@ -44,18 +44,18 @@ Structured output makes the comparison usable in a review interface: observation
 
 We tested the real endpoint and distinguish live responses from cached results. Cloud access initially returned an empty model catalog and model_not_found in the first Codespace; the same key and model worked in the replacement US West environment. We report that observed difference without claiming a diagnosed regional policy or a general vendor outage. Production use would still require independent account-level validation, operational monitoring and verified ownership evidence. We have not run a controlled comparison against other multimodal providers. Not every model recommendation will be correct, which is why the human review and appeal steps are essential.
 
-## Survey values currently in the draft
+## Submitted survey values confirmed by the owner
 
-- Likelihood to build with Meta API: Very likely (form default; owner to confirm).
-- Overall opinion: Very favorable (form default; owner to confirm).
-- Recommend Meta API: 5/5 (form default; owner to confirm).
-- Recommend Muse Code: 5/5 (form default; owner to confirm; this project does not claim use of Muse Code).
+- Likelihood to build with Meta API: Very likely (owner confirmed).
+- Overall opinion: Very favorable (owner confirmed).
+- Recommend Meta API: 5/5 (owner confirmed).
+- Recommend Muse Code: 5/5 (owner confirmed; this project does not claim use of Muse Code).
 - Biggest obstacle: Errors / outages or unreliable service.
 - Comparative performance: We've used other models but couldn't make a clear comparison.
-- Most important: Quality of the answers and code (owner to confirm).
-- Switching: Our product is tuned to our current model’s behavior and prompts (owner to confirm).
+- Most important: Quality of the answers and code (owner confirmed).
+- Switching: Our product is tuned to our current model’s behavior and prompts (owner confirmed).
 - Production blocker: Reliability or uptime.
 
 Optional X post and partner-technology feedback are blank.
 
-The form initially preselected this promotional-use consent; it has been cleared pending the owner's confirmation: Meta and Cerebral Valley may use, publish, share and promote submitted materials on their websites, social media and marketing channels. A preselected checkbox is not treated as the owner's consent.
+The owner explicitly approved and submitted the promotional-use consent: Meta and Cerebral Valley may use, publish, share and promote submitted materials on their websites, social media and marketing channels. The checkbox was selected only after the owner's explicit confirmation.

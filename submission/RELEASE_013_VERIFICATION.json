@@ -43,5 +43,8 @@
   "public_video_url": "https://nurzhan-zhumabekov.github.io/META/",
   "cloud_verification_file": "PUBLIC_CLOUD_VERIFICATION.json",
   "cloud_browser_walkthrough_verified": true,
-  "browser_claim_id": "e8d93214"
+  "browser_claim_id": "e8d93214",
+  "hackathon_submission_status": "submitted",
+  "hackathon_submission_id": "81730f97-266b-4268-b3af-15393075c514",
+  "hackathon_submission_receipt": "HACKATHON_SUBMISSION_RECEIPT.json"
 }
