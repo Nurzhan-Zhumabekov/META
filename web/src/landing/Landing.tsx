@@ -123,6 +123,7 @@ export function Landing() {
           curve={68}
           fade={13}
           paused={paused}
+          motion="play"
           className="mc-hero"
           aria-labelledby="hero-title"
         >
@@ -188,40 +189,6 @@ export function Landing() {
             </a>
           </div>
         </TiltedGridHero>
-        <section
-          className="mc-technology"
-          aria-label="Technology behind the review"
-        >
-          <span>
-            THE TOOLS BEHIND
-            <br />
-            <strong>A BETTER SECOND LOOK</strong>
-          </span>
-          <div>
-            <span className="mc-meta-logo" aria-hidden="true">
-              ∞
-            </span>
-            Meta AI
-          </div>
-          <div>
-            <Icon name="search" size={21} />
-            PaddleOCR
-          </div>
-          <div>
-            <Icon name="grid" size={20} />
-            imagededup
-          </div>
-          <div>
-            <Icon name="shield" size={21} />
-            Presidio
-          </div>
-          <div>
-            <span className="mc-ml-logo" aria-hidden="true">
-              ML
-            </span>
-            Independent signals
-          </div>
-        </section>
         <Workflow />
         <section
           className="mc-privacy mc-section"
@@ -294,7 +261,7 @@ export function Landing() {
               aria-label="Watch the full English demo"
             >
               <img
-                src="/demo-video-poster.jpg"
+                src="/demo-video-poster.jpg?v=20261105"
                 alt="Recorded MirrorCheck demonstration with English narration"
                 loading="lazy"
                 width="1920"

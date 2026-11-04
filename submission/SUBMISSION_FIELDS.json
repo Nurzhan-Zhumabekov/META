@@ -66,56 +66,74 @@
   },
   "video_url": "https://github.com/Nurzhan-Zhumabekov/META/raw/refs/heads/main/web/public/MirrorCheck_Demo_EN_3min.mp4",
   "video_verification": {
-    "verified_at": "2026-11-04T16:50:15.403932+00:00",
+    "verified_at": "2026-11-04T20:10:27.387189+00:00",
     "file": "web/public/MirrorCheck_Demo_EN_3min.mp4",
-    "bytes": 7774517,
-    "sha256": "c5e261078ec97e482464a94cf1251eadfeeb361cb8caf10ae56613678d6b1e2e",
+    "bytes": 8419973,
+    "sha256": "7322eeda469d1d6a8c1aaf08ac1d009034bcbd94f13e9ffce195cc34e7871644",
     "duration_seconds": 180,
+    "video_frames": 5400,
     "width": 1920,
     "height": 1080,
     "fps": 30,
     "video_codec": "h264",
     "audio_codec": "aac",
     "audio_sample_rate": 48000,
-    "english_narration": "Microsoft en-US-AndrewNeural via edge-tts; synthesized",
+    "english_narration": "Microsoft en-US-AndrewNeural via edge-tts 7.3.1; synthesized",
     "burned_english_captions": true,
     "sidecar_srt": "web/public/MirrorCheck_Demo_EN_3min.srt",
+    "caption_cues": 40,
+    "caption_to_synthesis_timing_check": "10 scene transcripts matched timed synthesis metadata",
+    "maximum_narration_tempo": 1.0736842105263158,
+    "narration_asr": {
+      "performed_for_this_export": false
+    },
     "edited_authentic_browser_captures": true,
     "continuous_realtime_recording": false,
-    "full_video_and_audio_decode": "passed",
-    "narration_asr": {
-      "engine": "whisper.cpp tiny.en q5_1",
-      "exact_pcm_sha256": "88488cd109790b310590fdc54ea6fa1c8571678d183aaddc74397a499fe7a15b",
-      "required_workflow_phrases_present": true,
-      "limitations": "Recognition includes ordinary transcription errors."
+    "opening_landing_motion": {
+      "exported_seconds": 12,
+      "source_capture_seconds": 12.191,
+      "source_frames": 159,
+      "browser_transforms_changed": true,
+      "encoded_segment_sha256": "0b8274b396a606ee70cd1312ea04369560e6ac6493b3a61e7163d20ffea617e6"
     },
+    "full_video_and_audio_decode": "passed",
     "audio_integrated_lufs": -16.13,
-    "audio_true_peak_dbtp": -1.49,
+    "audio_true_peak_dbtp": -1.41,
     "known_local_secret_scan": "passed",
-    "claim_id": "1b96686f",
-    "fictional_suspect": "aigerim.k.demo",
+    "secret_scan_scope": "Known local credentials as bytes plus visual review of source captures; not comprehensive PII detection",
+    "claim_id": "9a26d2b2",
+    "fictional_suspect": "aigerim.k.showcase",
     "meta": {
       "provider": "meta",
       "model": "muse-spark-1.3",
       "cached": false,
       "recommendation": "needs_review",
-      "summary": "Strong visible content reuse: identical display name, bio wording, avatar graphic, highlights and grid photos, with only handle altered by '.demo' and different counts. Screenshots alone cannot prove ownership and human review is required.",
+      "summary": "High visible content reuse of display name, bio wording, avatar graphic, highlights, and grid photos, with only the handle and account metrics differing. Screenshots alone cannot prove ownership and a human must decide.",
       "prompt_version": "impersonation-evidence-v2-en",
       "usage": {
-        "completion_tokens": 521,
-        "prompt_tokens": 2810,
-        "total_tokens": 3331
+        "completion_tokens": 619,
+        "prompt_tokens": 2883,
+        "total_tokens": 3502
       }
     },
-    "combined_similarity": 0.8925217391304349,
-    "pair_text_reuse_ml": 0.7261383743833167,
+    "meta_visual_similarity": 0.9,
+    "combined_similarity": 0.8533333333333334,
+    "pair_text_reuse_ml": 0.7206248303018813,
     "profile_spam_patterns_ml": 0.9445791928451287,
     "matched_image_regions": 4,
     "masked_contact_regions": 2,
     "preview_provider_stored_bytes_equal": true,
     "moderator_action": "Explicit Confirm impersonation action by the demo operator",
     "status_after_reload": "confirmed",
-    "previous_claims_unchanged": 10,
+    "previous_claims_unchanged": 12,
+    "previous_evidence_files_unchanged": 18,
+    "earlier_negative_case": {
+      "claim_id": "99a356a9",
+      "profile": "aruzhan.jpg",
+      "moderator_decision": "rejected",
+      "profile_warning": "absent",
+      "new_meta_call_during_this_refresh": false
+    },
     "video_url": "https://github.com/Nurzhan-Zhumabekov/META/raw/refs/heads/main/web/public/MirrorCheck_Demo_EN_3min.mp4",
     "public_application_deployment": false,
     "hackathon_submitted": false
@@ -141,132 +159,70 @@
   "scenes": [
     {
       "start": 0,
-      "end": 12,
-      "title": "The problem",
-      "shots": [
-        "01-original-profile.png",
-        "02-copy-before-report.png"
-      ],
-      "action": "Open on a simple title card: MirrorCheck / AI-Assisted Impersonation Review. Cut to the original and the suspected copy side by side. Keep the usernames legible.",
-      "overlay": "Unofficial Instagram-style prototype \u00b7 Fictional accounts",
-      "voiceover": "An impersonator can copy a creator's photos and biography while changing just the username. MirrorCheck helps turn that suspicion into evidence a reviewer can inspect."
+      "end": 18,
+      "title": "A clearer signal",
+      "voiceover": "MirrorCheck gives familiar feeds a clearer signal. Our new landing page introduces the product with a moving gallery and liquid glass navigation. The goal is simple: turn suspected profile copies into evidence, while keeping the decision human."
     },
     {
-      "start": 12,
-      "end": 28,
-      "title": "Show the working product",
-      "shots": [
-        "01-original-profile.png",
-        "02-copy-before-report.png"
-      ],
-      "action": "Identify aigerim.k and aigerim.k.archive. Point to the shared display name, bio, avatar graphic and gallery. Show that the copy initially has no warning.",
-      "overlay": "Recorded real browser run \u00b7 No real accounts reported",
-      "voiceover": "This is our working, unofficial Instagram-style web prototype. These two fictional accounts share a name, biography, avatar and post images, but have different usernames."
+      "start": 18,
+      "end": 34,
+      "title": "Original and reported profile",
+      "voiceover": "This is the original profile, and this is a new fictional copy. The display name, biography, avatar and photos are reused, while the username and profile statistics differ. Neither screenshot proves account ownership."
     },
     {
-      "start": 28,
-      "end": 50,
+      "start": 34,
+      "end": 58,
       "title": "Report and review OCR",
-      "shots": [
-        "03-report-reason.png",
-        "04-ocr-processing.png",
-        "06-reviewed-ml-fields.png"
-      ],
-      "action": "Show Report account \u2192 Pretending to be someone else. Then show the screenshot-upload and OCR captures. Zoom the reviewed fields and I have reviewed the extracted data. Explain the corrections without pretending extraction was perfect.",
-      "overlay": "PaddleOCR \u2192 editable fields \u2192 reporter review",
-      "voiceover": "From the suspected copy, I choose Report account, then Pretending to be someone else. I attach screenshots of the original and suspected profile. PaddleOCR fills editable fields, and I correct the extracted text against the screenshots before submitting."
+      "voiceover": "From the suspected copy, I choose Report account, then Pretending to be someone else. I upload screenshots of both profiles. Paddle O C R extracts the visible names, biographies and counts. I compare those fields with the screenshots, correct anything misread, and acknowledge the review before submitting."
     },
     {
-      "start": 50,
-      "end": 72,
-      "title": "Privacy before the provider",
-      "shots": [
-        "05-ocr-redaction-preview.png"
-      ],
-      "action": "Hold on the suspect preview with the email and phone lines masked. Show a small editor-added flow: local OCR + Presidio \u2192 processed JPEG \u2192 Meta AI. Add an editor-added verification note, clearly separate from the application UI: 2 regions masked; preview/provider-prepared/stored bytes match.",
-      "overlay": "Detected contact lines masked locally before Meta AI",
-      "voiceover": "Before any image reaches Meta AI, Presidio identifies the example email and phone. The server permanently covers both contact lines. These previews are the actual processed images prepared for Meta, with matching hashes for the evidence saved for review."
+      "start": 58,
+      "end": 78,
+      "title": "Privacy before Meta AI",
+      "voiceover": "Privacy comes before the model request. Presidio detects the example contact details locally, and the server masks those regions in the images. I can inspect the exact processed previews. The moderator later sees the same processed evidence that was prepared for Meta AI."
     },
     {
-      "start": 72,
-      "end": 96,
-      "title": "Real Meta Muse Spark analysis",
-      "shots": [
-        "07-meta-processing.png",
-        "08-report-receipt.png",
-        "09-meta-and-ml-results.png",
-        "11-moderator-evidence.png"
-      ],
-      "action": "Show processing, then the receipt and Meta AI summary in 09-meta-and-ml-results.png. Zoom the actual English reuse observations and ownership limitation. The supplied capture does not expose the model-version field: put muse-spark-1.3 and needs_review in a clearly editor-added caption, sourced from VERIFIED_DEMO_FACTS.json. The moderator capture shows the processed evidence images. Do not show a reviewer access code.",
-      "overlay": "Real uncached Meta response \u00b7 needs_review \u00b7 Waiting time condensed",
-      "voiceover": "Meta Muse Spark analyzes the processed screenshots through our backend and returns structured similarities, differences and limitations. Here it identifies reused profile content and recommends further review. It explicitly says screenshots cannot establish ownership. This is a real API response from the recorded run."
+      "start": 78,
+      "end": 102,
+      "title": "Real Meta AI and separate ML",
+      "voiceover": "Meta Muse Spark compares the processed screenshots through the backend. This is a real, fresh response from the recorded case. It returns visible similarities, differences, and a review recommendation. The interface separates Meta's visual score, the combined score, text reuse M L, and profile spam patterns. These are signals, not identity probabilities."
     },
     {
-      "start": 96,
-      "end": 116,
-      "title": "Independent ML and image evidence",
-      "shots": [
-        "09-meta-and-ml-results.png",
-        "11-moderator-evidence.png"
-      ],
-      "action": "Show Content reuse signals \u00b7 ML, Image and name similarity and Spam patterns \u00b7 ML separately. Application cards round to 72%, 86% and 94%. If adding an editor overlay with more precision, use 72.19%, 85.85% and 94.46%. Describe the imagededup result as ONE matching grid region, not six individual photo detections.",
-      "overlay": "Text reuse \u2260 spam patterns \u2260 identity verification",
-      "voiceover": "Local models add separate signals: a text-reuse comparison between the two profiles, and an auxiliary profile spam-pattern score. Image deduplication also finds a matching grid region. These scores are evidence signals, not accuracy claims or proof of identity."
+      "start": 102,
+      "end": 124,
+      "title": "Human moderation",
+      "voiceover": "The report remains under review until a moderator acts. In the protected review queue, I inspect the processed images, matching photo regions, the model's observations, and its limitations. Confirmation is a deliberate human action. Here, the moderator confirms this fictional copied account."
     },
     {
-      "start": 116,
-      "end": 134,
-      "title": "Keep uncertainty visible",
-      "shots": [
-        "10-profile-under-review.png",
-        "09-meta-and-ml-results.png"
-      ],
-      "action": "Show Account under review, then the synthetic-training disclosure in the analysis. Add a small editor note: profile model excludes avatar presence. Do not suggest the demo proves every ordinary profile is safe or that an actual avatar was changed during this run.",
-      "overlay": "Under review \u00b7 Synthetic pair training disclosed",
-      "voiceover": "The report remains Under review. Our profile model excludes avatar presence, so changing only a default-avatar flag cannot change its score. The pair model uses synthetic training data, a limitation shown to the reviewer."
+      "start": 124,
+      "end": 142,
+      "title": "The saved profile warning",
+      "voiceover": "The decision is saved on the server. I return to the reported profile and reload the page. The impersonation warning remains visible. An analysis score alone never creates this label; the moderator's saved decision does."
     },
     {
-      "start": 134,
-      "end": 152,
-      "title": "Separate moderator decision",
-      "shots": [
-        "11-moderator-evidence.png",
-        "12-moderator-decision.png",
-        "13-decision-saved.png"
-      ],
-      "action": "Show the relevant claim's processed evidence, then the Decision saved capture. The supplied 12-moderator-decision.png is cropped to evidence; the action button and click are outside the capture. Describe Confirm impersonation through narration and an editor-added caption, not a fabricated button or click. This is a replay of the authorized fictional demo, where the operator also played the moderator; it is not an independent identity investigation.",
-      "overlay": "Moderator action required \u00b7 Fictional demonstration",
-      "voiceover": "In the moderator view, I inspect the processed images and analysis, then explicitly select Confirm impersonation for this fictional case. The AI recommendation alone cannot perform this transition."
+      "start": 142,
+      "end": 160,
+      "title": "A report can be dismissed",
+      "voiceover": "The opposite outcome is possible too. This earlier fictional report concerns an ordinary profile. The moderator dismissed it, and the account has no warning. Shared stock photographs can create visual overlap without establishing impersonation."
     },
     {
-      "start": 152,
-      "end": 170,
-      "title": "Warning and persistence",
-      "shots": [
-        "14-profile-labelled.png",
-        "15-label-after-reload.png"
-      ],
-      "action": "Hold on Impersonation confirmed. Cut to the after-reload capture. If recording the live labelled page now, reload it and show the saved warning; do not reset the existing report to recreate the earlier state.",
-      "overlay": "Impersonation confirmed \u00b7 Persists after reload",
-      "voiceover": "The profile now displays Impersonation confirmed. Reloading preserves the warning because the decision is stored on the server. This demonstrates the complete report-to-review workflow; it does not modify the real Instagram service."
+      "start": 160,
+      "end": 172,
+      "title": "Clear limits",
+      "voiceover": "MirrorCheck is a working local prototype. Its text model uses synthetic training pairs, and performance on real account copies still needs independent evaluation. Human review remains essential."
     },
     {
-      "start": 170,
+      "start": 172,
       "end": 180,
-      "title": "Close with the value and next step",
-      "shots": [
-        "15-label-after-reload.png"
-      ],
-      "action": "End on MirrorCheck, the one-line value proposition and Meta Muse Spark + local evidence + moderator review. Add the repository URL only after it contains the current source and license. End at 03:00 or earlier.",
-      "overlay": "Review suspected copies. Reduce contact exposure. Keep a moderator in control.",
-      "voiceover": "MirrorCheck makes suspicious copies easier to review while reducing contact exposure. Next, we need consented real-world evaluation and production hardening."
+      "title": "A second look",
+      "voiceover": "Explore the prototype and both outcomes. MirrorCheck: a second look, a human decision."
     }
   ],
   "word_counts": {
     "main": 268,
     "short": 97,
     "compact": 48,
-    "voiceover": 322
+    "voiceover": 363
   },
   "character_counts": {
     "title": 11,
@@ -274,5 +230,6 @@
     "main": 1885,
     "short": 710,
     "compact": 344
-  }
+  },
+  "video_updated_at": "2026-11-04T20:10:27.387189+00:00"
 }

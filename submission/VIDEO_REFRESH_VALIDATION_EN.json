@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-11-04T20:11:55.341992+00:00",
+  "version": "0.12.0",
+  "backend_tests": 139,
+  "frontend_tests": 34,
+  "real_image_tool_tests": 12,
+  "real_presidio_tests": 3,
+  "frontend_build": true,
+  "preflight_checks_passed": 13,
+  "video_sha256": "7322eeda469d1d6a8c1aaf08ac1d009034bcbd94f13e9ffce195cc34e7871644",
+  "video_duration_seconds": 180,
+  "source_captures_preserved": true,
+  "original_draft_script": "DEMO_VIDEO_SCRIPT_EN.md",
+  "current_finished_scene_manifest": "VIDEO_SCENES_RECORDED_EN.json",
+  "public_application_deployed": false,
+  "hackathon_form_submitted": false
+}

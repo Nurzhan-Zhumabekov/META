@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 - 2026-11-05
+
+- Play the landing gallery as explicitly requested, including when the browser enables reduced motion; retain manual pause, visibility suspension and the component's default system preference behavior.
+- Remove the entire technology-logo strip from the landing page and add a regression check.
+- Recover consistent photo columns separated by faint neutral-gray gutters, without changing image-match thresholds; add recorded copied-photo and unrelated-grid regressions.
+- Refresh the 180-second English video with genuine landing motion, a fresh uncached Meta run, local ML, two contact masks, explicit moderator confirmation, a persisted warning and an earlier dismissed case.
+- Match the video player to the landing design, update its chapters, captions, poster and verification notes, and preserve existing reports and evidence.
+
 ## 0.11.0 - 2026-11-05
 
 - Replace the demo entry with a responsive MirrorCheck landing page combining the user-supplied liquid-glass navigation and curved image gallery, retaining source attribution.

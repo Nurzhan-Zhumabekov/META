@@ -5,8 +5,8 @@
 [Clean-checkout quick start](QUICKSTART.md) ·
 [English project description](submission/PROJECT_DESCRIPTION_EN.md) ·
 [Three-minute demo script](submission/DEMO_VIDEO_SCRIPT_EN.md) ·
-[Voiceover](submission/VOICEOVER_EN.txt) ·
-[Submission ZIP](releases/submission-kit-20261104.zip) ·
+[Recorded voiceover](submission/VOICEOVER_RECORDED_EN.txt) ·
+[Submission ZIP](releases/submission-kit-20261105.zip) ·
 [Publication checks](submission/REPOSITORY_PUBLICATION.json) ·
 [License](LICENSE) · [Attributions](NOTICE.md)
 
@@ -14,10 +14,15 @@
 [MP4](web/public/MirrorCheck_Demo_EN_3min.mp4) ·
 [captions](web/public/MirrorCheck_Demo_EN_3min.srt) ·
 [recording facts](submission/VIDEO_VERIFICATION_EN.json).**
-The 03:00, 1080p video uses a new real Meta run for fictional `aigerim.k.demo`,
-claim `1b96686f`, including the actual moderator action and warning after reload.
-It is an edited presentation of authentic browser captures with synthesized
-English narration and burned captions. The operator demonstrates both roles.
+The refreshed 03:00, 1080p video opens on the moving MirrorCheck landing gallery
+and uses a new uncached Meta run for fictional `aigerim.k.showcase`, claim
+`9a26d2b2`. It shows the actual moderator confirmation and warning after reload,
+then revisits an earlier dismissed report about `aruzhan.jpg`, without a warning.
+It combines a real 12-second moving landing capture with edited authentic
+browser stills, synthesized English narration and burned captions. The operator
+demonstrates reporter and moderator. [Current scenes](submission/VIDEO_SCENES_RECORDED_EN.json)
+and [delivery notes](submission/VIDEO_DELIVERY_EN.md) describe this export;
+the original script and its stills retain the earlier archive-profile run.
 
 The repository includes the native web application, its archived Flutter client,
 tests, two JSON inference models and the English hackathon submission packet.

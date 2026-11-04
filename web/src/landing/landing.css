@@ -1981,7 +1981,7 @@ html {
   *::after {
     transition-duration: 0s !important;
   }
-  .tilted-grid-tile {
+  .tilted-grid-hero:not([data-motion="play"]) .tilted-grid-tile {
     animation-play-state: paused !important;
   }
   .mc-button-primary:hover,

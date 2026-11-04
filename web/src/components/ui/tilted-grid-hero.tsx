@@ -126,6 +126,8 @@ export type TiltedGridHeroProps = {
   children?: React.ReactNode;
   className?: string;
   paused?: boolean;
+  /** Explicit playback can override the system motion preference; pause still wins. */
+  motion?: "system" | "play";
 };
 
 export function TiltedGridHero({
@@ -140,6 +142,7 @@ export function TiltedGridHero({
   children,
   className,
   paused = false,
+  motion = "system",
   ...props
 }: React.ComponentProps<"div"> & TiltedGridHeroProps) {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -229,7 +232,7 @@ export function TiltedGridHero({
     // Pausing rather than removing the motion keeps the band whole: every
     // tile is already placed by its negative delay, so it freezes as a
     // finished still.
-    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}`;
+    `@media(prefers-reduced-motion:reduce){[data-motion="system"] .${tile}{animation-play-state:paused}}`;
 
   const share = aspectRatio / SLICES;
   const duration = columns * speed;
@@ -243,6 +246,7 @@ export function TiltedGridHero({
       className={cn("tilted-grid-hero", className)}
       {...props}
       data-paused={paused || !visible}
+      data-motion={motion}
       style={{ containerType: "size", ...props.style }}
     >
       <style>{css}</style>

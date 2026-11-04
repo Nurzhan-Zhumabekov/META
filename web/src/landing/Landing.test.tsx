@@ -101,6 +101,9 @@ it("keeps recorded demos accessible if the local API is offline", async () => {
 
 it("offers a pause control for decorative motion", () => {
   render(<Landing />);
+  expect(
+    screen.getByRole("region", { name: "A familiar face. A clearer signal." }),
+  ).toHaveAttribute("data-motion", "play");
   fireEvent.click(
     screen.getByRole("button", { name: "Pause gallery animation" }),
   );
@@ -110,6 +113,14 @@ it("offers a pause control for decorative motion", () => {
   expect(
     screen.getByRole("region", { name: "A familiar face. A clearer signal." }),
   ).toHaveAttribute("data-paused", "true");
+});
+
+it("removes the technology logo strip while preserving the workflow", () => {
+  render(<Landing />);
+  expect(
+    screen.queryByRole("region", { name: "Technology behind the review" }),
+  ).not.toBeInTheDocument();
+  expect(screen.getByRole("tab", { name: "01 Report" })).toBeInTheDocument();
 });
 
 it("keeps the supplied liquid navigation usable with a keyboard and without WebGL", () => {
