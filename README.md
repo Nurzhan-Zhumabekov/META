@@ -6,11 +6,13 @@ report-scoped appeals, transactional SQLite and isolated visitor sandboxes.
 62/100 to 92/100 on controlled external-text test pairs; difficult photo-region
 recall improves from 1/50 to 18/50 on a separate Copydays test. Neither is a claim
 of real Instagram impersonation accuracy. Open `/benchmark.html` for the readable
-report and aggregate hashes. [Public deployment](docs/PUBLIC_DEPLOYMENT.md) is
-prepared with Docker, Linux CI and a validated Render blueprint; a public live
-URL remains pending provisioning and verification. For a temporary no-subscription
-demo, use the prepared [Codespaces configuration](docs/FREE_DEMO_HOSTING.md) only
-within the account's remaining included allowance and a $0 stop budget. The existing three-minute
+report and aggregate hashes. The [public Codespaces landing page](https://stunning-parakeet-x5pw4rxv7q7phv454-8090.app.github.dev/demo-guide.html),
+[prototype](https://stunning-parakeet-x5pw4rxv7q7phv454-8090.app.github.dev/) and recorded video are available while the Codespace runs.
+At verification, cloud ML/OCR/privacy worked, but Meta returned `model_not_found`
+and an empty catalog from Codespaces; a live cloud report could not be completed.
+See [current deployment evidence and limits](docs/PUBLIC_DEMO_STATUS.md).
+The [Codespaces configuration](docs/FREE_DEMO_HOSTING.md) uses the account's remaining
+included allowance and a $0 stop budget. The existing three-minute
 video records version 0.12; the revised 0.13 script is in the submission packet.
 
 **Meta Muse Spark + local ML + contact redaction + a separate moderator decision.**

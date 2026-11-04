@@ -1,6 +1,6 @@
 # Public demo deployment
 
-The owner chose a free hosting path. No paid Render service is authorized or created. See `FREE_DEMO_HOSTING.md` for the prepared temporary Codespaces option; this Render blueprint remains an optional paid alternative.
+The owner chose a free hosting path. No paid Render service is authorized or created. See [the public Codespaces URLs and verification limits](PUBLIC_DEMO_STATUS.md), including the unresolved Meta model access from that environment. `FREE_DEMO_HOSTING.md` describes operation of this temporary demo; the Render blueprint remains an optional paid alternative.
 
 The prepared deployment uses one Docker service with separate API, PaddleOCR/imagededup and Presidio Python environments. Only the web/API port is exposed; workers bind to loopback and require a private generated key. The supervisor drops root privileges before starting application processes. `GET /healthz` requires both bundled models, the local workers, public-demo signing configuration and a Meta key when Meta mode is selected. It never makes a paid model request.
 

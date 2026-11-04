@@ -1,6 +1,6 @@
 # No-subscription demo hosting: GitHub Codespaces
 
-Research checked on 5 November 2026. This is the recommended temporary hackathon/demo option for the existing x86 Docker stack, not an always-on production hosting promise. No Codespace or paid resource has been created by preparing these files.
+Research checked on 5 November 2026. A temporary Codespaces demo has now been launched for the existing x86 Docker stack. See [verified public URLs and the unresolved cloud Meta limitation](PUBLIC_DEMO_STATUS.md). This is an attended demonstration, not an always-on production hosting promise. No paid Render service was created.
 
 ## Why this option
 
