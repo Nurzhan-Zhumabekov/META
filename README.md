@@ -333,11 +333,15 @@ npx prettier --check src index.html vite.config.ts tsconfig.json package.json
 ```
 
 The current source has 139 backend tests, 10 real image-tool tests, 3 real Presidio tests
-and 26 frontend tests. Automated report tests mock Meta; the browser walkthrough
+and 33 frontend tests. Automated report tests mock Meta; the browser walkthrough
 uses the configured real provider.
 
-Open the [demo guide](http://localhost:8090/demo-guide.html) for the narrated video,
-both report outcomes and live service badges. Run `.\scripts\run_web.ps1 -RequireMeta`
+Open the [MirrorCheck landing page](http://localhost:8090/demo-guide.html) for
+liquid-glass navigation, a curved photo gallery, interactive reporting steps,
+the narrated video, both report outcomes and live service status. The supplied
+React components are adapted under `web/src/components/ui/`; the separate Vite
+HTML entry keeps landing styles isolated from the Instagram prototype at `/`.
+Run `.\scripts\run_web.ps1 -RequireMeta`
 to require all 13 live demo checks to pass. The read-only standalone check is
 `.\.venv\Scripts\python.exe scripts\check_demo.py --require-meta`; it submits no
 reports and makes no paid provider calls. See [presentation readiness](docs/PRESENTATION_READINESS_EN.md)

@@ -18,7 +18,7 @@ def web_page(path: str):
     if not target.is_relative_to(WEB_DIST.resolve()):
         raise HTTPException(404)
     if target.is_file():
-        cache = 'no-store' if target.name == 'index.html' else 'public, max-age=3600'
+        cache = 'no-store' if target.suffix.lower() == '.html' else 'public, max-age=3600'
         return FileResponse(target, headers={'Cache-Control': cache})
     profile_route = re.fullmatch(r'(?:profile|messages)/@?[A-Za-z0-9_.]{1,30}', path) is not None
     if not profile_route and Path(path).suffix.lower() in {'.js', '.css', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.woff', '.woff2', '.map'}:

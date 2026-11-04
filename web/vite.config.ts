@@ -1,8 +1,17 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import { fileURLToPath } from "node:url";
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rolldownOptions: {
+      input: {
+        app: fileURLToPath(new URL("./index.html", import.meta.url)),
+        landing: fileURLToPath(new URL("./demo-guide.html", import.meta.url)),
+      },
+    },
+  },
   server: {
     proxy: {
       "/api": {

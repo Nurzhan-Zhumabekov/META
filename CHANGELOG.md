@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.0 - 2026-11-05
+
+- Replace the demo entry with a responsive MirrorCheck landing page combining the user-supplied liquid-glass navigation and curved image gallery, retaining source attribution.
+- Add interactive Report/Compare/Decide steps, local image assets, privacy explanations, both recorded outcomes and live service availability with loading/offline states.
+- Support keyboard navigation, gallery pause and reduced motion; stop offscreen animation, release WebGL resources and retain a CSS navigation fallback.
+- Build the landing as an isolated Vite HTML entry while retaining the existing Instagram application routes and report workflow.
+- Prevent stale HTML entry documents after deployment while retaining static-asset caching; expand the route regression test.
+- Add seven frontend behavior tests, including delayed-animation cleanup after navigation, and verify responsive layouts at 320, 390, 768, 1024 and 1440px.
+
 ## 0.10.0 - 2026-11-05
 
 - Recover post regions across darkened gutters, wide side whitespace and floating controls; add recorded PNG, resized JPEG and synthetic-grid regressions without lowering photo-match thresholds.

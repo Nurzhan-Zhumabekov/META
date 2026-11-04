@@ -8,6 +8,13 @@ their respective owners.
 
 ## Components
 
+- The landing page adapts the two React components supplied by the project owner:
+  Liquid Navbar (Nimbus UI / Guglielmo Giannattasio,
+  https://guglielmogiannattasio.it) and Tilted Grid Hero. Source attribution is
+  retained in `web/src/components/ui/`; no separate component license was
+  included with the supplied snippets. These third-party snippets are outside
+  the original-code MIT grant and retain their authors' rights.
+
 - PaddleOCR and PaddlePaddle: Apache-2.0. https://github.com/PaddlePaddle/PaddleOCR
 - imagededup: Apache-2.0. https://github.com/idealo/imagededup
 - Microsoft Presidio: MIT. https://github.com/data-privacy-stack/presidio

@@ -57,6 +57,8 @@ def test_web_mount_keeps_api_errors_json_and_serves_built_pages(tmp_path, monkey
     dist = tmp_path / 'dist'
     dist.mkdir()
     (dist / 'index.html').write_text('<html>Web application</html>')
+    (dist / 'demo-guide.html').write_text('<html>MirrorCheck landing</html>')
+    (dist / 'app.js').write_text('/* built asset */')
     monkeypatch.setattr(web, 'WEB_DIST', dist)
     with TestClient(web.app) as client:
         assert client.get('/').status_code == 200
@@ -64,6 +66,10 @@ def test_web_mount_keeps_api_errors_json_and_serves_built_pages(tmp_path, monkey
         assert client.get('/api/analysis/status').json()['provider'] == 'local'
         assert client.get('/api/unknown').status_code == 404
         assert client.get('/missing.js').status_code == 404
+        landing = client.get('/demo-guide.html')
+        assert 'MirrorCheck landing' in landing.text
+        assert landing.headers['cache-control'] == 'no-store'
+        assert client.get('/app.js').headers['cache-control'] == 'public, max-age=3600'
 
 
 @pytest.mark.parametrize('route', ['/profile/aruzhan.jpg', '/messages/aruzhan.jpg'])
