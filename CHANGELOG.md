@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.4 - 2026-11-04
+
+- Replay a fresh fictional report about an ordinary profile with an uncached Meta call, independent ML, an actual moderator dismissal and no remaining profile warning.
+- Preserve the disagreement between Meta visual reuse signals and low text/spam ML scores; document shared stock photography and the photo-region extractor's zero-match limitation.
+- Fix direct profile and message routes for handles ending in media extensions such as aruzhan.jpg, retaining missing-asset 404s and path traversal protection. This Python routing fix takes effect on the next server start.
+- Add two failing-then-passing routing regression cases; all 128 backend tests pass. Preserve all 11 previous claims and the hashes of all 16 previous evidence files.
+
 ## 0.9.3 - 2026-11-04
 
 - Record a fresh fictional English report for aigerim.k.demo with real uncached Meta Muse Spark, separate ML, four matching image regions and two masked contact regions.

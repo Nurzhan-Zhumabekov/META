@@ -332,9 +332,16 @@ npm run build
 npx prettier --check src index.html vite.config.ts tsconfig.json package.json
 ```
 
-The current source has 126 backend tests, 6 real image-tool tests, 3 real Presidio tests
+The current source has 128 backend tests, 6 real image-tool tests, 3 real Presidio tests
 and 24 frontend tests. Automated report tests mock Meta; the browser walkthrough
 uses the configured real provider.
+
+The [dismissed-report walkthrough](http://localhost:8090/rejected-report-walkthrough.html)
+records an ordinary fictional profile, a fresh real Meta call, low independent ML
+signals and a moderator dismissal. It retains the actual disagreement about shared
+demo stock photographs, verifies the saved rejected status and no public profile
+warning, and preserves all prior claims and evidence. It replays screenshots from
+the completed run rather than resubmitting a report.
 On 2026-11-03, all 15 synthetic development scenarios were run through real Meta
 `muse-spark-1.3` and local `profile-logreg-v1`: 15/15 expected Meta recommendations,
 15/15 valid independent ML outputs and 15/15 pipeline claims left `under_review`.

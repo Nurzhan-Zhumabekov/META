@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from src import pipeline
@@ -63,3 +64,20 @@ def test_web_mount_keeps_api_errors_json_and_serves_built_pages(tmp_path, monkey
         assert client.get('/api/analysis/status').json()['provider'] == 'local'
         assert client.get('/api/unknown').status_code == 404
         assert client.get('/missing.js').status_code == 404
+
+
+@pytest.mark.parametrize('route', ['/profile/aruzhan.jpg', '/messages/aruzhan.jpg'])
+def test_profile_handles_with_media_suffixes_are_client_routes(tmp_path, monkeypatch, route):
+    from src import web
+    dist = tmp_path / 'dist'
+    dist.mkdir()
+    (dist / 'index.html').write_text('<html>Web application</html>')
+    monkeypatch.setattr(web, 'WEB_DIST', dist)
+    with TestClient(web.app) as client:
+        response = client.get(route)
+        assert response.status_code == 200
+        assert 'Web application' in response.text
+        assert response.headers['cache-control'] == 'no-store'
+        assert client.get('/media/missing.jpg').status_code == 404
+        assert client.get('/assets/missing.js').status_code == 404
+        assert client.get('/profile/%2e%2e/%2e%2e/missing.jpg').status_code == 404

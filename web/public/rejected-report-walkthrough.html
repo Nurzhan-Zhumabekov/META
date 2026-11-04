@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MirrorCheck · A dismissed report</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f7f7fa;color:#171822;font:16px/1.55 system-ui,sans-serif}
+    main{max-width:1240px;margin:auto;padding:30px 24px 48px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}
+    h1{font-size:clamp(27px,4vw,40px);line-height:1.15;letter-spacing:-1px;margin:8px 0 14px}h2{font-size:23px;margin:0 0 8px}
+    p{margin:8px 0 16px;color:#626a77}.eyebrow{color:#5051ff;font-size:12px;font-weight:750;letter-spacing:1.4px}
+    a{color:#4141da}a.action,button{font:inherit;background:white;color:#272737;border:1px solid #dddde7;border-radius:10px;padding:10px 14px;text-decoration:none;cursor:pointer}
+    button[aria-current=step]{background:#5051ff;color:white;border-color:#5051ff}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible{outline:3px solid #aaaaff;outline-offset:3px}
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.result{background:#eaf5ec;border:1px solid #d4e9d8;border-radius:12px;padding:16px 20px;color:#245735}
+    .layout{display:grid;grid-template-columns:1fr 330px;gap:24px;margin:24px 0}.shot{margin:0;background:white;border:1px solid #dddde7;border-radius:14px;overflow:hidden}
+    .shot img{display:block;width:100%;height:auto}.shot figcaption{padding:12px 16px;font-size:13px;color:#626a77}aside{background:white;border:1px solid #e0e0e8;border-radius:14px;padding:22px;align-self:start}
+    .controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px}.count{color:#747888;font-size:13px}
+    table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}td,th{padding:9px 0;text-align:left;border-bottom:1px solid #ececf2}td:last-child,th:last-child{text-align:right}
+    .note{font-size:13px}.checks{padding-left:20px;color:#505765}.checks li{margin:8px 0}@media(max-width:850px){main{padding:20px 12px}.layout{grid-template-columns:1fr}header{align-items:flex-start}header a{font-size:13px}.controls{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><span class="eyebrow">MIRRORCHECK · REVERSE SCENARIO</span><h1>A report can be dismissed.</h1></div><a class="action" href="/">Open the prototype</a></header>
+  <p>A real browser run on fictional profiles: a report about <strong>@aruzhan.jpg</strong>, a live Meta AI call, independent ML signals, a moderator dismissal and a profile without a warning.</p>
+  <div class="result"><strong>Case 99a356a9 · Rejected</strong> — the moderator dismissed the report. The saved public account status contains no warning for this profile.</div>
+  <nav aria-label="Demonstration steps" id="steps"></nav>
+  <div class="layout">
+    <figure class="shot"><img id="shot" src="/rejected-report-demo/02-normal-before.png" alt="Ordinary fictional profile before the report"><figcaption id="caption">Authentic browser capture · fictional local demonstration.</figcaption></figure>
+    <aside aria-live="polite"><span class="eyebrow" id="step-label">STEP 1 OF 7</span><h2 id="title">An ordinary profile</h2><p id="description">Aruzhan has a different name, avatar and bio from Aigerim. No warning is present.</p><div class="controls"><button id="previous" disabled>Previous</button><span class="count" id="count">1 / 7</span><button id="next">Next</button></div></aside>
+  </div>
+  <h2>The actual results</h2>
+  <table><thead><tr><th>Check</th><th>Recorded outcome</th></tr></thead><tbody>
+    <tr><td>Meta AI · muse-spark-1.3 · fresh API call</td><td>needs_review</td></tr>
+    <tr><td>Meta visual similarity signal</td><td>78%</td></tr>
+    <tr><td>Combined content reuse score shown in the UI</td><td>66.4%</td></tr>
+    <tr><td>Pair ML · text reuse · synthetic training pairs</td><td>0.63% · low_copy_signal</td></tr>
+    <tr><td>Profile ML · spam-like patterns · avatar excluded</td><td>1.48% · low</td></tr>
+    <tr><td>imagededup · matches in extracted photo regions</td><td>0</td></tr>
+    <tr><td>Moderator decision</td><td>rejected</td></tr>
+    <tr><td>Profile warning after app reload and reopening the profile</td><td>Absent</td></tr>
+  </tbody></table>
+  <p>Meta noticed reused stock photographs and identical demo highlight templates. The profiles have different names, usernames, bios and avatars. Shared photographs do not establish ownership or a claim to another person's identity. The moderator dismissed this fictional report despite the visual similarity signal.</p>
+  <p class="note">The zero imagededup result only describes the regions its extractor found. Some shared stock photos are visible, so this result cannot establish that there are no duplicates. ML and similarity scores are signals, not identity probabilities or accuracy measurements.</p>
+  <ul class="checks"><li>All 11 previous report records were preserved.</li><li>All 16 previous evidence files retained their SHA-256 hashes.</li><li>The stored screenshots match the exact processed image hashes sent to Meta.</li><li>The same operator submitted the fictional report and acted as the moderator.</li></ul>
+  <p class="note">This page replays authentic screenshots from a completed local browser run. It does not resubmit reports. <a href="/rejected-report-demo/verification.json">View the sanitized verification record</a>. MirrorCheck is an unofficial feature concept, separate from Instagram.</p>
+</main>
+<script>
+const stages=[
+  ['Before the report','An ordinary profile','Aruzhan has a different name, avatar and bio from Aigerim. No warning is present.','02-normal-before.png'],
+  ['Submit evidence','Review the screenshots','The report alleges impersonation of @aigerim.k. PaddleOCR fills the profile fields; the operator reviews the extracted names, bios and counts before submitting.','04-reviewed-fields.png'],
+  ['Meta AI + ML','A live analysis','The app calls the real Meta API with locally processed screenshots and runs its two independent ML checks. This capture shows the actual processing screen.','05-meta-processing.png'],
+  ['Results','The models disagree','Pair ML scores text reuse at 0.63%; profile ML scores spam-like patterns at 1.48%. Meta requests review because shared demo photography is visible. The combined UI score is 66.4%.','07-meta-ml-result.png'],
+  ['Pending review','A report is not a verdict','The valid report is temporarily under review. No confirmed impersonation label has been added.','08-under-review.png'],
+  ['Moderator','Inspect before deciding','The moderator sees the actual processed screenshots, similarities and differences. The operator then selects Dismiss report for case 99a356a9; the saved status is rejected.','09-moderator-evidence.png'],
+  ['No warning','The report is dismissed','The app was reloaded and @aruzhan.jpg reopened through Search. No review notice or impersonation warning remains. The saved rejected record and absent public status were verified separately.','12-profile-without-label.png']
+];
+let selected=0;
+const nav=document.getElementById('steps');
+stages.forEach((step,index)=>{const button=document.createElement('button');button.textContent=`${index+1}. ${step[0]}`;button.addEventListener('click',()=>show(index));nav.append(button)});
+function show(index){selected=index;const step=stages[index];document.getElementById('shot').src='/rejected-report-demo/'+step[3];document.getElementById('shot').alt=step[1];document.getElementById('title').textContent=step[1];document.getElementById('description').textContent=step[2];document.getElementById('step-label').textContent=`STEP ${index+1} OF ${stages.length}`;document.getElementById('count').textContent=`${index+1} / ${stages.length}`;document.getElementById('previous').disabled=index===0;document.getElementById('next').disabled=index===stages.length-1;Array.from(nav.children).forEach((button,i)=>{if(i===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current')});}
+document.getElementById('previous').addEventListener('click',()=>show(Math.max(0,selected-1)));
+document.getElementById('next').addEventListener('click',()=>show(Math.min(stages.length-1,selected+1)));
+show(0);
+</script>
+</body>
+</html>

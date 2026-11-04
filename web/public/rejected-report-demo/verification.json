@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-11-04T18:57:41.065858+00:00",
+  "claim_id": "99a356a9",
+  "status": "rejected",
+  "original_profile": "aigerim.k",
+  "reported_profile": "aruzhan.jpg",
+  "scenario": "Fictional ordinary account; human dismissal despite shared demo stock photos.",
+  "meta": {
+    "provider": "meta",
+    "model": "muse-spark-1.3",
+    "cached": false,
+    "recommendation": "needs_review",
+    "visual_similarity": 0.78,
+    "summary": "Strong visible reuse of multiple grid photos and highlight titles/covers despite different username, display name, bio and avatar. Suspect appears to repost original's photography content. Screenshots alone cannot prove ownership and a human must decide."
+  },
+  "combined_content_reuse_score": 0.6640000000000001,
+  "pair_ml": {
+    "model": "pair-text-logreg-v1-synthetic",
+    "score": 0.006295280311315847,
+    "assessment": "low_copy_signal",
+    "training_data": "synthetic"
+  },
+  "profile_ml": {
+    "model": "profile-logreg-v2-no-avatar",
+    "score": 0.014751209823637541,
+    "risk_band": "low"
+  },
+  "imagededup_matches": 0,
+  "presidio_masked_regions": 0,
+  "checks": {
+    "public_status_absent": true,
+    "profile_warning_absent_after_app_reload": true,
+    "previous_claims_unchanged": 11,
+    "previous_evidence_files_unchanged": 16,
+    "stored_evidence_matches_exact_provider_image_hashes": true,
+    "backend_tests_passed": 128
+  },
+  "limitations": [
+    "Real Meta API call on fictional demo screenshots, not an Instagram account verification.",
+    "Meta requested review because the demo accounts share stock images and highlight templates.",
+    "imagededup found zero matches in the regions it extracted; this does not prove there are no matching photos.",
+    "ML and combined scores are signals, not identity probabilities or model accuracy.",
+    "The same operator submitted the fictional report and acted as the moderator."
+  ]
+}

@@ -1,4 +1,5 @@
 """Same-origin native web app and API. Build web/ before starting this module."""
+import re
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -19,7 +20,8 @@ def web_page(path: str):
     if target.is_file():
         cache = 'no-store' if target.name == 'index.html' else 'public, max-age=3600'
         return FileResponse(target, headers={'Cache-Control': cache})
-    if Path(path).suffix.lower() in {'.js', '.css', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.woff', '.woff2', '.map'}:
+    profile_route = re.fullmatch(r'(?:profile|messages)/@?[A-Za-z0-9_.]{1,30}', path) is not None
+    if not profile_route and Path(path).suffix.lower() in {'.js', '.css', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.woff', '.woff2', '.map'}:
         raise HTTPException(404)
     index = WEB_DIST / 'index.html'
     if not index.is_file():
