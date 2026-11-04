@@ -1,0 +1,116 @@
+{
+  "artifact_version": 2,
+  "model_id": "profile-logreg-v2-no-avatar",
+  "features": [
+    "ratio_numlen_username",
+    "ratio_numlen_fullname",
+    "len_desc",
+    "extern_url",
+    "private",
+    "num_posts",
+    "num_followers",
+    "num_following"
+  ],
+  "mean": [
+    0.16383680555555535,
+    0.03609375,
+    1.5535190324013621,
+    0.11631944444444445,
+    0.3819444444444444,
+    2.564782922436624,
+    5.191867012507431,
+    5.1264620365226135
+  ],
+  "scale": [
+    0.2139096246881844,
+    0.12501188094578933,
+    1.8949055913087036,
+    0.32060759705375413,
+    0.4858630319364393,
+    2.1749374141112816,
+    2.56739425739345,
+    1.7443167882097996
+  ],
+  "coefficients": [
+    1.6218044436561,
+    0.5359412407997132,
+    -0.5952346913681056,
+    -2.816796185430135,
+    -0.7012586843931493,
+    -1.4413594132498357,
+    -3.7492017583794013,
+    1.2044606185671252
+  ],
+  "intercept": -1.0880706787613084,
+  "threshold": 0.5,
+  "training_bounds": {
+    "ratio_numlen_username": [
+      0.0,
+      0.92
+    ],
+    "ratio_numlen_fullname": [
+      0.0,
+      1.0
+    ],
+    "len_desc": [
+      0.0,
+      150.0
+    ],
+    "extern_url": [
+      0.0,
+      1.0
+    ],
+    "private": [
+      0.0,
+      1.0
+    ],
+    "num_posts": [
+      0.0,
+      7389.0
+    ],
+    "num_followers": [
+      0.0,
+      15338538.0
+    ],
+    "num_following": [
+      0.0,
+      7500.0
+    ]
+  },
+  "provenance": {
+    "source": "https://github.com/Ajaysagayam/Detection_of_Fake_Accounts_in_Social_Media",
+    "commit": "f8dc984326eded77363e7466060cc7ee6d5d32b6",
+    "dataset_attribution": "Bardiya Bakhshandeh, Instagram fake/spammer genuine accounts, March 2019; likely source CC BY 3.0, mirrored transformations not fully documented",
+    "csv_sha256": {
+      "social_media_train.csv": "5a6114ed2e7133f51e108b7dbc8a1717c2ba3b94e78f883d83c9479e5b563e20",
+      "social_media_test.csv": "ceb10efd736bf84154780b164303a050c0ea99e383c20d11a58d221e7409b913"
+    },
+    "upstream_code_copied": false
+  },
+  "metrics": {
+    "n": 118,
+    "positives": 58,
+    "threshold": 0.5,
+    "roc_auc": 0.9724137931034482,
+    "average_precision": 0.9702142612862692,
+    "accuracy": 0.8898305084745762,
+    "precision": 0.8571428571428571,
+    "recall": 0.9310344827586207,
+    "f1": 0.8925619834710744,
+    "brier": 0.06809937053101396,
+    "confusion_matrix_tn_fp_fn_tp": [
+      [
+        51,
+        9
+      ],
+      [
+        4,
+        54
+      ]
+    ],
+    "roc_auc_bootstrap_95ci": [
+      0.9446762343689359,
+      0.9924970399172297
+    ]
+  }
+}

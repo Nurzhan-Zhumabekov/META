@@ -1,0 +1,172 @@
+{
+  "prepared_at": "2026-11-04T16:10:53.374854+00:00",
+  "status": "local_draft_not_submitted",
+  "title": "MirrorCheck",
+  "subtitle": "AI-Assisted Impersonation Review",
+  "tagline": "Turn suspected profile copies into reviewable evidence with Meta AI, local ML and contact redaction.",
+  "description": "A copied profile can look convincing long before anyone checks it. MirrorCheck helps users document suspected impersonation and gives reviewers a structured path from complaint to decision.\n\nBuilt as an unofficial Instagram-style web prototype, it starts inside the profile flow. A reporter attaches screenshots of the original and suspected copy. PaddleOCR extracts editable profile fields, while imagededup flags matching image regions. The reporter reviews and corrects the extracted data before submitting.\n\nBefore screenshots reach Meta AI, a local Presidio pipeline detects email and phone lines and covers them with opaque masks. The preview, provider-prepared image and stored reviewer evidence are checked for matching bytes. Processing failures block the external image request.\n\nMeta Muse Spark, accessed through the backend with muse-spark-1.3, compares the processed screenshots and returns structured similarities, differences, limitations and a review recommendation. Two local ML models add separate signals: text reuse between profiles and auxiliary spam patterns in profile statistics. Avatar presence is excluded from the profile model, so an ordinary default avatar cannot change that model's score by itself.\n\nThe report stays under review until a separate moderator action. In the completed fictional demo, the moderator confirms impersonation and the profile warning persists after a reload. The English interface demonstrates the whole journey in context.\n\nMirrorCheck is a working local prototype, with a real Meta API run and a recorded end-to-end browser walkthrough. It does not connect to or modify the real Instagram service. Screenshots and model scores cannot establish ownership; the pair model uses synthetic training data, and performance on real account-copy cases remains unvalidated. The next step is consented evaluation and production hardening.",
+  "short_description": "MirrorCheck is an unofficial Instagram-style web prototype for reporting suspected profile copies. Users attach two screenshots, review PaddleOCR fields, inspect image matches and preview contact details masked locally with Presidio before Meta AI receives images. Meta Muse Spark returns structured visual evidence; local ML adds separate text-reuse and profile spam-pattern signals. A moderator reviews the evidence and explicitly decides whether to add a persistent profile warning. A real Meta API run demonstrates the complete workflow with fictional accounts. The prototype does not modify Instagram, and its scores do not prove ownership. Real-world copy-detection performance still requires evaluation.",
+  "compact_description": "MirrorCheck combines Meta Muse Spark, editable OCR, image deduplication and local contact redaction to help review suspected profile copies. Reports stay under review until a separate moderator decision adds a persistent warning. The working Instagram-style web demo uses fictional accounts; it does not modify Instagram or establish ownership.",
+  "recommended_track": "Indie developer (confirm registration and eligibility)",
+  "recommended_theme": "Build for Your World",
+  "actual_form_fields_and_limits_verified": false,
+  "repository_url": "https://github.com/Nurzhan-Zhumabekov/META",
+  "repository_status": "source_release_prepared_for_upload",
+  "repository_publication": null,
+  "video_url": null,
+  "public_demo_url": null,
+  "team_roster_confirmed": false,
+  "deadline_et": "2026-11-04T21:00:00-05:00",
+  "deadline_astana": "2026-11-05T07:00:00+05:00",
+  "answers": {
+    "problem_and_users": "Creators and ordinary users need a clear way to document a profile that appears to copy their identity. Reviewers need comparable evidence, visible uncertainty and a deliberate decision step. MirrorCheck targets that reporting and review workflow. It is a prototype of a potential social-platform feature, with no claim of user adoption or measured time savings.",
+    "solution_and_workflow": "A reporter supplies screenshots of the original and suspected copy. Editable OCR fields, image-region matches and masked previews help prepare the evidence. Meta AI provides structured visual observations; two local ML models provide separate text-reuse and profile-pattern signals. The report remains under review until a moderator takes an explicit action. Confirming the fictional case adds a warning that remains after reloading the profile.",
+    "meta_model_usage": "The backend calls the Meta Model API with muse-spark-1.3, using the English prompt version impersonation-evidence-v2-en. It sends processed profile screenshots, validates structured results and presents similarities, differences, limitations and a constrained recommendation. The API key stays on the server. This is visual evidence analysis rather than identity verification: Meta's recommendation cannot directly confirm a report. The demonstrated response is real and uncached; no Meta model was fine-tuned for this project.",
+    "why_meta_matters": "Meta Muse Spark adds a visual comparison that the numeric profile classifier cannot provide. It can describe reused biography text, avatar graphics, highlights and post grids together with meaningful differences and screenshot limitations. Local ML remains visible as independent evidence instead of being presented as a second opinion on identity. This makes the model output usable within a moderator's review process.",
+    "technical_implementation": "The application uses React, TypeScript and Vite, served with a same-origin FastAPI backend. Authenticated local workers run PaddleOCR, imagededup and Presidio. The provider boundary enforces image redaction; processed images are stored for authorized reviewer access. Logistic-regression inference uses JSON artifacts for the profile and pair models. Claims and moderator decisions persist in local JSON storage. The current storage and operational setup are suitable for a single-writer demonstration, not a production moderation service.",
+    "distinctive_contribution": "The contribution is the complete evidence workflow: editable extraction, image reuse signals, contact masking before the external visual model, structured Meta observations, independent ML and a separate moderator transition. The reviewer can inspect the same processed images used for Meta analysis. The profile model deliberately excludes avatar presence, and the interface discloses the pair model's synthetic training data. These are implemented behaviors rather than promised features.",
+    "privacy_and_safety": "A local OCR and Presidio pipeline identifies contact lines and covers them with padded opaque masks before provider image submission. Failed processing blocks the request. The demo verifies equality between preview, provider-prepared and reviewer-stored JPEG bytes, with no EXIF metadata in those processed images. Detection is imperfect: this is protection for detected identifiers, not a promise of complete anonymization. Reviewer evidence requires authentication. No screenshot or model score proves account ownership; the separate moderator action is demonstrated only on fictional accounts.",
+    "challenges_and_tradeoffs": "OCR can confuse handles, display names and biography lines, so the report form requires review and correction. A historical fake/spam classifier also answers a different question from copied-profile detection; the project separates those signals and adds a text-reuse pair model. Excluding avatar presence guarantees avatar invariance, but did not improve every metric on the older spam holdout. The synthetic pair model and screenshot-based evidence still require external validation.",
+    "what_works_now": "The English browser walkthrough records a complete fictional report, local inspection and contact masking, an uncached Meta Muse Spark response, local ML results, an under-review state, a moderator confirmation and a profile warning that persists after reload. Two example contact regions were masked; a second local OCR/Presidio scan found zero remaining detected identifier regions in those processed demo images. The most recent recorded full test run passed 123 backend and 24 frontend tests. These are development checks, not real-world accuracy measurements.",
+    "what_is_next": "First, build a consented, independently labelled evaluation set that includes legitimate look-alikes, fan and parody accounts, sparse profiles, changed usernames, image crops and OCR failures. Measure false positives and recall separately for copy detection and spam patterns. Then add verified ownership evidence, appeals, audit logs, database-backed concurrency, abuse controls, monitoring and a clearly defined deployment model. Any real Instagram integration would require a separate authorized integration path.",
+    "open_source_components": "PaddleOCR extracts text; imagededup compares image regions; Microsoft Presidio detects contact information for local masking; scikit-learn is used for training logistic-regression models; React, Vite and FastAPI power the web application. Embla Carousel and emoji-picker-react support the social interface. This source release includes two JSON inference artifacts and setup instructions. MIT covers original project code, with separate third-party and media notices. Raw historical training CSVs are not redistributed; the mirrored dataset's provenance and transformations still require review before other redistribution.",
+    "builder_bio": "Nurzhan Zhumabekov is a Software Engineering student at Astana IT University in Astana, Kazakhstan, building web applications and AI-assisted tools. His public GitHub profile is https://github.com/Nurzhan-Zhumabekov. Confirm the complete team roster and each person's contribution before submitting any team or authorship fields."
+  },
+  "scenes": [
+    {
+      "start": 0,
+      "end": 12,
+      "title": "The problem",
+      "shots": [
+        "01-original-profile.png",
+        "02-copy-before-report.png"
+      ],
+      "action": "Open on a simple title card: MirrorCheck / AI-Assisted Impersonation Review. Cut to the original and the suspected copy side by side. Keep the usernames legible.",
+      "overlay": "Unofficial Instagram-style prototype \u00b7 Fictional accounts",
+      "voiceover": "An impersonator can copy a creator's photos and biography while changing just the username. MirrorCheck helps turn that suspicion into evidence a reviewer can inspect."
+    },
+    {
+      "start": 12,
+      "end": 28,
+      "title": "Show the working product",
+      "shots": [
+        "01-original-profile.png",
+        "02-copy-before-report.png"
+      ],
+      "action": "Identify aigerim.k and aigerim.k.archive. Point to the shared display name, bio, avatar graphic and gallery. Show that the copy initially has no warning.",
+      "overlay": "Recorded real browser run \u00b7 No real accounts reported",
+      "voiceover": "This is our working, unofficial Instagram-style web prototype. These two fictional accounts share a name, biography, avatar and post images, but have different usernames."
+    },
+    {
+      "start": 28,
+      "end": 50,
+      "title": "Report and review OCR",
+      "shots": [
+        "03-report-reason.png",
+        "04-ocr-processing.png",
+        "06-reviewed-ml-fields.png"
+      ],
+      "action": "Show Report account \u2192 Pretending to be someone else. Then show the screenshot-upload and OCR captures. Zoom the reviewed fields and I have reviewed the extracted data. Explain the corrections without pretending extraction was perfect.",
+      "overlay": "PaddleOCR \u2192 editable fields \u2192 reporter review",
+      "voiceover": "From the suspected copy, I choose Report account, then Pretending to be someone else. I attach screenshots of the original and suspected profile. PaddleOCR fills editable fields, and I correct the extracted text against the screenshots before submitting."
+    },
+    {
+      "start": 50,
+      "end": 72,
+      "title": "Privacy before the provider",
+      "shots": [
+        "05-ocr-redaction-preview.png"
+      ],
+      "action": "Hold on the suspect preview with the email and phone lines masked. Show a small editor-added flow: local OCR + Presidio \u2192 processed JPEG \u2192 Meta AI. Add an editor-added verification note, clearly separate from the application UI: 2 regions masked; preview/provider-prepared/stored bytes match.",
+      "overlay": "Detected contact lines masked locally before Meta AI",
+      "voiceover": "Before any image reaches Meta AI, Presidio identifies the example email and phone. The server permanently covers both contact lines. These previews are the actual processed images prepared for Meta, with matching hashes for the evidence saved for review."
+    },
+    {
+      "start": 72,
+      "end": 96,
+      "title": "Real Meta Muse Spark analysis",
+      "shots": [
+        "07-meta-processing.png",
+        "08-report-receipt.png",
+        "09-meta-and-ml-results.png",
+        "11-moderator-evidence.png"
+      ],
+      "action": "Show processing, then the receipt and Meta AI summary in 09-meta-and-ml-results.png. Zoom the actual English reuse observations and ownership limitation. The supplied capture does not expose the model-version field: put muse-spark-1.3 and needs_review in a clearly editor-added caption, sourced from VERIFIED_DEMO_FACTS.json. The moderator capture shows the processed evidence images. Do not show a reviewer access code.",
+      "overlay": "Real uncached Meta response \u00b7 needs_review \u00b7 Waiting time condensed",
+      "voiceover": "Meta Muse Spark analyzes the processed screenshots through our backend and returns structured similarities, differences and limitations. Here it identifies reused profile content and recommends further review. It explicitly says screenshots cannot establish ownership. This is a real API response from the recorded run."
+    },
+    {
+      "start": 96,
+      "end": 116,
+      "title": "Independent ML and image evidence",
+      "shots": [
+        "09-meta-and-ml-results.png",
+        "11-moderator-evidence.png"
+      ],
+      "action": "Show Content reuse signals \u00b7 ML, Image and name similarity and Spam patterns \u00b7 ML separately. Application cards round to 72%, 86% and 94%. If adding an editor overlay with more precision, use 72.19%, 85.85% and 94.46%. Describe the imagededup result as ONE matching grid region, not six individual photo detections.",
+      "overlay": "Text reuse \u2260 spam patterns \u2260 identity verification",
+      "voiceover": "Local models add separate signals: a text-reuse comparison between the two profiles, and an auxiliary profile spam-pattern score. Image deduplication also finds a matching grid region. These scores are evidence signals, not accuracy claims or proof of identity."
+    },
+    {
+      "start": 116,
+      "end": 134,
+      "title": "Keep uncertainty visible",
+      "shots": [
+        "10-profile-under-review.png",
+        "09-meta-and-ml-results.png"
+      ],
+      "action": "Show Account under review, then the synthetic-training disclosure in the analysis. Add a small editor note: profile model excludes avatar presence. Do not suggest the demo proves every ordinary profile is safe or that an actual avatar was changed during this run.",
+      "overlay": "Under review \u00b7 Synthetic pair training disclosed",
+      "voiceover": "The report remains Under review. Our profile model excludes avatar presence, so changing only a default-avatar flag cannot change its score. The pair model uses synthetic training data, a limitation shown to the reviewer."
+    },
+    {
+      "start": 134,
+      "end": 152,
+      "title": "Separate moderator decision",
+      "shots": [
+        "11-moderator-evidence.png",
+        "12-moderator-decision.png",
+        "13-decision-saved.png"
+      ],
+      "action": "Show the relevant claim's processed evidence, then the Decision saved capture. The supplied 12-moderator-decision.png is cropped to evidence; the action button and click are outside the capture. Describe Confirm impersonation through narration and an editor-added caption, not a fabricated button or click. This is a replay of the authorized fictional demo, where the operator also played the moderator; it is not an independent identity investigation.",
+      "overlay": "Moderator action required \u00b7 Fictional demonstration",
+      "voiceover": "In the moderator view, I inspect the processed images and analysis, then explicitly select Confirm impersonation for this fictional case. The AI recommendation alone cannot perform this transition."
+    },
+    {
+      "start": 152,
+      "end": 170,
+      "title": "Warning and persistence",
+      "shots": [
+        "14-profile-labelled.png",
+        "15-label-after-reload.png"
+      ],
+      "action": "Hold on Impersonation confirmed. Cut to the after-reload capture. If recording the live labelled page now, reload it and show the saved warning; do not reset the existing report to recreate the earlier state.",
+      "overlay": "Impersonation confirmed \u00b7 Persists after reload",
+      "voiceover": "The profile now displays Impersonation confirmed. Reloading preserves the warning because the decision is stored on the server. This demonstrates the complete report-to-review workflow; it does not modify the real Instagram service."
+    },
+    {
+      "start": 170,
+      "end": 180,
+      "title": "Close with the value and next step",
+      "shots": [
+        "15-label-after-reload.png"
+      ],
+      "action": "End on MirrorCheck, the one-line value proposition and Meta Muse Spark + local evidence + moderator review. Add the repository URL only after it contains the current source and license. End at 03:00 or earlier.",
+      "overlay": "Review suspected copies. Reduce contact exposure. Keep a moderator in control.",
+      "voiceover": "MirrorCheck makes suspicious copies easier to review while reducing contact exposure. Next, we need consented real-world evaluation and production hardening."
+    }
+  ],
+  "word_counts": {
+    "main": 268,
+    "short": 97,
+    "compact": 48,
+    "voiceover": 322
+  },
+  "character_counts": {
+    "title": 11,
+    "tagline": 100,
+    "main": 1885,
+    "short": 710,
+    "compact": 344
+  }
+}

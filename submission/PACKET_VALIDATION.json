@@ -1,0 +1,27 @@
+{
+  "validated_at": "2026-11-04T16:10:53.592897+00:00",
+  "description_word_counts": {
+    "main": 268,
+    "short": 97,
+    "compact": 48,
+    "voiceover": 322
+  },
+  "tagline_characters": 100,
+  "timeline_seconds": 180,
+  "scene_count": 10,
+  "max_scene_voiceover_words_per_minute": 125.0,
+  "draft_caption_cues": 38,
+  "captions_max_lines": 2,
+  "captions_max_line_characters": 42,
+  "captions_min_seconds": 2.65,
+  "captions_max_seconds": 6.25,
+  "captions_need_alignment_to_recorded_audio": true,
+  "source_stills_verified_against_recorded_sha256": 15,
+  "english_text_only": true,
+  "relative_links_resolve": true,
+  "known_server_secrets_scan": "passed",
+  "finished_video_exists": false,
+  "submitted": false,
+  "source_repository_published": false,
+  "app_tests_rerun_for_document_preparation": false
+}

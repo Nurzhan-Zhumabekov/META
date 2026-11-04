@@ -1,0 +1,19 @@
+An impersonator can copy a creator's photos and biography while changing just the username. MirrorCheck helps turn that suspicion into evidence a reviewer can inspect.
+
+This is our working, unofficial Instagram-style web prototype. These two fictional accounts share a name, biography, avatar and post images, but have different usernames.
+
+From the suspected copy, I choose Report account, then Pretending to be someone else. I attach screenshots of the original and suspected profile. PaddleOCR fills editable fields, and I correct the extracted text against the screenshots before submitting.
+
+Before any image reaches Meta AI, Presidio identifies the example email and phone. The server permanently covers both contact lines. These previews are the actual processed images prepared for Meta, with matching hashes for the evidence saved for review.
+
+Meta Muse Spark analyzes the processed screenshots through our backend and returns structured similarities, differences and limitations. Here it identifies reused profile content and recommends further review. It explicitly says screenshots cannot establish ownership. This is a real API response from the recorded run.
+
+Local models add separate signals: a text-reuse comparison between the two profiles, and an auxiliary profile spam-pattern score. Image deduplication also finds a matching grid region. These scores are evidence signals, not accuracy claims or proof of identity.
+
+The report remains Under review. Our profile model excludes avatar presence, so changing only a default-avatar flag cannot change its score. The pair model uses synthetic training data, a limitation shown to the reviewer.
+
+In the moderator view, I inspect the processed images and analysis, then explicitly select Confirm impersonation for this fictional case. The AI recommendation alone cannot perform this transition.
+
+The profile now displays Impersonation confirmed. Reloading preserves the warning because the decision is stored on the server. This demonstrates the complete report-to-review workflow; it does not modify the real Instagram service.
+
+MirrorCheck makes suspicious copies easier to review while reducing contact exposure. Next, we need consented real-world evaluation and production hardening.

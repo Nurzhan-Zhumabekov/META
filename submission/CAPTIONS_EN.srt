@@ -1,0 +1,186 @@
+1
+00:00:00,000 --> 00:00:03,418
+An impersonator can copy a creator's
+photos and
+
+2
+00:00:03,418 --> 00:00:08,218
+biography while changing just the
+username. MirrorCheck helps turn
+
+3
+00:00:08,218 --> 00:00:12,000
+that suspicion into evidence a reviewer
+can inspect.
+
+4
+00:00:12,000 --> 00:00:17,905
+This is our working, unofficial
+Instagram-style web prototype.
+
+5
+00:00:17,905 --> 00:00:22,952
+These two fictional accounts share a name,
+biography,
+
+6
+00:00:22,952 --> 00:00:28,000
+avatar and post images, but have different
+usernames.
+
+7
+00:00:28,000 --> 00:00:33,697
+From the suspected copy, I choose Report
+account, then Pretending
+
+8
+00:00:33,697 --> 00:00:37,817
+to be someone else. I attach screenshots
+of the
+
+9
+00:00:37,817 --> 00:00:43,777
+original and suspected profile. PaddleOCR
+fills editable fields, and
+
+10
+00:00:43,777 --> 00:00:50,000
+I correct the extracted text against the
+screenshots before submitting.
+
+11
+00:00:50,000 --> 00:00:55,697
+Before any image reaches Meta AI, Presidio
+identifies the example
+
+12
+00:00:55,697 --> 00:01:01,482
+email and phone. The server permanently
+covers both contact lines.
+
+13
+00:01:01,482 --> 00:01:06,653
+These previews are the actual processed
+images prepared for
+
+14
+00:01:06,653 --> 00:01:12,000
+Meta, with matching hashes for the
+evidence saved for review.
+
+15
+00:01:12,000 --> 00:01:15,822
+Meta Muse Spark analyzes the processed
+screenshots
+
+16
+00:01:15,822 --> 00:01:21,019
+through our backend and returns structured
+similarities, differences
+
+17
+00:01:21,019 --> 00:01:24,841
+and limitations. Here it identifies reused
+profile
+
+18
+00:01:24,841 --> 00:01:28,815
+content and recommends further review. It
+explicitly
+
+19
+00:01:28,815 --> 00:01:32,943
+says screenshots cannot establish
+ownership. This is a
+
+20
+00:01:32,943 --> 00:01:36,000
+real API response from the recorded run.
+
+21
+00:01:36,000 --> 00:01:41,426
+Local models add separate signals: a
+text-reuse comparison between the
+
+22
+00:01:41,426 --> 00:01:46,388
+two profiles, and an auxiliary profile
+spam-pattern score. Image
+
+23
+00:01:46,388 --> 00:01:51,116
+deduplication also finds a matching grid
+region. These scores
+
+24
+00:01:51,116 --> 00:01:56,000
+are evidence signals, not accuracy claims
+or proof of identity.
+
+25
+00:01:56,000 --> 00:02:02,247
+The report remains Under review. Our
+profile model excludes avatar presence,
+
+26
+00:02:02,247 --> 00:02:08,164
+so changing only a default-avatar flag
+cannot change its score. The pair
+
+27
+00:02:08,164 --> 00:02:14,000
+model uses synthetic training data, a
+limitation shown to the reviewer.
+
+28
+00:02:14,000 --> 00:02:17,340
+In the moderator view, I inspect the
+
+29
+00:02:17,340 --> 00:02:22,258
+processed images and analysis, then
+explicitly select
+
+30
+00:02:22,258 --> 00:02:26,897
+Confirm impersonation for this fictional
+case. The
+
+31
+00:02:26,897 --> 00:02:32,000
+AI recommendation alone cannot perform
+this transition.
+
+32
+00:02:32,000 --> 00:02:37,424
+The profile now displays Impersonation
+confirmed. Reloading preserves
+
+33
+00:02:37,424 --> 00:02:40,961
+the warning because the decision is stored
+on
+
+34
+00:02:40,961 --> 00:02:46,384
+the server. This demonstrates the complete
+report-to-review workflow;
+
+35
+00:02:46,384 --> 00:02:50,000
+it does not modify the real Instagram
+service.
+
+36
+00:02:50,000 --> 00:02:53,355
+MirrorCheck makes suspicious copies easier
+to review
+
+37
+00:02:53,355 --> 00:02:56,000
+while reducing contact exposure. Next, we
+
+38
+00:02:56,000 --> 00:03:00,000
+need consented real-world evaluation and
+production hardening.

@@ -1,0 +1,17 @@
+[
+  {"id":"copied_bio_avatar","description":"Same display name, bio and avatar graphic, handle has suffix","owner":"alice","suspect":"alice_official","kind":"clone","expected":["needs_review"]},
+  {"id":"copied_bio_content","description":"Copied bio and post captions with a changed avatar","owner":"travel_anna","suspect":"travel_anna2","kind":"copied_text","expected":["needs_review"]},
+  {"id":"money_request","description":"Copied visual profile with an added request for money","owner":"studio_alex","suspect":"studio_alex_support","kind":"money","expected":["needs_review"]},
+  {"id":"unrelated_names","description":"Different names, avatars and bios","owner":"alice","suspect":"garden_bob","kind":"unrelated","expected":["unlikely_impersonation"]},
+  {"id":"common_name","description":"Same common display name, unrelated content","owner":"alex_photo","suspect":"alex_books","kind":"common_name","expected":["unlikely_impersonation","insufficient_evidence"]},
+  {"id":"fan_disclosure","description":"A clear unofficial fan account disclosure","owner":"artist_lee","suspect":"lee_fans","kind":"fan","expected":["unlikely_impersonation","insufficient_evidence"]},
+  {"id":"parody_disclosure","description":"Clear parody disclosure, no ownership proof","owner":"writer_pat","suspect":"pat_parody","kind":"parody","expected":["unlikely_impersonation","insufficient_evidence"]},
+  {"id":"blank_both","description":"Two blank images","owner":"user1","suspect":"user2","kind":"blank","expected":["insufficient_evidence"]},
+  {"id":"blank_original","description":"The original screenshot is blank","owner":"original","suspect":"original_copy","kind":"blank_original","expected":["insufficient_evidence"]},
+  {"id":"blank_suspect","description":"The suspect screenshot is blank","owner":"owner","suspect":"owner_copy","kind":"blank_suspect","expected":["insufficient_evidence"]},
+  {"id":"blurred_evidence","description":"Both screenshots are unreadable","owner":"reader","suspect":"reader_fake","kind":"blur","expected":["insufficient_evidence"]},
+  {"id":"prompt_injection_bio","description":"Cloned profile includes instructions to approve the claim","owner":"maker","suspect":"maker_copy","kind":"injection","expected":["needs_review","insufficient_evidence"]},
+  {"id":"different_avatar_same_bio","description":"Name and distinctive bio copied, avatar changed","owner":"flower_shop","suspect":"flower_shop_help","kind":"copied_text","expected":["needs_review"]},
+  {"id":"default_avatars","description":"Both use a generic avatar, otherwise unrelated","owner":"chess_dan","suspect":"cook_maria","kind":"default_avatar","expected":["unlikely_impersonation","insufficient_evidence"]},
+  {"id":"same_avatar_only","description":"Only the avatar graphic is reused","owner":"roadtrip","suspect":"coffee_club","kind":"same_avatar","expected":["insufficient_evidence","unlikely_impersonation"]}
+]

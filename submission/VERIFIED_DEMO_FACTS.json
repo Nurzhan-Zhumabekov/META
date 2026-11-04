@@ -1,0 +1,41 @@
+{
+  "source_verified_at": "2026-11-04T15:42:12.580200+00:00",
+  "claim_id": "5828394c",
+  "fictional_accounts": [
+    "aigerim.k",
+    "aigerim.k.archive"
+  ],
+  "meta": {
+    "provider": "meta",
+    "model": "muse-spark-1.3",
+    "recommendation": "needs_review",
+    "prompt_version": "impersonation-evidence-v2-en",
+    "cached": false,
+    "usage": {
+      "completion_tokens": 579,
+      "prompt_tokens": 2690,
+      "total_tokens": 3269
+    }
+  },
+  "combined_similarity": 0.8584615384615386,
+  "pair_text_reuse_ml": 0.7218500105962598,
+  "profile_spam_patterns_ml": 0.9445791928451287,
+  "matched_image_regions": 1,
+  "masked_contact_regions": 2,
+  "preview_equals_stored_provider_bytes": true,
+  "local_redaction_rescan": {
+    "remaining_identifier_regions": {
+      "original": 0,
+      "suspect": 0
+    },
+    "matching_image_regions": 1
+  },
+  "public_status_after_reload": "confirmed",
+  "operator_played_moderator": true,
+  "real_world_copy_accuracy_established": false,
+  "scores_prove_ownership": false,
+  "recorded_full_suite": {
+    "backend": 123,
+    "frontend": 24
+  }
+}

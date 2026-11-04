@@ -1,0 +1,373 @@
+/* Social interactions on top of the measured Instagram web reference. */
+.feed-tabs {
+  display: flex;
+  gap: 22px;
+  min-height: 42px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid #eceef0;
+}
+.feed-tabs > button {
+  position: relative;
+  padding: 9px 2px 13px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.feed-tabs > button.active {
+  color: var(--text);
+}
+.feed-tabs > button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+}
+.swipe-carousel {
+  position: relative;
+  background: #f2f3f5;
+  isolation: isolate;
+}
+.carousel-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+.carousel-track {
+  display: flex;
+  height: 100%;
+}
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  position: relative;
+}
+.carousel-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.carousel-control {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fffffff0;
+  box-shadow: 0 1px 5px #0003;
+  color: #34383d;
+}
+.carousel-control:disabled {
+  visibility: hidden;
+}
+.carousel-prev {
+  left: 12px;
+}
+.carousel-next {
+  right: 12px;
+}
+.carousel-count {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 2;
+  padding: 5px 9px;
+  border-radius: 14px;
+  background: #15191dcc;
+  color: white;
+  font-size: 12px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.carousel-pagination {
+  position: absolute;
+  z-index: 2;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 0 3px;
+  border-radius: 14px;
+  background: #0002;
+}
+.carousel-pagination button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 24px;
+  padding: 0;
+}
+.carousel-pagination span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff8c;
+  box-shadow: 0 0 2px #0005;
+}
+.carousel-pagination [aria-current="true"] span {
+  background: white;
+  transform: scale(1.25);
+}
+.posts > .post-card .comment-form {
+  display: flex;
+}
+.posts > .post-card .comments-link {
+  display: block;
+}
+.comment-form {
+  gap: 8px;
+}
+.comment-form input {
+  min-width: 0;
+}
+.comment-form > .emoji-button {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 30px;
+  min-height: 30px;
+  padding: 0;
+  color: var(--muted);
+}
+.comment-form > button[type="submit"] {
+  white-space: nowrap;
+}
+.emoji-button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: var(--text);
+}
+.emoji-button:hover {
+  color: var(--muted);
+}
+.emoji-dialog {
+  width: min(370px, calc(100vw - 24px));
+}
+.emoji-dialog .dialog-inner {
+  overflow: hidden;
+}
+.emoji-dialog aside.EmojiPickerReact {
+  border: 0;
+  --epr-emoji-size: 27px;
+  --epr-category-label-height: 32px;
+}
+.emoji-dialog .epr-search-container {
+  width: 100%;
+}
+.emoji-loading {
+  display: grid;
+  place-items: center;
+  height: 390px;
+  margin: 0;
+  color: var(--muted);
+}
+.discovery-topics {
+  display: flex;
+  gap: 8px;
+  margin: -12px 0 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 0 4px;
+}
+.discovery-topics::-webkit-scrollbar {
+  display: none;
+}
+.discovery-topics button {
+  flex-shrink: 0;
+  border: 1px solid #e2e5e8;
+  border-radius: 9px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  background: white;
+}
+.discovery-topics [aria-pressed="true"] {
+  color: white;
+  background: var(--text);
+  border-color: var(--text);
+}
+.explore-grid {
+  gap: 3px;
+}
+.explore-grid > button {
+  background: #f1f3f5;
+}
+.profile-category {
+  display: block;
+  color: var(--muted);
+  margin: 0 0 5px;
+}
+.profile-stats > button {
+  padding: 0;
+  text-align: inherit;
+  font: inherit;
+  color: inherit;
+}
+.profile-stats > button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.profile-title-row h1,
+.profile-mobile-handle {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.profile-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.people-dialog {
+  width: min(440px, calc(100vw - 24px));
+}
+.people-dialog .dialog-footnote {
+  margin: 0;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 17px;
+}
+.people-list {
+  padding: 8px 16px 16px;
+  max-height: min(530px, 65svh);
+  overflow: auto;
+}
+.person-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+}
+.person-row > .avatar {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+.person-name {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 14px;
+}
+.person-name strong,
+.person-name span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.person-name span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.person-row > button {
+  padding: 7px 12px;
+  font-size: 12px;
+  min-height: 32px;
+  flex-shrink: 0;
+}
+.site-footer > a {
+  display: block;
+  margin-top: 10px;
+}
+.suggestion-names {
+  min-width: 0;
+}
+.suggestion-names > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.post-caption a {
+  overflow-wrap: anywhere;
+}
+@media (min-width: 1200px) {
+  .feed-layout {
+    padding-top: 22px;
+  }
+  .suggestions {
+    padding-top: 26px;
+  }
+}
+@media (max-width: 767px) {
+  .feed-tabs {
+    margin: 0;
+    padding: 0 16px;
+    min-height: 44px;
+    gap: 24px;
+  }
+  .feed-tabs > button {
+    font-size: 15px;
+  }
+  .stories {
+    padding-top: 16px;
+  }
+  .post-media {
+    border-radius: 0;
+  }
+  .profile-stats > button {
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: anywhere;
+  }
+  .profile-stats > button strong {
+    display: block;
+  }
+  .discovery-topics {
+    margin: -14px 0 16px;
+    gap: 6px;
+  }
+  .discovery-topics button {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+  .carousel-control {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+  }
+  .comment-form {
+    padding: 4px 0;
+  }
+  .comment-form > button[type="submit"] {
+    font-size: 12px;
+  }
+  .post-copy {
+    padding-bottom: 8px;
+  }
+  .profile-title-row > .profile-mobile-handle {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .profile-title-row > .desktop-profile-menu {
+    flex-shrink: 0;
+  }
+  .person-row {
+    gap: 8px;
+  }
+  .people-list {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    scroll-behavior: auto;
+  }
+}

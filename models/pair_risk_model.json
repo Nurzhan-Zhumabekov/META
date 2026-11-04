@@ -1,0 +1,52 @@
+{
+  "artifact_version": 1,
+  "model_id": "pair-text-logreg-v1-synthetic",
+  "features": [
+    "name_similarity",
+    "handle_similarity",
+    "owner_handle_contained",
+    "bio_similarity",
+    "distinctive_bio_reuse",
+    "contact_reuse",
+    "name_bio_interaction",
+    "disclosure"
+  ],
+  "mean": [
+    0.7513470264229182,
+    0.6593358444732784,
+    0.6153846153846154,
+    0.6695551354860478,
+    0.5562130177514795,
+    0.6153846153846154,
+    0.5135393950297799,
+    0.15384615384615385
+  ],
+  "scale": [
+    0.34208432323955373,
+    0.20341817024908704,
+    0.4865042554105202,
+    0.34460054153459474,
+    0.46756795893818626,
+    0.4865042554105202,
+    0.4682265714970794,
+    0.36080121229410944
+  ],
+  "coefficients": [
+    0.38404963459906694,
+    0.04834395320322171,
+    0.15043590149198266,
+    0.674728292326207,
+    0.8727050770581952,
+    0.6435462194664511,
+    0.8501061543499271,
+    -1.5883225531206493
+  ],
+  "intercept": -1.2341381537113403,
+  "threshold": 0.7,
+  "training_data": "synthetic",
+  "split_sha256": {
+    "train": "eff77c7373c35a66c2bb7a5c77e55ce285eadda7b6a8f8604e9e7c4b23232e5a",
+    "validation": "99a197d1f9455f8f9df3ebe12108af0cc8f0813894339963c67c5910fdeabc03",
+    "holdout": "d416556a7efd0271a6f453089572e85c2cbc277cb2ac5d739ff856ea0ef65561"
+  }
+}
