@@ -18,15 +18,18 @@ jobs:
         run: docker build --target test -t mirrorcheck:ci .
       - name: Start an isolated public-mode container without production secrets
         run: >-
-          docker run -d --name mirrorcheck-ci -p 127.0.0.1:8090:8090
+          docker run -d --name mirrorcheck-ci -p 127.0.0.1:8090:8090 --memory=4g --cpus=2
           -e PUBLIC_DEMO_ENABLED=true -e COMPARER=local
           -e DEMO_SESSION_SECRET=ci-only-signing-key-never-used-for-deployment
           -v "$PWD/vision_tests/fixtures:/fixtures:ro"
+          -v mirrorcheck-ci-data:/var/data
           mirrorcheck:ci
       - name: Verify real workers, privacy bytes, visitor isolation and appeal lifecycle
         run: |
           docker cp scripts/smoke_public_demo.py mirrorcheck-ci:/tmp/smoke_public_demo.py
           docker exec mirrorcheck-ci /opt/api/bin/python /tmp/smoke_public_demo.py
+          docker restart mirrorcheck-ci
+          docker exec mirrorcheck-ci /opt/api/bin/python /tmp/smoke_public_demo.py --verify-restart
       - name: Container logs on failure
         if: failure()
         run: docker logs --tail 150 mirrorcheck-ci || true

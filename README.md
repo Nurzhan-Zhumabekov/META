@@ -1,5 +1,16 @@
 # MirrorCheck — AI-Assisted Impersonation Review
 
+Version 0.13 adds explained moderator decisions, private audit history,
+report-scoped appeals, transactional SQLite and isolated visitor sandboxes.
+[Measured results](docs/INDEPENDENT_EVALUATION.md): text-copy recall improves from
+62/100 to 92/100 on controlled external-text test pairs; difficult photo-region
+recall improves from 1/50 to 18/50 on a separate Copydays test. Neither is a claim
+of real Instagram impersonation accuracy. Open `/benchmark.html` for the readable
+report and aggregate hashes. [Public deployment](docs/PUBLIC_DEPLOYMENT.md) is
+prepared with Docker, Linux CI and a validated Render blueprint; a public live
+URL remains pending provisioning and verification. The existing three-minute
+video records version 0.12; the revised 0.13 script is in the submission packet.
+
 **Meta Muse Spark + local ML + contact redaction + a separate moderator decision.**
 
 [Clean-checkout quick start](QUICKSTART.md) ·

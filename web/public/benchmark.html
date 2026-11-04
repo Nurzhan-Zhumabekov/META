@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MirrorCheck evaluation: measured improvements, frozen splits and explicit limitations.">
+  <title>Evidence, measured · MirrorCheck</title>
+  <style>
+    :root{color-scheme:light;font-family:Arial,Helvetica,sans-serif;color:#202a23;background:#f8f7f4}*{box-sizing:border-box}body{margin:0}header,main,footer{width:min(1120px,calc(100% - 48px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;padding:30px 0;border-bottom:1px solid #d9ddd5}a{color:inherit;text-underline-offset:5px}header a:first-child{font-size:23px;font-weight:700;text-decoration:none}.eyebrow{letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:#52634e;margin-top:65px}h1{font-size:clamp(42px,6vw,78px);font-weight:500;letter-spacing:-.055em;line-height:1.03;max-width:850px;margin:22px 0}p{line-height:1.7;max-width:800px;color:#536050}.lead{font-size:20px;margin-bottom:45px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{padding:32px;border:1px solid #d6dbd1;border-radius:22px;background:white}h2{font-size:23px;font-weight:500;letter-spacing:-.03em;margin-top:0}.number{font-size:64px;letter-spacing:-.07em;line-height:1.2}.number small{font-size:17px;letter-spacing:0;color:#63715e}.track{height:12px;background:#edf0e9;border-radius:8px;overflow:hidden;margin:12px 0 20px}.bar{height:100%;background:#344e3b}.baseline .bar{background:#b2bdb0}.metric-label{font-size:13px;display:flex;justify-content:space-between;gap:20px}.note{font-size:13px;margin-bottom:0}.boundary{border-left:3px solid #40553c;padding:4px 24px;margin:42px 0}section{margin:48px 0}h3{font-size:18px;font-weight:600}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:16px 10px;border-bottom:1px solid #d9ddd5}th{color:#52634e;font-size:12px;text-transform:uppercase;letter-spacing:.06em}.table-scroll{overflow-x:auto}.action{display:inline-block;border:1px solid #394d35;border-radius:8px;padding:12px 18px;text-decoration:none;margin:8px 8px 8px 0}.action.primary{background:#24352a;color:white}footer{font-size:12px;padding:30px 0 45px;border-top:1px solid #d9ddd5;color:#63715e}a:focus-visible{outline:3px solid #5c7951;outline-offset:5px}@media(max-width:700px){.cards{grid-template-columns:1fr}.card{padding:24px}header,main,footer{width:calc(100% - 32px)}.eyebrow{margin-top:40px}th,td{padding:12px 8px;white-space:nowrap}}
+  </style>
+</head>
+<body>
+<header><a href="/demo-guide.html">MirrorCheck ↗</a><a href="/">Open the prototype</a></header>
+<main>
+  <p class="eyebrow">Evaluation · 5 November 2026</p>
+  <h1>A better second look.<br>With numbers behind it.</h1>
+  <p class="lead">We tested text reuse and copied-photo detection on frozen, separate source groups. These are controlled research challenges. Human reviewers still decide every profile warning.</p>
+  <div class="cards">
+    <article class="card">
+      <h2>Text reuse between profiles</h2><div class="number">92<span style="font-size:28px"> / 100</span> <small>copies found</small></div>
+      <p>External professional bios; controlled copy, changed-name, ordinary-profile, fan and parody scenarios.</p>
+      <div class="metric-label"><span>Selected model · test recall</span><strong>92%</strong></div><div class="track"><div class="bar" style="width:92%"></div></div>
+      <div class="metric-label"><span>Previous model</span><strong>62%</strong></div><div class="track baseline"><div class="bar" style="width:62%"></div></div>
+      <p class="note">0 false positives / 100 negatives. Recall 95% interval: 85.0–95.9%. False-positive rate upper bound: 3.7%.</p>
+    </article>
+    <article class="card">
+      <h2>Strongly transformed photos</h2><div class="number">18<span style="font-size:28px"> / 50</span> <small>copies found</small></div>
+      <p>INRIA Copydays strong queries placed in screenshot grids. Matching must locate the expected photo region.</p>
+      <div class="metric-label"><span>Selected matcher · test recall</span><strong>36%</strong></div><div class="track"><div class="bar" style="width:36%"></div></div>
+      <div class="metric-label"><span>Previous matcher</span><strong>2%</strong></div><div class="track baseline"><div class="bar" style="width:2%"></div></div>
+      <p class="note">0 false positives / 50 negatives. Recall 95% interval: 24.1–49.9%. False-positive rate upper bound: 7.1%.</p>
+    </article>
+  </div>
+  <div class="boundary"><h3>Measured improvement, with clear limits.</h3><p>32 of 50 difficult photo copies were still missed. Missing a match cannot clear an account automatically. Copied content cannot prove ownership or deceptive intent. Pair-level intervals do not account for correlation between variants from one source.</p></div>
+  <section>
+    <h2>Validation chose the candidate. Test measured it.</h2>
+    <div class="table-scroll"><table><thead><tr><th>Task / split</th><th>Before</th><th>After</th><th>False positives after</th></tr></thead><tbody>
+      <tr><td>Text · validation</td><td>63 / 100</td><td>91 / 100</td><td>0 / 100</td></tr>
+      <tr><td>Text · test</td><td>62 / 100</td><td>92 / 100</td><td>0 / 100</td></tr>
+      <tr><td>Photos · validation</td><td>4 / 50</td><td>29 / 50</td><td>0 / 50</td></tr>
+      <tr><td>Photos · test</td><td>1 / 50</td><td>18 / 50</td><td>0 / 50</td></tr>
+    </tbody></table></div>
+    <p>Text identities and photo source blocks are separated across splits. External texts were not used to fit model weights. Thresholds were not tuned on the test split. The text model still uses fictional synthetic training data; ORB/SIFT geometric verification extends conservative image hashing.</p>
+  </section>
+  <section><h2>Sources you can inspect</h2><p>Text source: <a href="https://github.com/navid-aub/LinkedIn-Dataset">LinkedIn research dataset</a>, read safely as CSV from the <a href="https://doi.org/10.7717/peerj-cs.3182/supp-2">PeerJ supplementary data</a>. Photo source: <a href="https://thoth.inrialpes.fr/~jegou/data.php.html#copydays">INRIA Copydays</a>. Raw profile text and research photos are kept out of this public repository.</p><p>These are not independently annotated real Instagram impersonation cases. Meta and hybrid were not evaluated on the full external corpus; the live Meta demonstration is separate evidence. This prototype does not connect to the real Instagram service.</p>
+    <a class="action primary" href="/benchmark-results.json">Open aggregate results and hashes</a><a class="action" href="https://github.com/Nurzhan-Zhumabekov/META/blob/main/docs/INDEPENDENT_EVALUATION.md">Read the method</a>
+  </section>
+</main><footer>MirrorCheck · Unofficial research prototype · AI helps assemble evidence. A human decides.</footer>
+</body></html>

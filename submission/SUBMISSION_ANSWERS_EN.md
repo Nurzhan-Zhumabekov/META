@@ -1,8 +1,8 @@
-# MirrorCheck — adaptable submission answers
+# MirrorCheck вЂ” adaptable submission answers
 
 Prepared in English on November 4, 2026. These are content blocks, not a verified transcription of the final form. No form has been filled or submitted.
 
-Project name: **MirrorCheck — AI-Assisted Impersonation Review**
+Project name: **MirrorCheck вЂ” AI-Assisted Impersonation Review**
 
 Tagline: Turn suspected profile copies into reviewable evidence with Meta AI, local ML and contact redaction.
 
@@ -60,7 +60,7 @@ Nurzhan Zhumabekov is a Software Engineering student at Astana IT University in 
 
 | Item | Verified status / required action |
 | --- | --- |
-| GitHub | https://github.com/Nurzhan-Zhumabekov/META — this source release includes the web application, legacy client, tests, JSON models and an MIT license for original code. Check `REPOSITORY_PUBLICATION.json` when present for the application commit verified after upload. |
+| GitHub | https://github.com/Nurzhan-Zhumabekov/META вЂ” this source release includes the web application, legacy client, tests, JSON models and an MIT license for original code. Check `REPOSITORY_PUBLICATION.json` when present for the application commit verified after upload. |
 | Demo video URL | [Finished 03:00 English MP4](https://github.com/Nurzhan-Zhumabekov/META/raw/refs/heads/main/web/public/MirrorCheck_Demo_EN_3min.mp4). Check the actual form's accepted video hosts before using a repository MP4 URL. |
 | Public application URL | Not verified or prepared here. `localhost:8090` is accessible only on the development machine. Do not paste it as a public demo URL. |
 | Track | Indie developer is recommended for a student/individual entry; confirm the actual registration. |

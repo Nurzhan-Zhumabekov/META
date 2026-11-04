@@ -24,3 +24,11 @@ For inference, the regular API dependencies suffice; scikit-learn is needed only
 to retrain. Training and provenance details, including the profile-data licensing
 uncertainty, are in `ML_INTEGRATION.md` and `NOTICE.md`. No raw training rows or
 real account identifiers are included in these parameter files.
+
+Version 0.13 bundles v2 of the synthetic text model, selected on an external-text
+validation challenge. On its controlled held-out test it detects 92/100 text-copy
+pairs (v1: 62/100), with 0/100 negative pairs flagged. This is not independently
+labelled Instagram accuracy. See `docs/INDEPENDENT_EVALUATION.md` for provenance,
+confidence intervals and the separate photo-region results. Existing runtime
+model files are still never overwritten by the installer; back up custom models
+before explicitly choosing to replace them with the bundled release.

@@ -6,6 +6,7 @@ import base64
 import json
 from pathlib import Path
 import time
+import sys
 
 import httpx
 
@@ -24,6 +25,18 @@ def main():
     first = httpx.Client(base_url=base+'/api/', headers={'Origin':base},timeout=180,trust_env=False)
     second = httpx.Client(base_url=base+'/api/', headers={'Origin':base},timeout=180,trust_env=False)
     try:
+        state_path = Path('/var/data/smoke-state.json')
+        if '--verify-restart' in sys.argv:
+            state = json.loads(state_path.read_text())
+            first.cookies.update(state['cookies'])
+            assert first.post('demo/reviewer').status_code == 200
+            assert first.get('statuses').json() == {}
+            record = first.get('reviewer/cases').json()[0]
+            assert record['id'] == state['id'] and record['status'] == 'rejected'
+            assert record['history'][-1]['kind'] == 'appeal_resolved'
+            assert first.get(f"claims/{state['id']}/evidence/original").status_code == 200
+            print(json.dumps({'restart_persistence':'passed','history_and_processed_evidence':'retained','provider_requests':0}))
+            return
         for client in (first,second):
             assert client.post('demo/session').status_code==200
         images = {'original':Path('/fixtures/original-faint-gutters.png').read_bytes(),
@@ -64,6 +77,8 @@ def main():
         assert first.get('statuses').json()=={} and second.get('statuses').json()=={}
         history=first.get(f'claims/{identifier}/history').json()['events']
         assert history[-1]['kind']=='appeal_resolved' and history[-1]['to_status']=='rejected'
+        state_path.write_text(json.dumps({'id':identifier,'cookies':dict(first.cookies)}))
+        state_path.chmod(0o600)
         assert first.delete('reviewer/session').status_code==200
         assert first.get('reviewer/session').status_code==401
         print(json.dumps({'public_session_isolation':'passed','real_paddleocr':'passed','real_presidio_masks':2,

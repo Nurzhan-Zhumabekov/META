@@ -337,6 +337,7 @@ export function Landing() {
             <Icon name="external" size={12} />
           </a>
           <a href="/photo-credits.html">Credits</a>
+          <a href="/benchmark.html">Measured results</a>
           <a href="/review">Moderator access</a>
         </nav>
         <details>

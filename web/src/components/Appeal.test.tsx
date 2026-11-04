@@ -7,6 +7,50 @@ beforeEach(() => {
   vi.unstubAllGlobals();
 });
 
+it("refreshes a pending appeal to the moderator's final outcome", async () => {
+  let resolved = false;
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () =>
+      Response.json({
+        claim: {
+          id: "demo1234",
+          suspect_handle: "fictional.copy",
+          status: resolved ? "rejected" : "confirmed",
+        },
+        decisions: [],
+        appeals: [
+          {
+            id: "appeal1",
+            reason: "Photos used with permission.",
+            status: resolved ? "overturn" : "pending",
+            created_at: "2026-11-05T00:00:00Z",
+            ...(resolved
+              ? { resolution_reason: "Permission context accepted." }
+              : {}),
+          },
+        ],
+      }),
+    ),
+  );
+  render(<Appeal />);
+  fireEvent.change(screen.getByLabelText("Private appeal access"), {
+    target: { value: "scoped-demo-access" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Open my report" }));
+  expect(await screen.findByRole("status")).toHaveTextContent(
+    "awaiting a moderator",
+  );
+  resolved = true;
+  fireEvent.click(screen.getByRole("button", { name: "Refresh report" }));
+  expect(
+    await screen.findByText("Moderator response: Permission context accepted."),
+  ).toBeVisible();
+  expect(screen.getByRole("status")).toHaveTextContent(
+    "no longer adds a confirmed warning",
+  );
+});
+
 it("explains expired appeal access without referring to a moderator login", async () => {
   vi.stubGlobal(
     "fetch",

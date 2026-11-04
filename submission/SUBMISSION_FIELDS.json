@@ -1,12 +1,12 @@
 {
-  "prepared_at": "2026-11-04T16:51:18.719128+00:00",
+  "prepared_at": "2026-11-04T21:18:06.895274+00:00",
   "status": "local_draft_not_submitted",
   "title": "MirrorCheck",
   "subtitle": "AI-Assisted Impersonation Review",
   "tagline": "Turn suspected profile copies into reviewable evidence with Meta AI, local ML and contact redaction.",
-  "description": "A copied profile can look convincing long before anyone checks it. MirrorCheck helps users document suspected impersonation and gives reviewers a structured path from complaint to decision.\n\nBuilt as an unofficial Instagram-style web prototype, it starts inside the profile flow. A reporter attaches screenshots of the original and suspected copy. PaddleOCR extracts editable profile fields, while imagededup flags matching image regions. The reporter reviews and corrects the extracted data before submitting.\n\nBefore screenshots reach Meta AI, a local Presidio pipeline detects email and phone lines and covers them with opaque masks. The preview, provider-prepared image and stored reviewer evidence are checked for matching bytes. Processing failures block the external image request.\n\nMeta Muse Spark, accessed through the backend with muse-spark-1.3, compares the processed screenshots and returns structured similarities, differences, limitations and a review recommendation. Two local ML models add separate signals: text reuse between profiles and auxiliary spam patterns in profile statistics. Avatar presence is excluded from the profile model, so an ordinary default avatar cannot change that model's score by itself.\n\nThe report stays under review until a separate moderator action. In the completed fictional demo, the moderator confirms impersonation and the profile warning persists after a reload. The English interface demonstrates the whole journey in context.\n\nMirrorCheck is a working local prototype, with a real Meta API run and a recorded end-to-end browser walkthrough. It does not connect to or modify the real Instagram service. Screenshots and model scores cannot establish ownership; the pair model uses synthetic training data, and performance on real account-copy cases remains unvalidated. The next step is consented evaluation and production hardening.",
-  "short_description": "MirrorCheck is an unofficial Instagram-style web prototype for reporting suspected profile copies. Users attach two screenshots, review PaddleOCR fields, inspect image matches and preview contact details masked locally with Presidio before Meta AI receives images. Meta Muse Spark returns structured visual evidence; local ML adds separate text-reuse and profile spam-pattern signals. A moderator reviews the evidence and explicitly decides whether to add a persistent profile warning. A real Meta API run demonstrates the complete workflow with fictional accounts. The prototype does not modify Instagram, and its scores do not prove ownership. Real-world copy-detection performance still requires evaluation.",
-  "compact_description": "MirrorCheck combines Meta Muse Spark, editable OCR, image deduplication and local contact redaction to help review suspected profile copies. Reports stay under review until a separate moderator decision adds a persistent warning. The working Instagram-style web demo uses fictional accounts; it does not modify Instagram or establish ownership.",
+  "description": "A copied profile can look convincing long before anyone checks it. MirrorCheck turns suspected impersonation into evidence a human can review.\n\nInside an unofficial Instagram-style web prototype, a reporter uploads two profile screenshots. PaddleOCR extracts editable fields, imagededup and geometric feature matching look for reused photos, and local Presidio processing masks email and phone lines before Meta AI receives the images. The preview, provider-prepared image and saved reviewer evidence are checked for matching bytes.\n\nMeta Muse Spark returns structured observations, differences, limitations and a recommendation. Separate local ML models estimate text reuse and auxiliary spam patterns. A default avatar cannot change the profile-model score by itself. No AI result adds a warning automatically.\n\nA moderator must explain and explicitly confirm or dismiss the complaint. Version checks prevent stale decisions from overwriting newer reviews. Private history records the decision. A report-scoped, expiring appeal gives the affected party a way to explain context; the warning remains until a moderator upholds or overturns it.\n\nWe evaluated the new text model on 200 controlled test pairs derived from external professional bios, with source identities separated across splits: recall rose from 62% to 92%, with zero observed false positives among 100 negatives. On a separate Copydays photo-region challenge, recall rose from 2% to 36%, with zero observed false positives among 50 negatives. Difficult photo copies are still often missed. These research tasks do not establish real Instagram impersonation accuracy.\n\nMirrorCheck runs locally with real Meta requests. Its prepared public-demo architecture isolates visitors, but public hosting is pending provisioning and verification. It does not connect to or modify Instagram, and screenshots cannot establish ownership.",
+  "short_description": "MirrorCheck combines Meta Muse Spark, local ML, editable OCR, photo matching and contact redaction to review suspected profile copies. Explained moderator decisions, private history and scoped appeals keep humans responsible for warnings. Measured research challenges show improved recall; real Instagram accuracy and public hosting remain unverified.",
+  "compact_description": "MirrorCheck combines Meta Muse Spark, local ML, editable OCR, photo matching and contact redaction to review suspected profile copies. Explained moderator decisions, private history and scoped appeals keep humans responsible for warnings. Measured research challenges show improved recall; real Instagram accuracy and public hosting remain unverified.",
   "recommended_track": "Indie developer (confirm registration and eligibility)",
   "recommended_theme": "Build for Your World",
   "actual_form_fields_and_limits_verified": false,
@@ -220,16 +220,21 @@
   ],
   "word_counts": {
     "main": 268,
-    "short": 97,
-    "compact": 48,
+    "short": 46,
+    "compact": 46,
     "voiceover": 363
   },
   "character_counts": {
     "title": 11,
     "tagline": 100,
-    "main": 1885,
-    "short": 710,
-    "compact": 344
+    "main": 1890,
+    "short": 351,
+    "compact": 351
   },
-  "video_updated_at": "2026-11-04T20:10:27.387189+00:00"
+  "video_updated_at": "2026-11-04T20:10:27.387189+00:00",
+  "version": "0.13.0",
+  "public_deployment_status": "prepared_not_provisioned",
+  "evaluation_method": "docs/INDEPENDENT_EVALUATION.md",
+  "next_recording_script": "DEMO_SCRIPT_013_EN.md",
+  "current_video_version": "0.12.0"
 }

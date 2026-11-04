@@ -21,8 +21,7 @@ export function Appeal() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
-  async function open(event: React.FormEvent) {
-    event.preventDefault();
+  async function refreshReport() {
     setBusy(true);
     setError("");
     try {
@@ -33,11 +32,16 @@ export function Appeal() {
           body: JSON.stringify({ token }),
         }),
       );
+      setSent(false);
     } catch (problem) {
       setError(appealError(problem));
     } finally {
       setBusy(false);
     }
+  }
+  async function open(event: React.FormEvent) {
+    event.preventDefault();
+    await refreshReport();
   }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -101,6 +105,13 @@ export function Appeal() {
                 Report {detail.claim.id} · {detail.claim.status}
               </p>
             </div>
+            <button
+              className="button secondary"
+              disabled={busy}
+              onClick={() => void refreshReport()}
+            >
+              {busy ? "Refreshing…" : "Refresh report"}
+            </button>
           </header>
           <div className="appeal-explanation">
             {detail.decisions.map((e) => (

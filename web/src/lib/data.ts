@@ -233,6 +233,18 @@ accounts.push({
   photos: gallery.slice(0, 6),
 });
 
+// Isolated fictional account for an explained decision and appeal walkthrough.
+accounts.push({
+  handle: "aigerim.k.appeal",
+  name: accounts[0].name,
+  avatar: accounts[0].avatar,
+  bio: `${accounts[0].bio}\nEmail: studio.demo@example.com\nPhone: +1 202 555 0147`,
+  posts: 6,
+  followers: 29,
+  following: 2310,
+  photos: gallery.slice(0, 6),
+});
+
 export const accountByHandle = (handle: string) =>
   accounts.find((a) => a.handle === handle.replace(/^@/, ""));
 accounts.push(...footballAccounts, ...creatorAccounts);
