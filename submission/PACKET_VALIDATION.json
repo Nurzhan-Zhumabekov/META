@@ -1,5 +1,5 @@
 {
-  "validated_at": "2026-11-04T16:10:53.592897+00:00",
+  "validated_at": "2026-11-04T16:17:55.539120+00:00",
   "description_word_counts": {
     "main": 268,
     "short": 97,
@@ -22,6 +22,6 @@
   "known_server_secrets_scan": "passed",
   "finished_video_exists": false,
   "submitted": false,
-  "source_repository_published": false,
+  "source_repository_published": true,
   "app_tests_rerun_for_document_preparation": false
 }

@@ -5,7 +5,10 @@
 [Clean-checkout quick start](QUICKSTART.md) ·
 [English project description](submission/PROJECT_DESCRIPTION_EN.md) ·
 [Three-minute demo script](submission/DEMO_VIDEO_SCRIPT_EN.md) ·
-[Voiceover](submission/VOICEOVER_EN.txt) · [License](LICENSE) · [Attributions](NOTICE.md)
+[Voiceover](submission/VOICEOVER_EN.txt) ·
+[Submission ZIP](releases/submission-kit-20261104.zip) ·
+[Publication checks](submission/REPOSITORY_PUBLICATION.json) ·
+[License](LICENSE) · [Attributions](NOTICE.md)
 
 The repository includes the native web application, its archived Flutter client,
 tests, two JSON inference models and the English hackathon submission packet.

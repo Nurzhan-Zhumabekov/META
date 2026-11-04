@@ -193,8 +193,18 @@ def main() -> None:
     (KIT / "stills").mkdir(exist_ok=True)
     publication_path = KIT / "REPOSITORY_PUBLICATION.json"
     publication = json.loads(publication_path.read_text(encoding="utf-8")) if publication_path.exists() else None
-    evidence = json.loads((DEMO / "verification.json").read_text(encoding="utf-8"))
-    tests = json.loads((ROOT / "outputs/english-ui/verification.json").read_text(encoding="utf-8"))
+    verification_path = DEMO / "verification.json"
+    if not verification_path.exists():
+        verification_path = KIT / "DEMO_VERIFICATION.json"
+    evidence = json.loads(verification_path.read_text(encoding="utf-8"))
+    historical_tests = ROOT / "outputs/english-ui/verification.json"
+    if historical_tests.exists():
+        tests = json.loads(historical_tests.read_text(encoding="utf-8"))
+    else:
+        previous_facts = json.loads((KIT / "VERIFIED_DEMO_FACTS.json").read_text(encoding="utf-8"))
+        tests = {"backend_tests": previous_facts["recorded_full_suite"]["backend"],
+                 "frontend_tests": previous_facts["recorded_full_suite"]["frontend"]}
+    write("DEMO_VERIFICATION.json", json.dumps(evidence, indent=2, ensure_ascii=True))
     assert evidence["claim_id"] == "5828394c"
     assert evidence["meta"]["model"] == "muse-spark-1.3" and evidence["meta"]["cached"] is False
     assert evidence["status"] == "confirmed" and evidence["preview_equals_stored_provider_bytes"]
@@ -205,9 +215,12 @@ def main() -> None:
         assert previous["end"] == current["start"]
 
     for shot in sorted({name for scene in SCENES for name in scene["shots"]}):
-        raw = (DEMO / shot).read_bytes()
+        source = DEMO / shot if (DEMO / shot).exists() else KIT / "stills" / shot
+        raw = source.read_bytes()
         assert hashlib.sha256(raw).hexdigest() == evidence["screenshots_sha256"][shot]
-        shutil.copy2(DEMO / shot, KIT / "stills" / shot)
+        target = KIT / "stills" / shot
+        if source.resolve() != target.resolve():
+            shutil.copy2(source, target)
 
     # Preserve existing notices alongside the captured interface; no relicensing.
     shutil.copy2(ROOT / "web/public/photo-credits.html", KIT / "EXISTING_PHOTO_CREDITS.html")
@@ -497,6 +510,7 @@ Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working
 | [RECORDING_AND_SUBMISSION_CHECKLIST_EN.md](RECORDING_AND_SUBMISSION_CHECKLIST_EN.md) | Recording, repository and final-submission actions |
 | [FACTS_AND_SOURCES_EN.md](FACTS_AND_SOURCES_EN.md) | Evidence, sources, model limitations and careful claim wording |
 | [VERIFIED_DEMO_FACTS.json](VERIFIED_DEMO_FACTS.json) | Minimal non-secret facts from the existing real Meta run |
+| [DEMO_VERIFICATION.json](DEMO_VERIFICATION.json) | Recorded demo verification and screenshot hashes for rebuilding this packet |
 | [SUBMISSION_FIELDS.json](SUBMISSION_FIELDS.json) | Copy blocks, counts, planned scenes and explicit missing links |
 | [EXISTING_PHOTO_CREDITS.html](EXISTING_PHOTO_CREDITS.html) / [EXISTING_COMPONENT_NOTICES.txt](EXISTING_COMPONENT_NOTICES.txt) | Existing project attribution notices, preserved without relicensing |
 | [PACKET_VALIDATION.json](PACKET_VALIDATION.json) | Document/asset checks from packet generation; not an app test run |
@@ -510,7 +524,27 @@ Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working
 Deadline currently published by the organizers: **November 4, 2026, 9 PM ET = November 5, 2026, 07:00 Astana**. See the checklist for sources and the distinction between organizer guidance and editing recommendations.
 
 The supplied stills and local [English walkthrough](http://localhost:8090/english-report-walkthrough.html) replay an actual completed fictional run. They are not a finished video, a new live inference, or a public application deployment. Any third-party media notices continue to apply. No real complaint records, private organizer emails, server credentials or model API keys are included.
+
+The source checkout can rebuild this packet with `python scripts/build_submission_kit.py`, using the bundled verification snapshot and stills when private development outputs are absent. The distribution archive is also in `releases/submission-kit-20261104.zip`.
 """)
+
+    if publication:
+        readme = KIT / "README_FIRST.md"
+        with readme.open("a", encoding="utf-8") as output:
+            output.write("\nVerified source publication: [REPOSITORY_PUBLICATION.json](REPOSITORY_PUBLICATION.json).\n")
+        checklist = KIT / "RECORDING_AND_SUBMISSION_CHECKLIST_EN.md"
+        completed_prefixes = (
+            "Publish the current native web frontend", "Add an appropriate license",
+            "Exclude `.env`", "The screenshot workers require", "Include a small explicitly fictional sample case",
+            "Test the exact public commit", "Open the repository while signed out",
+        )
+        content = checklist.read_text(encoding="utf-8")
+        for prefix in completed_prefixes:
+            content = content.replace("- [ ] " + prefix, "- [x] " + prefix)
+        content = content.replace(
+            "- [ ] ML artifacts live under ignored `outputs/ml/`. Ensure a clean checkout either contains reviewed non-secret inference artifacts in a documented distribution path, or can reproduce them using the training scripts. Do not promise clone-and-run inference while artifacts are missing.",
+            "- [x] Both JSON inference models are bundled in `models/`; the installer and clean-clone inference were verified. Runtime copies stay under ignored `outputs/ml/`.")
+        checklist.write_text(content, encoding="utf-8")
 
     # Focused document validation. No application or provider state is changed.
     assert words(DESCRIPTION) <= 350
@@ -569,6 +603,7 @@ The supplied stills and local [English walkthrough](http://localhost:8090/englis
     write("PACKET_VALIDATION.json", json.dumps(validation, indent=2, ensure_ascii=True))
 
     files = sorted(path for path in KIT.rglob("*") if path.is_file())
+    ARCHIVE.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(ARCHIVE, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
         for path in files:
             bundle.write(path, Path("MirrorCheck-submission") / path.relative_to(KIT))

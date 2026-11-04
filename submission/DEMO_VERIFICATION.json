@@ -1,0 +1,83 @@
+{
+  "verified_at": "2026-11-04T15:42:12.580200+00:00",
+  "claim_id": "5828394c",
+  "handle": "aigerim.k.archive",
+  "status": "confirmed",
+  "previous_claims_unchanged": 9,
+  "meta": {
+    "provider": "meta",
+    "model": "muse-spark-1.3",
+    "recommendation": "needs_review",
+    "prompt_version": "impersonation-evidence-v2-en",
+    "cached": false,
+    "usage": {
+      "completion_tokens": 579,
+      "prompt_tokens": 2690,
+      "total_tokens": 3269
+    }
+  },
+  "combined_similarity": 0.8584615384615386,
+  "profile_ml": 0.9445791928451287,
+  "pair_ml": 0.7218500105962598,
+  "matched_regions": 1,
+  "redaction": {
+    "applied": true,
+    "provider": "presidio",
+    "policy_version": "presidio-opaque-lines-v1",
+    "method": "opaque-line-masks",
+    "regions_masked": 2,
+    "images": {
+      "original": {
+        "sha256": "1ad6af155a02d4ce8fe03f1180cd68a1f462dbc83a728b3d89b6db8ed7905563",
+        "regions_masked": 0
+      },
+      "suspect": {
+        "sha256": "9fefe6679bcf570bd59aa1bf5bd36332025dbf7ca6504bdcfadd527494c6042a",
+        "regions_masked": 2
+      }
+    }
+  },
+  "preview_equals_stored_provider_bytes": true,
+  "unauthenticated_evidence_status": 401,
+  "manual_review": "Corrected the reported display name and bio, and restored the omitted first original-bio line from the visible screenshots.",
+  "demo_data": "Fictional local accounts and reserved example contact details.",
+  "local_redaction_rescan": {
+    "remaining_identifier_regions": {
+      "original": 0,
+      "suspect": 0
+    },
+    "matching_image_regions": 1
+  },
+  "secret_scan": "passed",
+  "previous_evidence_files_unchanged": 12,
+  "gallery_browser_check": {
+    "steps": 15,
+    "language": "en",
+    "image_loaded": true,
+    "navigation_to_results_and_final_label": true,
+    "viewport_restored": true
+  },
+  "screenshots_sha256": {
+    "01-original-profile.png": "aa223335a8e1d228642f9acdf0fc035e5b23227d01333cab2465305f5c7e363c",
+    "02-copy-before-report.png": "8d347f77fcc64e4f59a3eeb425e9fe03f2214534a8b22eaa2806fa4672578d19",
+    "03-report-reason.png": "2e4fb8e4a27f85f9a821e631473176e6030abb68522711e578a3311db61182d4",
+    "04-ocr-processing.png": "da7a8b4c97f2ca9ef24780b5a2fab9341fb62579b035c8768c0b11c87b540fdc",
+    "05-ocr-redaction-preview.png": "fb3aa9c1255a3800d5128032339deb7b93a838bb038cfab3398ee1c15ee0e6f5",
+    "06-reviewed-ml-fields.png": "006c17b46e606fde5f1252e1243e59975e0d4c87f99e57f675a37e9596c49abf",
+    "07-meta-processing.png": "ec891e336e34cd29ef0e1bb844d49ee1c4e3c259683f7af846db058b919350e8",
+    "08-report-receipt.png": "72fade00e8e17657475657f201ff494c60adf1120d01753e7b37fa22f2306c06",
+    "09-meta-and-ml-results.png": "1c864f2004796c7ba5f98a48d155f760ff34124f32cfd2f953c9686fa83bb5ee",
+    "10-profile-under-review.png": "db5bddcf341ac59d302b33f2bc0c7b9b167e64b11dbd1fc847504054b9868c84",
+    "11-moderator-evidence.png": "3d614ee9dd5a49bbe037c4c29743c021bc18a42d2e2fb3a5141dfb2760891f5d",
+    "12-moderator-decision.png": "df5731cb00eef80fb0cf085da08d03775f4d4a0ddb8d6726e8419929f2de5c38",
+    "13-decision-saved.png": "75fb726adac293b41385b96d6228f677c13063ebcb5fb3208ab263a23d19d9e0",
+    "14-profile-labelled.png": "a18c794c33c06f59728c97f046e88a1200d9e2b697f7ddd3ea090e9bcb402b54",
+    "15-label-after-reload.png": "899b0a1664547017dff62ea8bde78c8b8c1e94a7677edef24148d685472de100",
+    "16-walkthrough-meta-results.png": "34c981e7242efebd37e015de70668a9b934d6179be8c3dbe4d355c56cc3ea7dd",
+    "17-walkthrough-start.png": "a204316c68b88e5e30114799c7f1cd38bedf3e4dbedbe8cb134d4086b146208c"
+  },
+  "build": true,
+  "english_copy_test": "passed",
+  "formatting": "passed",
+  "public_status_after_reload": "confirmed"
+}

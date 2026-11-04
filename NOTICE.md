@@ -17,8 +17,10 @@ their respective owners.
   `mobile/assets/fonts/OFL.txt`. Keep that notice with the font.
 - Photographic sources and licenses for the football-media expansion are in
   `web/public/photo-credits.html` and
-  `web/public/media/football/attributions.json` where present. Those credits are
-  not an exhaustive provenance audit of earlier stock media. Screenshots contain
+  `web/public/media/football/credits.json`. Earlier stock-photo URLs, the CC0
+  demonstration video and the copied reference icon geometry are documented in
+  `web/ASSETS.md`; this is attribution information, not a full rights audit.
+  Screenshots contain
   demonstration content; photographs do not imply endorsement or real account
   ownership. The project license does not relicense third-party media or marks.
 

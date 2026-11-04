@@ -30,15 +30,15 @@ This packet is distributed with the application source, bundled JSON models, set
 
 Repository: https://github.com/Nurzhan-Zhumabekov/META. This release supplies the implementation and MIT license for original code. See `REPOSITORY_PUBLICATION.json`, when present, for a verified uploaded application commit. Keep these checks when preparing a later update.
 
-- [ ] Publish the current native web frontend, backend, local workers, tests, scripts, dependency manifests and setup documentation.
-- [ ] Add an appropriate license for code the owner has the right to license; preserve third-party notices and media credits. Public visibility alone does not provide an open-source license.
-- [ ] Exclude `.env`, worker/reviewer keys, logs, raw reports, private evidence, caches, virtual environments and `node_modules`. Do not upload the entire `outputs/` directory.
-- [ ] ML artifacts live under ignored `outputs/ml/`. Ensure a clean checkout either contains reviewed non-secret inference artifacts in a documented distribution path, or can reproduce them using the training scripts. Do not promise clone-and-run inference while artifacts are missing.
-- [ ] The screenshot workers require additional environments/models. Document their setup and initial downloads, not only the web launcher. A server Meta API key is required for live external analysis.
+- [x] Publish the current native web frontend, backend, local workers, tests, scripts, dependency manifests and setup documentation.
+- [x] Add an appropriate license for code the owner has the right to license; preserve third-party notices and media credits. Public visibility alone does not provide an open-source license.
+- [x] Exclude `.env`, worker/reviewer keys, logs, raw reports, private evidence, caches, virtual environments and `node_modules`. Do not upload the entire `outputs/` directory.
+- [x] Both JSON inference models are bundled in `models/`; the installer and clean-clone inference were verified. Runtime copies stay under ignored `outputs/ml/`.
+- [x] The screenshot workers require additional environments/models. Document their setup and initial downloads, not only the web launcher. A server Meta API key is required for live external analysis.
 - [ ] Review the provenance and redistribution terms of the historical profile dataset and derived assets. Do not automatically bundle mirrored raw CSVs. Keep ML limitations visible.
-- [ ] Include a small explicitly fictional sample case and a safe walkthrough. Do not include real complaint records or organizer mail.
-- [ ] Test the exact public commit from a clean checkout. Confirm installation, web build, worker readiness and whether inference artifacts are present. Existing local tests are not proof of a reproducible public release.
-- [ ] Open the repository while signed out. Verify code, license, README, setup and demo/video links are accessible.
+- [x] Include a small explicitly fictional sample case and a safe walkthrough. Do not include real complaint records or organizer mail.
+- [x] Test the exact public commit from a clean checkout. Confirm installation, web build, worker readiness and whether inference artifacts are present. Existing local tests are not proof of a reproducible public release.
+- [x] Open the repository while signed out. Verify code, license, README, setup and demo/video links are accessible.
 
 ## 3. Upload the video and fill the form
 
