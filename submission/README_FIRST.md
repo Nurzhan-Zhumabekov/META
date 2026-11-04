@@ -23,7 +23,7 @@ Prepared for the Meta Global AI Developer Hackathon on November 4, 2026. Working
 ## What remains before the owner submits
 
 1. Verify the source at https://github.com/Nurzhan-Zhumabekov/META, including bundled models and the original-code MIT license. `REPOSITORY_PUBLICATION.json`, when present, records the verified application commit.
-2. Record, edit and upload the three-minute video; its viewing URL is not available yet.
+2. The three-minute video is recorded and included in the source release. Check the actual form's host restrictions and upload to an accepted host if required.
 3. Open the authenticated [submission form](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit), confirm actual limits, team/track details and agreements, and submit with the real links. No final form was filled or submitted here.
 
 Deadline currently published by the organizers: **November 4, 2026, 9 PM ET = November 5, 2026, 07:00 Astana**. See the checklist for sources and the distinction between organizer guidance and editing recommendations.
@@ -33,3 +33,5 @@ The supplied stills and local [English walkthrough](http://localhost:8090/englis
 The source checkout can rebuild this packet with `python scripts/build_submission_kit.py`, using the bundled verification snapshot and stills when private development outputs are absent. The distribution archive is also in `releases/submission-kit-20261104.zip`.
 
 Verified source publication: [REPOSITORY_PUBLICATION.json](REPOSITORY_PUBLICATION.json).
+
+Finished video and its newer fictional case: [VIDEO_DELIVERY_EN.md](VIDEO_DELIVERY_EN.md). The original script and stills describe the earlier archive-profile run.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.3 - 2026-11-04
+
+- Record a fresh fictional English report for aigerim.k.demo with real uncached Meta Muse Spark, separate ML, four matching image regions and two masked contact regions.
+- Demonstrate the actual moderator confirmation and a persisted profile warning while preserving all ten preceding report records.
+- Export an edited 180-second 1080p H.264/AAC video with synthesized English narration, burned captions and a sidecar SRT; add a local chapter player and verification metadata.
+- Check complete video/audio decoding, 5,400 frames, exact duration, narration content with local speech recognition and known local credentials before distributing the export.
+
 ## 0.9.2 - 2026-11-04
 
 - Prepare the first public source publication with the native web app, archived Flutter source and English hackathon packet, including a three-minute demo script, voiceover, captions and 15 verified fictional browser captures.

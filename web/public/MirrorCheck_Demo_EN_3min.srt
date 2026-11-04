@@ -1,0 +1,135 @@
+1
+00:00:00,350 --> 00:00:06,658
+An impersonator can copy a creator's photos and biography while changing just the username.
+
+2
+00:00:06,658 --> 00:00:11,645
+MirrorCheck helps turn that suspicion into evidence a reviewer can inspect.
+
+3
+00:00:12,350 --> 00:00:16,498
+This is our working, unofficial Instagram-style web prototype.
+
+4
+00:00:16,498 --> 00:00:20,472
+These two fictional accounts share a name, biography,
+
+5
+00:00:20,472 --> 00:00:24,446
+avatar and post images, but have different usernames.
+
+6
+00:00:28,350 --> 00:00:34,101
+From the suspected copy, I choose Report account, then Pretending to be someone else.
+
+7
+00:00:34,101 --> 00:00:38,354
+I attach screenshots of the original and suspected profile.
+
+8
+00:00:38,354 --> 00:00:42,131
+PaddleOCR fills editable fields, and I review the
+
+9
+00:00:42,131 --> 00:00:45,908
+extracted text against the screenshots before submitting.
+
+10
+00:00:50,350 --> 00:00:56,930
+Before any image reaches Meta AI, Presidio identifies the example email and phone.
+
+11
+00:00:56,930 --> 00:01:00,571
+The server permanently covers both contact lines.
+
+12
+00:01:00,571 --> 00:01:04,457
+These previews are the actual processed images prepared for Meta,
+
+13
+00:01:04,457 --> 00:01:08,343
+with matching hashes for the evidence saved for review.
+
+14
+00:01:12,350 --> 00:01:16,876
+Meta Muse Spark analyzes the processed screenshots through
+
+15
+00:01:16,876 --> 00:01:21,403
+our backend and returns structured similarities, differences and limitations.
+
+16
+00:01:21,403 --> 00:01:26,498
+Here it identifies reused profile content and recommends further review.
+
+17
+00:01:26,498 --> 00:01:30,452
+It explicitly says screenshots cannot establish ownership.
+
+18
+00:01:30,452 --> 00:01:34,147
+This is a real API response from the recorded run.
+
+19
+00:01:36,350 --> 00:01:40,938
+Local models add separate signals: a text-reuse comparison between
+
+20
+00:01:40,938 --> 00:01:45,525
+the two profiles, and an auxiliary profile spam-pattern score.
+
+21
+00:01:45,525 --> 00:01:49,723
+Image deduplication also finds matching photo regions.
+
+22
+00:01:49,723 --> 00:01:55,022
+These scores are evidence signals, not accuracy claims or proof of identity.
+
+23
+00:01:56,350 --> 00:01:58,528
+The report remains Under review.
+
+24
+00:01:58,528 --> 00:02:02,346
+Our profile model excludes avatar presence, so changing
+
+25
+00:02:02,346 --> 00:02:06,164
+only a default-avatar flag cannot change its score.
+
+26
+00:02:06,164 --> 00:02:11,748
+The pair model uses synthetic training data, a limitation shown to the reviewer.
+
+27
+00:02:14,350 --> 00:02:19,019
+In the moderator view, I inspect the processed images and
+
+28
+00:02:19,019 --> 00:02:23,688
+analysis, then explicitly select Confirm impersonation for this fictional case.
+
+29
+00:02:23,688 --> 00:02:27,954
+The AI recommendation alone cannot perform this transition.
+
+30
+00:02:32,350 --> 00:02:36,009
+The profile now displays Impersonation confirmed.
+
+31
+00:02:36,009 --> 00:02:40,710
+Reloading preserves the warning because the decision is stored on the server.
+
+32
+00:02:40,710 --> 00:02:47,666
+This demonstrates the complete report-to-review workflow; it does not modify the real Instagram service.
+
+33
+00:02:50,343 --> 00:02:55,386
+MirrorCheck makes suspicious copies easier to review while reducing contact exposure.
+
+34
+00:02:55,386 --> 00:02:59,651
+Next, we need consented real-world evaluation and production hardening.

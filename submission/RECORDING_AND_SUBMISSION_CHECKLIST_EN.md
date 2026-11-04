@@ -4,7 +4,7 @@
 
 Prepared: English description variants, adaptable answer blocks, a 180-second edit plan, exact voiceover text, draft SRT captions, and 15 real browser stills from the fictional English run.
 
-This packet is distributed with the application source, bundled JSON models, setup instructions and an MIT license for original code. No finished narrated video, video hosting, public application deployment or final hackathon submission is included. `REPOSITORY_PUBLICATION.json`, when present, records verified source publication separately.
+This packet is distributed with the application source, bundled JSON models, setup instructions and an MIT license for original code. The finished narrated video is distributed as a source-release MP4. Public application deployment and final hackathon submission are not included. Check the form's video-host requirements. `REPOSITORY_PUBLICATION.json`, when present, records verified source publication separately.
 
 ## Deadline and source of the requirements
 
@@ -54,3 +54,5 @@ Repository: https://github.com/Nurzhan-Zhumabekov/META. This release supplies th
 ## Final check before submission
 
 The story should be: **a working AI-assisted evidence and moderation feature**, with a clear Meta model contribution, privacy handling and an explicit decision boundary. Keep future work separate from implemented functionality. State that this is an unofficial local prototype and that real-world copy-detection performance is not established.
+
+Finished video and its newer fictional case: [VIDEO_DELIVERY_EN.md](VIDEO_DELIVERY_EN.md). The original script and stills describe the earlier archive-profile run.

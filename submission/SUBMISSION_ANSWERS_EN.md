@@ -61,10 +61,12 @@ Nurzhan Zhumabekov is a Software Engineering student at Astana IT University in 
 | Item | Verified status / required action |
 | --- | --- |
 | GitHub | https://github.com/Nurzhan-Zhumabekov/META — this source release includes the web application, legacy client, tests, JSON models and an MIT license for original code. Check `REPOSITORY_PUBLICATION.json` when present for the application commit verified after upload. |
-| Demo video URL | Not yet available. Record/export/upload the three-minute video, then test the viewing link while signed out. |
+| Demo video URL | [Finished 03:00 English MP4](https://github.com/Nurzhan-Zhumabekov/META/raw/refs/heads/main/web/public/MirrorCheck_Demo_EN_3min.mp4). Check the actual form's accepted video hosts before using a repository MP4 URL. |
 | Public application URL | Not verified or prepared here. `localhost:8090` is accessible only on the development machine. Do not paste it as a public demo URL. |
 | Track | Indie developer is recommended for a student/individual entry; confirm the actual registration. |
 | Theme | Build for Your World is recommended. |
 | Team members / contributions | Owner to verify. Do not invent additional contributors or claim sole authorship without checking. |
 | Eligibility / agreements | Owner to read the actual terms and answer personally. This packet makes no eligibility attestations. |
 | Submission destination | [Cerebral Valley submission form](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit). Authentication is needed to verify the final questions and limits. |
+
+Finished video and its newer fictional case: [VIDEO_DELIVERY_EN.md](VIDEO_DELIVERY_EN.md). The original script and stills describe the earlier archive-profile run.

@@ -51,4 +51,6 @@ Future / unverified: official Instagram integration, live account import, proof 
 
 Avoid: “official Instagram feature”, “100% detection”, “proves who owns the account”, “fully anonymous”, “all data stay local”, “94% accurate”, “six imagededup photo matches” for this run, “independent moderator verified a real account”, “live demo” for a still-image replay, “production ready”, “published open-source implementation” while the repository is empty.
 
-Use the concrete implemented behavior and its scope instead. Video upload and final hackathon submission remain unfinished. Source publication is a separate verified action when documented in `REPOSITORY_PUBLICATION.json`.
+Use the concrete implemented behavior and its scope instead. The completed video is distributed as a source-release MP4; acceptance of that host in the final form remains unverified. Final hackathon submission is unfinished. Source publication is a separate verified action when documented in `REPOSITORY_PUBLICATION.json`.
+
+Finished video and its newer fictional case: [VIDEO_DELIVERY_EN.md](VIDEO_DELIVERY_EN.md). The original script and stills describe the earlier archive-profile run.

@@ -10,6 +10,15 @@
 [Publication checks](submission/REPOSITORY_PUBLICATION.json) ·
 [License](LICENSE) · [Attributions](NOTICE.md)
 
+**Finished English demo: [watch locally](http://localhost:8090/demo-video.html) ·
+[MP4](web/public/MirrorCheck_Demo_EN_3min.mp4) ·
+[captions](web/public/MirrorCheck_Demo_EN_3min.srt) ·
+[recording facts](submission/VIDEO_VERIFICATION_EN.json).**
+The 03:00, 1080p video uses a new real Meta run for fictional `aigerim.k.demo`,
+claim `1b96686f`, including the actual moderator action and warning after reload.
+It is an edited presentation of authentic browser captures with synthesized
+English narration and burned captions. The operator demonstrates both roles.
+
 The repository includes the native web application, its archived Flutter client,
 tests, two JSON inference models and the English hackathon submission packet.
 Use [QUICKSTART.md](QUICKSTART.md) for portable clone/setup instructions. The
@@ -30,7 +39,7 @@ Earlier Flutter source remains in `mobile/` as a legacy client.
 
 ## Social interface, version 0.9
 
-The local catalogue contains 30 profiles and 20 feed posts. Eight new football fan
+The local catalogue contains 31 profiles and 20 feed posts. Eight new football fan
 communities feature Ronaldo, Messi, Mbappe, Haaland, Bellingham, Salah, Neymar and
 Vinicius; eight additional creators cover travel, photography, technology and
 lifestyle. Fan handles use `.fan`, are labelled as fan communities, and do not

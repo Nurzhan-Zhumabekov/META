@@ -193,6 +193,10 @@ def main() -> None:
     (KIT / "stills").mkdir(exist_ok=True)
     publication_path = KIT / "REPOSITORY_PUBLICATION.json"
     publication = json.loads(publication_path.read_text(encoding="utf-8")) if publication_path.exists() else None
+    video_path = KIT / "VIDEO_VERIFICATION_EN.json"
+    video = json.loads(video_path.read_text(encoding="utf-8")) if video_path.exists() else None
+    if video:
+        assert (ROOT / video["file"]).is_file() and video["duration_seconds"] == 180
     verification_path = DEMO / "verification.json"
     if not verification_path.exists():
         verification_path = KIT / "DEMO_VERIFICATION.json"
@@ -481,7 +485,8 @@ Use the concrete implemented behavior and its scope instead. Video upload and fi
         "repository_url": REPO,
         "repository_status": "published_and_verified" if publication else "source_release_prepared_for_upload",
         "repository_publication": publication,
-        "video_url": None,
+        "video_url": video["video_url"] if video else None,
+        "video_verification": video,
         "public_demo_url": None,
         "team_roster_confirmed": False,
         "deadline_et": "2026-11-04T21:00:00-05:00",
@@ -546,6 +551,26 @@ The source checkout can rebuild this packet with `python scripts/build_submissio
             "- [x] Both JSON inference models are bundled in `models/`; the installer and clean-clone inference were verified. Runtime copies stay under ignored `outputs/ml/`.")
         checklist.write_text(content, encoding="utf-8")
 
+    if video:
+        url = video["video_url"]
+        for filename in ["README_FIRST.md", "SUBMISSION_ANSWERS_EN.md", "RECORDING_AND_SUBMISSION_CHECKLIST_EN.md", "FACTS_AND_SOURCES_EN.md"]:
+            path = KIT / filename
+            content = path.read_text(encoding="utf-8")
+            content = content.replace(
+                "Not yet available. Record/export/upload the three-minute video, then test the viewing link while signed out.",
+                f"[Finished 03:00 English MP4]({url}). Check the actual form's accepted video hosts before using a repository MP4 URL.")
+            content = content.replace(
+                "No finished narrated video, video hosting, public application deployment or final hackathon submission is included.",
+                "The finished narrated video is distributed as a source-release MP4. Public application deployment and final hackathon submission are not included. Check the form's video-host requirements.")
+            content = content.replace(
+                "2. Record, edit and upload the three-minute video; its viewing URL is not available yet.",
+                "2. The three-minute video is recorded and included in the source release. Check the actual form's host restrictions and upload to an accepted host if required.")
+            content = content.replace(
+                "Video upload and final hackathon submission remain unfinished.",
+                "The completed video is distributed as a source-release MP4; acceptance of that host in the final form remains unverified. Final hackathon submission is unfinished.")
+            content += "\nFinished video and its newer fictional case: [VIDEO_DELIVERY_EN.md](VIDEO_DELIVERY_EN.md). The original script and stills describe the earlier archive-profile run.\n"
+            path.write_text(content, encoding="utf-8")
+
     # Focused document validation. No application or provider state is changed.
     assert words(DESCRIPTION) <= 350
     assert words(SHORT_DESCRIPTION) <= 110 and words(VERY_SHORT) <= 60
@@ -595,7 +620,7 @@ The source checkout can rebuild this packet with `python scripts/build_submissio
         "english_text_only": True,
         "relative_links_resolve": True,
         "known_server_secrets_scan": "passed",
-        "finished_video_exists": False,
+        "finished_video_exists": video is not None,
         "submitted": False,
         "source_repository_published": publication is not None,
         "app_tests_rerun_for_document_preparation": False,

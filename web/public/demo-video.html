@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MirrorCheck · Three-minute English demo</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #f6f6f9; color: #171822; font: 16px/1.6 system-ui, sans-serif; }
+      main { max-width: 1280px; margin: 36px auto; padding: 0 24px 40px; }
+      header { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+      h1 { margin: 8px 0; font-size: clamp(25px, 4vw, 38px); letter-spacing: -1px; }
+      p { color: #626a77; margin: 8px 0 18px; }
+      .eyebrow { color: #5051ff; font-size: 13px; font-weight: 750; letter-spacing: 1px; }
+      video { display: block; width: 100%; aspect-ratio: 16/9; background: #161923; border-radius: 16px; box-shadow: 0 10px 45px #17182215; }
+      nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+      button, a.action { border: 1px solid #dddde7; border-radius: 10px; padding: 9px 14px; font: inherit; background: white; cursor: pointer; color: #252537; text-decoration: none; }
+      button:hover, a.action:hover { border-color: #5051ff; }
+      button:focus-visible, a:focus-visible { outline: 3px solid #a7a7ff; outline-offset: 3px; }
+      button.primary { background: #5051ff; border-color: #5051ff; color: white; }
+      .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+      .note { font-size: 13px; margin-top: 20px; }
+      @media (max-width: 600px) { main { padding: 0 12px; margin-top: 18px; } header { display: block; } nav { gap: 6px; } button { font-size: 14px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div><span class="eyebrow">MIRRORCHECK · PRODUCT DEMO</span><h1>From a report to a profile warning</h1></div>
+        <a class="action" href="/">Open the prototype</a>
+      </header>
+      <p>03:00 · English narration and captions · 1080p · A new fictional case with real Meta AI and local ML.</p>
+      <video id="demo" controls playsinline preload="metadata" poster="demo-video-poster.jpg" aria-label="MirrorCheck three-minute English demonstration">
+        <source src="MirrorCheck_Demo_EN_3min.mp4" type="video/mp4" />
+        Your browser cannot play this video. Download the MP4 below.
+      </video>
+      <nav aria-label="Demo chapters">
+        <button type="button" id="play" class="primary">Play demo</button>
+        <button type="button" data-time="28">00:28 · Report</button>
+        <button type="button" data-time="50">00:50 · Contact redaction</button>
+        <button type="button" data-time="72">01:12 · Meta AI + ML</button>
+        <button type="button" data-time="134">02:14 · Moderator</button>
+        <button type="button" data-time="152">02:32 · Profile warning</button>
+      </nav>
+      <div class="links">
+        <a class="action" href="MirrorCheck_Demo_EN_3min.mp4" download>Download MP4</a>
+        <a class="action" href="MirrorCheck_Demo_EN_3min.srt" download>Download English subtitles</a>
+        <a href="https://github.com/Nurzhan-Zhumabekov/META">Source on GitHub</a>
+      </div>
+      <p class="note">Edited authentic browser captures from the local prototype. Waiting time is condensed. Accounts are fictional; the operator also demonstrates the moderator role. Meta and ML do not establish ownership. English narration is synthesized.</p>
+    </main>
+    <script>
+      const demo = document.querySelector('#demo');
+      const play = document.querySelector('#play');
+      play.addEventListener('click', () => demo.paused ? demo.play() : demo.pause());
+      demo.addEventListener('play', () => play.textContent = 'Pause demo');
+      demo.addEventListener('pause', () => play.textContent = 'Play demo');
+      document.querySelectorAll('[data-time]').forEach(button => {
+        button.addEventListener('click', () => { demo.currentTime = Number(button.dataset.time); });
+      });
+    </script>
+  </body>
+</html>
