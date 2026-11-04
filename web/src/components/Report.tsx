@@ -52,6 +52,7 @@ export function ReportDialog({
   const [inspectionError, setInspectionError] = useState("");
   const [ocrReviewed, setOcrReviewed] = useState(false);
   const [inspectionAttempt, setInspectionAttempt] = useState(0);
+  const [loadingExamples, setLoadingExamples] = useState(false);
   useEffect(() => {
     setInspection(null);
     setOcrReviewed(false);
@@ -145,6 +146,48 @@ export function ReportDialog({
     setError("");
     setter(file);
   };
+  async function loadExamples() {
+    const abort = new AbortController();
+    controller.current = abort;
+    let timedOut = false;
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      abort.abort();
+    }, 30000);
+    setLoadingExamples(true);
+    setError("");
+    try {
+      const images = await Promise.all(
+        ["original-faint-gutters.png", "copy-faint-gutters.png"].map(
+          async (name) => {
+            const response = await fetch(`/demo-evidence/${name}`, {
+              signal: abort.signal,
+            });
+            if (!response.ok)
+              throw new Error(
+                "Example screenshots could not be loaded. Try again or choose your own files.",
+              );
+            const blob = await response.blob();
+            const file = new File([blob], name, { type: blob.type });
+            const problem = fileError(file);
+            if (problem) throw new Error(problem);
+            return file;
+          },
+        ),
+      );
+      if (abort.signal.aborted) return;
+      setOwner("aigerim.k");
+      setOriginal(images[0]);
+      setSuspect(images[1]);
+    } catch (problem) {
+      if (timedOut)
+        setError("Example screenshots could not be loaded in time. Try again.");
+      else if (!abort.signal.aborted) setError(readableError(problem));
+    } finally {
+      clearTimeout(timeout);
+      setLoadingExamples(false);
+    }
+  }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     setError("");
@@ -259,6 +302,24 @@ export function ReportDialog({
           <p className="muted">
             Attach screenshots showing the name, bio and posts of both profiles.
           </p>
+          {service?.public_demo && account.handle === "aigerim.k.showcase" && (
+            <div>
+              <button
+                type="button"
+                className="button secondary full"
+                disabled={loadingExamples || inspecting}
+                onClick={() => void loadExamples()}
+              >
+                {loadingExamples
+                  ? "Loading example screenshots…"
+                  : "Use fictional example screenshots"}
+              </button>
+              <p className="muted">
+                Public fictional profiles with example contacts. Review the
+                processed evidence before submitting to Meta AI.
+              </p>
+            </div>
+          )}
           <label className="field-label">
             Your original account
             <div className="handle-field">

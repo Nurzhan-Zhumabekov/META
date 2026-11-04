@@ -6,7 +6,7 @@ Working hackathon submission draft. The owner reviews and submits the final form
 
 Turn suspected profile copies into reviewable evidence with Meta AI, local ML and human decisions.
 
-## Main project description (268 words)
+## Main project description
 
 A copied profile can look convincing long before anyone checks it. MirrorCheck turns suspected impersonation into evidence a human can review.
 
@@ -18,10 +18,10 @@ A moderator must explain and explicitly confirm or dismiss the complaint. Versio
 
 We evaluated the new text model on 200 controlled test pairs derived from external professional bios, with source identities separated across splits: recall rose from 62% to 92%, with zero observed false positives among 100 negatives. On a separate Copydays photo-region challenge, recall rose from 2% to 36%, with zero observed false positives among 50 negatives. Difficult photo copies are still often missed. These research tasks do not establish real Instagram impersonation accuracy.
 
-MirrorCheck runs locally with real Meta requests. Its prepared public-demo architecture isolates visitors, but public hosting is pending provisioning and verification. It does not connect to or modify Instagram, and screenshots cannot establish ownership.
+MirrorCheck runs locally and in a verified temporary US West Codespace with real Meta requests. Its public demo isolates visitors; the complete API report, moderator confirmation and appeal flow passed. The independent three-minute video is hosted on GitHub Pages. It does not connect to or modify Instagram, and screenshots cannot establish ownership.
 
-## Compact description (46 words)
+## Compact description
 
-MirrorCheck combines Meta Muse Spark, local ML, editable OCR, photo matching and contact redaction to review suspected profile copies. Explained moderator decisions, private history and scoped appeals keep humans responsible for warnings. Measured research challenges show improved recall; real Instagram accuracy and public hosting remain unverified.
+MirrorCheck combines Meta Muse Spark, local ML, editable OCR, photo matching and contact redaction to review suspected profile copies. Explained moderator decisions, private history and scoped appeals keep humans responsible for warnings. Measured research challenges show improved recall; real Instagram accuracy remains unverified. The temporary public cloud flow has passed.
 
 See `docs/INDEPENDENT_EVALUATION.md` for sources, confidence intervals and limits. Final form limits and eligibility must be checked in the organizer form. No claim of official Meta/Instagram affiliation is made.

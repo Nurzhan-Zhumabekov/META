@@ -1,6 +1,6 @@
 # No-subscription demo hosting: GitHub Codespaces
 
-Research checked on 5 November 2026. A temporary Codespaces demo has now been launched for the existing x86 Docker stack. See [verified public URLs and the unresolved cloud Meta limitation](PUBLIC_DEMO_STATUS.md). This is an attended demonstration, not an always-on production hosting promise. No paid Render service was created.
+Research checked on 5 November 2026. A temporary Codespaces demo has now been launched for the existing x86 Docker stack. See [verified public URLs and live cloud Meta evidence](PUBLIC_DEMO_STATUS.md). This is an attended demonstration, not an always-on production hosting promise. No paid Render service was created.
 
 ## Why this option
 
@@ -13,7 +13,7 @@ The app image was tested on Linux with 4 GB RAM / 2 CPU, real OCR/Presidio, visi
 ## Launch
 
 1. Verify the allowance and $0 stop budget in the GitHub account's Codespaces billing settings. A GitHub connector for repository access does not prove access to this billing setting.
-2. Open [a new Codespace for this repository](https://codespaces.new/Nurzhan-Zhumabekov/META). Use the two-core machine and the supplied `.devcontainer/devcontainer.json`. Do not enable paid prebuilds.
+2. Open [a new Codespace for this repository](https://codespaces.new/Nurzhan-Zhumabekov/META). Use the two-core machine and the supplied `.devcontainer/devcontainer.json`. Select **US West** explicitly: the verified replacement runs in `WestUs2`; the earlier `CentralIndia` environment returned an empty Meta catalog with the same key. This is an observed deployment difference, not a general regional-access claim. Do not enable paid prebuilds.
 3. Add `META_API_KEY` as a **Codespaces secret**, scoped only to `Nurzhan-Zhumabekov/META`. This is distinct from an Actions secret. Never commit it. Restart the Codespace after adding it.
 4. Run `bash .devcontainer/start.sh`. The script generates an ignored, private session-signing secret, builds the image, starts the isolated public-demo mode and waits for health. It does not automatically expose a public port.
 5. In the Ports panel, make **only port 8090 Public**. [GitHub supports sharing forwarded ports publicly](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace). Copy its actual `https://…-8090.app.github.dev` URL; do not invent a deployment URL.

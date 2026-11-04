@@ -2,10 +2,13 @@
 
 ## Unreleased
 
+- Let public visitors load a disclosed fictional screenshot pair for the matching showcase account without local-file permissions; retain OCR/privacy review and explicit Meta submission. Add success, failure and wrong-account regression coverage.
+
 - Wait for the real lazy emoji picker and English catalog before testing Direct search, preventing a cold Docker build from racing the asynchronous module load.
 - Check the actual Meta model catalog with a short cached, read-only request before advertising Meta as ready; a configured key alone is insufficient.
 - Handle Meta `model_not_found` as an unavailable model without saving a report, repeating the rejected call or exposing provider details.
-- Publish verified temporary Codespaces URLs and distinguish working cloud web/ML/OCR/privacy from the unresolved Meta model access in that environment.
+- Restore live cloud Meta inference by deploying the same stack and key in US West; verify report, redaction, ML, moderator confirmation and appeal/overturn. Document the earlier environment-dependent failure without claiming an unverified provider policy.
+- Publish the existing three-minute English demo on a separate GitHub Pages branch so it stays accessible when the attended Codespace stops.
 
 ## 0.13.0 - 2026-11-05
 

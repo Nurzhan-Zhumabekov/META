@@ -30,6 +30,7 @@ const claim = {
 const fetchMock = vi.fn();
 let inspectionReady = false;
 let privacyRequired = false;
+let publicDemo = false;
 const observation = (value: string | number) => ({ value, confidence: 0.97 });
 const inspected = {
   inspection_id: "verified-screenshots",
@@ -76,25 +77,31 @@ const inspected = {
 beforeEach(() => {
   inspectionReady = false;
   privacyRequired = false;
+  publicDemo = false;
   vi.stubGlobal("fetch", fetchMock);
   fetchMock.mockImplementation(async (url: string) =>
-    Response.json(
-      url.endsWith("/analysis/status")
-        ? {
-            provider: "meta",
-            privacy_redaction_required: privacyRequired,
-            model: "muse-spark-1.3",
-            ready: true,
-            profile_ml: { ready: true },
-            pair_ml: { ready: true },
-            evidence_tools: { ready: inspectionReady },
-          }
-        : url.endsWith("/evidence/inspect")
-          ? inspected
-          : url.endsWith("/claims")
-            ? claim
-            : {},
-    ),
+    url.startsWith("/demo-evidence/")
+      ? new Response(new Uint8Array([137, 80, 78, 71]), {
+          headers: { "Content-Type": "image/png" },
+        })
+      : Response.json(
+          url.endsWith("/analysis/status")
+            ? {
+                provider: "meta",
+                public_demo: publicDemo,
+                privacy_redaction_required: privacyRequired,
+                model: "muse-spark-1.3",
+                ready: true,
+                profile_ml: { ready: true },
+                pair_ml: { ready: true },
+                evidence_tools: { ready: inspectionReady },
+              }
+            : url.endsWith("/evidence/inspect")
+              ? inspected
+              : url.endsWith("/claims")
+                ? claim
+                : {},
+        ),
   );
   Object.defineProperty(HTMLDialogElement.prototype, "showModal", {
     configurable: true,
@@ -118,11 +125,11 @@ beforeEach(() => {
     },
   );
 });
-function form() {
+function form(account = accounts[1]) {
   render(
     <MemoryRouter>
       <AppProvider>
-        <ReportDialog account={accounts[1]} onClose={() => {}} />
+        <ReportDialog account={account} onClose={() => {}} />
       </AppProvider>
     </MemoryRouter>,
   );
@@ -131,6 +138,57 @@ function form() {
   );
 }
 describe("complaint submission", () => {
+  it("loads fictional examples through the normal privacy review without submitting to Meta", async () => {
+    publicDemo = true;
+    inspectionReady = true;
+    form(accounts.find((account) => account.handle === "aigerim.k.showcase")!);
+    fireEvent.click(
+      await screen.findByRole("button", {
+        name: "Use fictional example screenshots",
+      }),
+    );
+    await screen.findByText("Fields extracted by PaddleOCR");
+    expect(
+      screen.getByRole("button", { name: "Submit report" }),
+    ).toBeDisabled();
+    expect(fetchMock.mock.calls.some(([url]) => url.endsWith("/claims"))).toBe(
+      false,
+    );
+    const inspectionCall = fetchMock.mock.calls.find(([url]) =>
+      url.endsWith("/evidence/inspect"),
+    )!;
+    expect(inspectionCall[1].body.get("original").type).toBe("image/png");
+    expect(inspectionCall[1].body.get("suspect_image").name).toBe(
+      "copy-faint-gutters.png",
+    );
+  });
+  it("does not offer mismatched example evidence on other accounts", async () => {
+    publicDemo = true;
+    form();
+    await screen.findByText(/Meta AI/);
+    expect(
+      screen.queryByRole("button", {
+        name: "Use fictional example screenshots",
+      }),
+    ).not.toBeInTheDocument();
+  });
+  it("keeps a failed example download retryable and never inspects a partial pair", async () => {
+    publicDemo = true;
+    inspectionReady = true;
+    form(accounts.find((account) => account.handle === "aigerim.k.showcase")!);
+    const load = await screen.findByRole("button", {
+      name: "Use fictional example screenshots",
+    });
+    fetchMock.mockResolvedValue(new Response("unavailable", { status: 503 }));
+    fireEvent.click(load);
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Example screenshots could not be loaded",
+    );
+    expect(load).toBeEnabled();
+    expect(
+      fetchMock.mock.calls.some(([url]) => url.endsWith("/evidence/inspect")),
+    ).toBe(false);
+  });
   it("blocks submission if mandatory local privacy tools are unavailable", async () => {
     privacyRequired = true;
     form();

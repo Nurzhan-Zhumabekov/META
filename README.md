@@ -6,10 +6,12 @@ report-scoped appeals, transactional SQLite and isolated visitor sandboxes.
 62/100 to 92/100 on controlled external-text test pairs; difficult photo-region
 recall improves from 1/50 to 18/50 on a separate Copydays test. Neither is a claim
 of real Instagram impersonation accuracy. Open `/benchmark.html` for the readable
-report and aggregate hashes. The [public Codespaces landing page](https://stunning-parakeet-x5pw4rxv7q7phv454-8090.app.github.dev/demo-guide.html),
-[prototype](https://stunning-parakeet-x5pw4rxv7q7phv454-8090.app.github.dev/) and recorded video are available while the Codespace runs.
-At verification, cloud ML/OCR/privacy worked, but Meta returned `model_not_found`
-and an empty catalog from Codespaces; a live cloud report could not be completed.
+report and aggregate hashes. The [public Codespaces landing page](https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/demo-guide.html),
+[prototype](https://congenial-garbanzo-4j5v4xwwx9r3jw9v-8090.app.github.dev/) and recorded video are available while the Codespace runs.
+The replacement US West cloud passed a real, uncached Meta + ML report, contact
+redaction, explained confirmation, scoped appeal/overturn and access checks.
+The independent [three-minute English video](https://nurzhan-zhumabekov.github.io/META/)
+remains available when the attended live app sleeps.
 See [current deployment evidence and limits](docs/PUBLIC_DEMO_STATUS.md).
 The [Codespaces configuration](docs/FREE_DEMO_HOSTING.md) uses the account's remaining
 included allowance and a $0 stop budget. The existing three-minute
