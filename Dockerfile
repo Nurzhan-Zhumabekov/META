@@ -42,7 +42,11 @@ COPY evals/ evals/
 COPY vision_tests/ vision_tests/
 COPY privacy_tests/ privacy_tests/
 COPY scripts/install_demo_models.py scripts/install_demo_models.py
-RUN /opt/api/bin/pip install --no-cache-dir pytest \
+RUN /opt/api/bin/pip install --no-cache-dir pytest
+# Exercise the same unprivileged identity as the running application. Root-owned
+# first-use Presidio/tldextract cache files would otherwise break worker requests.
+USER mirrorcheck
+RUN test "$(id -u)" -eq 1000 \
     && /opt/api/bin/python -m pytest tests -q --basetemp /tmp/api-tests \
     && /opt/privacy/bin/python -m pytest privacy_tests -q --basetemp /tmp/privacy-tests \
     && /opt/vision/bin/python -m pytest vision_tests -q --basetemp /tmp/vision-tests
